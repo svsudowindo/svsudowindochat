@@ -6,7 +6,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./auth-layout.component.scss']
 })
 export class AuthLayoutComponent implements OnInit {
-
+  corousalConfig = {
+    showNavigationArrows: false,
+    showNavigationIndicators: false
+  };
+  images = [
+    {
+      src: '../../../../../assets/images/one.jpg'
+    },
+    {
+      src: '../../../../../assets/images/two.jpg'
+    },
+    {
+      src: '../../../../../assets/images/three.jpg'
+    }
+  ];
+  pauseOnHover = true;
   constructor() { }
 
   ngOnInit() {

@@ -1,10 +1,16 @@
 <div class="h-p-100">
   <div class="row m-0 h-p-100">
-    <div class="col-md-6 p-0 align-self-center p-l-20 p-r-20">
+    <div class="col-md-4 p-0 align-self-center p-l-20 p-r-20">
       <router-outlet></router-outlet>
     </div>
-    <div class="col-md-6 d-none d-md-block bg-image">
-      <!-- side panel -->
+    <div class="col-md-8 p-0 d-none d-md-block">
+      <ngb-carousel #carousel interval="1000" [showNavigationArrows]="corousalConfig.showNavigationArrows"  [showNavigationIndicators]="corousalConfig.showNavigationIndicators" [pauseOnHover]="pauseOnHover">
+        <ng-template ngbSlide *ngFor="let img of images; index as i">
+          <div class="picsum-img-wrapper">
+            <img class="bg-image" [src]="img.src">
+          </div>
+        </ng-template>
+      </ngb-carousel>
     </div>
   </div>
 </div>
