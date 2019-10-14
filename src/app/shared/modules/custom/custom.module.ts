@@ -8,13 +8,15 @@ import { PopupModule } from '../../components/componentsAsService/popup/popup.mo
 import { LoaderModule } from '../../components/componentsAsService/loader/loader.module';
 import { UnderscoreRemovalPipe } from '../../directives/underscore-removal.pipe';
 import { NumberOnlyDirective } from '../../directives/number-only.directive';
+import { AuthHeaderComponent } from '../../components/auth-header/auth-header.component';
 
 @NgModule({
     declarations: [
         TrimOnBlurDirective,
         ResponseMessageComponent,
         UnderscoreRemovalPipe,
-        NumberOnlyDirective
+        NumberOnlyDirective,
+        AuthHeaderComponent
     ],
     imports: [
         CommonModule,
@@ -26,7 +28,8 @@ import { NumberOnlyDirective } from '../../directives/number-only.directive';
         PopupModule,
         ResponseMessageComponent,
         UnderscoreRemovalPipe,
-        NumberOnlyDirective
+        NumberOnlyDirective,
+        AuthHeaderComponent
     ]
 })
 export class CustomModule { }

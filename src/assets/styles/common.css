@@ -4,6 +4,16 @@
   text-overflow: ellipsis;
 }
 
+
+/* common-hights */
+.h-p-100 {
+  height: 100% !important;
+}
+
+/* common-widths */
+.w-p-100 {
+  width: 100% !important;
+}
 /*Common Margin Padding*/
 .p-0 {
   padding: 0 !important;
