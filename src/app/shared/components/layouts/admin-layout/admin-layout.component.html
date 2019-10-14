@@ -1,1 +1,29 @@
-<router-outlet></router-outlet>
+<div id="sideNavigation" class="sidenav">
+  <a class="closebtn pointer" (click)="closeNav()">&times;</a>
+  <a class="pointer" routerLinkActive="active-link" [routerLink]="['/dashboard']">
+    <span class="material-icons">
+      home
+    </span>
+    <span>Home</span>
+  </a>
+  <a class="pointer" routerLinkActive="active-link" [routerLink]="['/profile']">
+    <span class="material-icons">
+      account_box
+    </span>
+    <span>Profile</span>
+  </a>
+  <a class="pointer" routerLinkActive="active-link" [routerLink]="['/companies']">
+    <span class="material-icons">
+      format_list_bulleted
+    </span>
+    <span>Companies</span>
+  </a>
+
+</div>
+<button mat-button (click)="openNav()">
+  <i class="material-icons">list</i>
+</button>
+
+<div id="main" (click)="closeNav()">
+  <router-outlet></router-outlet>
+</div>
