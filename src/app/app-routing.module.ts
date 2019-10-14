@@ -31,11 +31,8 @@ const routes: Routes = [
         loadChildren: () => import('./views/auth-views/page-not-found/page-not-found.module').then(m => m.PageNotFoundModule)
       },
       {
-        path: 'registration',
-        loadChildren: () => import('./views/auth-views/registration/registration.module').then(m => m.RegistrationModule),
-        data: {
-          preload: true // use when you dont want lazy loading for a particular module
-        }
+        path: 'forgot-password',
+        loadChildren: () => import('./views/auth-views/forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule)
       }
     ]
   },
