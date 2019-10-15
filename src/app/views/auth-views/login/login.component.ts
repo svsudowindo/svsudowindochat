@@ -10,6 +10,8 @@ import { IDataInfo } from '../../../shared/components/componentsAsService/popup/
 import { LoaderService } from '../../../shared/components/componentsAsService/loader/loader.service';
 import { GlobalVariables } from '../../../shared/services/common/globalVariables';
 import { GlobalVariableEnums } from '../../../shared/constants/gloabal-variable-enums';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { VALIDATION_PATTERNS } from '../../../shared/constants/validation-patterns';
 
 @Component({
   selector: 'app-login',
@@ -17,75 +19,53 @@ import { GlobalVariableEnums } from '../../../shared/constants/gloabal-variable-
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent extends BaseClass implements OnInit {
+  loginForm: FormGroup;
 
-  info = [
-    {
-      name: 'sai',
-      number: 81251
-    },
-    {
-      name: 'sample',
-      number: 81252
-    },
-    {
-      name: 'sample3',
-      number: 81253
-    },
-    {
-      name: 'sample4',
-      number: 81254
-    },
-  ];
-
-  @ViewChild('contentToConvert', { static: true }) contentToConvert: ElementRef;
-  public successMessageStatus: string;
-  public errorMessageStatus: string;
-
-  // once successfull login make can activate service to true
+  validationMessages = {
+    email: [
+      { type: 'required', message: 'Email is required' },
+      { type: 'pattern', message: 'Enter valid email' }
+    ],
+    password: [
+      { type: 'required', message: 'Password is required' }
+    ],
+    companyID: [
+      { type: 'required', message: 'Company ID is required' }
+    ]
+  }
   constructor(
     public route: Router,
     public injector: Injector,
     private commonRequest: CommonRequestService,
     private globalVariables: GlobalVariables,
     private popService: PopupService,
-    private loaderService: LoaderService) {
+    private loaderService: LoaderService,
+    private formBuilder: FormBuilder) {
     super(injector);
   }
 
   ngOnInit() {
-    Utils.log('hello from login component by utils method');
+    this.initLoginForm();
   }
 
-  // getDetails
-  getDetails() {
-    this.successMessageStatus = '';
-    this.errorMessageStatus = '';
-
-    // this._globalVariables.setParameterData(GlobalVariableEnums.TOKEN, 'abc');
-    RequestEnums.LOGIN.values.push(1);
-    this.commonRequest.request(RequestEnums.LOGIN).subscribe((res) => {
-      console.log(res);
-      this.successMessageStatus = 'Success';
-    },
-      ((err) => {
-        this.errorMessageStatus = err;
-      }));
-  }
-
-  openModal() {
-    const obj: IDataInfo = {
-      type: POPUP.ERROR,
-      title: 'SUCCESS',
-      message: 'You have successfully Logged In',
-      okButtonLabel: 'OK'
-    };
-    this.popService.openModal(obj).then(res => {
-      console.log(res);
-    }, (reason) => {
-      console.log(reason);
+  // initialize login form
+  initLoginForm() {
+    this.loginForm = this.formBuilder.group({
+      email: ['', Validators.compose([Validators.required, Validators.pattern(VALIDATION_PATTERNS.EMAIL)])],
+      password: ['', Validators.compose([Validators.required])],
+      companyID: ['', Validators.compose([Validators.required])]
     });
   }
-  openLoader() {
-    this.loaderService.showLoading();
+
+  // field validation
+  isValidField(fieldName) {
+    if (this.loginForm.get(fieldName).invalid && (this.loginForm.get(fieldName).touched || this.loginForm.get(fieldName).dirty)) {
+      return true;
+    }
+    return false;
+  }
+  // login service call
+  login() {
+
   }
 }

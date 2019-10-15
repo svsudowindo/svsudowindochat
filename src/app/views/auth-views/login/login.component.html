@@ -1,16 +1,25 @@
 <div class="auth">
   <app-auth-header headerLabel="login"></app-auth-header>
-  <form class="p-l-20 p-r-20">
+  <form [formGroup]="loginForm" class="p-l-20 p-r-20" (ngSubmit)="login()">
     <mat-form-field class="w-p-100">
-      <input matInput placeholder="Username">
+      <input matInput placeholder="Username" formControlName="email">
     </mat-form-field>
+    <div *ngIf="isValidField('email')">
+      <p class="error m-b-0">{{getErrorMessage(loginForm, validationMessages, 'email')}}</p>
+    </div>
     <mat-form-field class="w-p-100">
-      <input matInput placeholder="Password">
+      <input matInput placeholder="Password" formControlName="password">
     </mat-form-field>
+    <div *ngIf="isValidField('password')">
+      <p class="error m-b-0">{{getErrorMessage(loginForm, validationMessages, 'password')}}</p>
+    </div>
     <mat-form-field class="w-p-100">
-      <input matInput placeholder="Company ID">
+      <input matInput placeholder="Company ID" formControlName="companyID">
     </mat-form-field>
-    <button mat-raised-button color="primary" class="btn-block">Login</button>
+    <div *ngIf="isValidField('companyID')">
+      <p class="error m-b-0">{{getErrorMessage(loginForm, validationMessages, 'companyID')}}</p>
+    </div>
+    <button mat-raised-button color="primary" class="btn-block m-t-10" [disabled]="loginForm.invalid">Login</button>
     <div class="d-flex justify-content-between m-t-10">
       <div class="link-color pointer">
         <a>Register Here</a>
