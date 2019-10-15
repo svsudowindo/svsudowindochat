@@ -11,7 +11,11 @@ body {
 }
 .pointer {
     cursor: pointer;
+}
 
+.error {
+  color: red;
+  font-size: 14px;
 }
 .dark-modal .modal-content {
     background-color: transparent;
@@ -39,6 +43,10 @@ body {
 }
 
 // form field changes
+
+.mat-form-field {
+  height: 55px;
+}
 .mat-focused .mat-form-field-underline .mat-form-field-ripple {
   background-color: rgba(87, 91, 91, 0.1803921568627451) !important;
 }
