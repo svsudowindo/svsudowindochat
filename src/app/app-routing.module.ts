@@ -47,6 +47,11 @@ const routes: Routes = [
         path: 'dashboard',
         loadChildren: () => import('./views/admin-views/dashboard/dashboard.module').then(m => m.DashboardModule),
         canLoad: [CanLoadService] // Use when we want to make a disission to load sub modules or not
+      },
+      {
+        path: 'companies',
+        loadChildren: () => import('./views/admin-views/companies/companies.module').then(m => m.CompaniesModule)
+
       }
     ]
   },
