@@ -1,24 +1,27 @@
 <div id="sideNavigation" class="sidenav">
+  <div class="d-flex justify-content-end">
   <a class="closebtn pointer" (click)="closeNav()">&times;</a>
-  <a class="pointer" routerLinkActive="active-link" [routerLink]="['/dashboard']">
-    <span class="material-icons">
-      home
-    </span>
-    <span>Home</span>
-  </a>
-  <a class="pointer" routerLinkActive="active-link" [routerLink]="['/profile']">
-    <span class="material-icons">
-      account_box
-    </span>
-    <span>Profile</span>
-  </a>
-  <a class="pointer" routerLinkActive="active-link" [routerLink]="['/companies']">
-    <span class="material-icons">
-      format_list_bulleted
-    </span>
-    <span>Companies</span>
-  </a>
-
+</div>
+  <div class="d-flex flex-wrap">
+    <a class="pointer" routerLinkActive="active-link" [routerLink]="['/dashboard']">
+      <span class="material-icons font-size-100">
+        home
+      </span>
+      <p class="text-center m-t-n-20">Home</p>
+    </a>
+    <a class="pointer" routerLinkActive="active-link" [routerLink]="['/profile']">
+      <span class="material-icons font-size-100">
+        account_box
+      </span>
+      <p class="text-center m-t-n-20">Profile</p>
+    </a>
+    <a class="pointer" routerLinkActive="active-link" [routerLink]="['/companies']">
+      <span class="material-icons font-size-100">
+        format_list_bulleted
+      </span>
+      <p class="text-center m-t-n-20">Companies</p>
+    </a>
+  </div>
 </div>
 <button mat-button (click)="openNav()">
   <i class="material-icons">list</i>

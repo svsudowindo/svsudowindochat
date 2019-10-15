@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-admin-layout',
@@ -6,20 +6,46 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
   styleUrls: ['./admin-layout.component.scss']
 })
 export class AdminLayoutComponent implements OnInit, AfterViewInit {
-
+  screenWidth: number;
+  isSideNavOpen = false;
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.screenWidth = event.target.innerWidth;
+    if (this.isSideNavOpen) {
+      this.openNav();
+    }
+  }
   constructor() {
+    this.screenWidth = window.innerWidth;
   }
 
   ngOnInit() {
   }
 
   ngAfterViewInit() {
-    this.openNav();
+    // this.openNav();
   }
 
   openNav() {
-    document.getElementById('sideNavigation').style.width = '180px';
-    document.getElementById('main').style.marginLeft = '180px';
+    this.isSideNavOpen = true;
+    if (this.screenWidth < 576) {
+      // very small screens
+      document.getElementById('sideNavigation').style.width = '120px';
+      document.getElementById('main').style.marginLeft = '120px';
+    } else if (this.screenWidth >= 576 && this.screenWidth < 768) {
+      // small screens
+      document.getElementById('sideNavigation').style.width = '300px';
+      document.getElementById('main').style.marginLeft = '300px';
+    } else if (this.screenWidth >= 768 && this.screenWidth < 992) {
+      document.getElementById('sideNavigation').style.width = '400px';
+      document.getElementById('main').style.marginLeft = '400px';
+    } else if (this.screenWidth >= 992 && this.screenWidth < 1200) {
+      document.getElementById('sideNavigation').style.width = '400px';
+      document.getElementById('main').style.marginLeft = '400px';
+    } else {
+      document.getElementById('sideNavigation').style.width = '400px';
+      document.getElementById('main').style.marginLeft = '400px';
+    }
   }
 
   closeNav() {

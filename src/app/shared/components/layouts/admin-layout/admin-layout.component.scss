@@ -12,9 +12,11 @@
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
 }
 
+
+
 /* The navigation menu links */
 .sidenav a {
-  padding: 8px 8px 8px 32px;
+  padding:10px;
   text-decoration: none;
   font-size: 22px;
   color: #818181;
@@ -32,8 +34,9 @@
   position: absolute;
   top: 0;
   right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
+  margin-right: -15px;
+  margin-top: -10px;
+  font-size: 50px;
 }
 
 /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
@@ -43,9 +46,12 @@
 }
 
 .active-link {
-  border-bottom: 1px solid white;
-  margin-left: 10px;
-  margin-right: 10px;
+  color: white !important;
+}
+
+
+.m-t-n-20 {
+  margin-top: -20px;
 }
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {

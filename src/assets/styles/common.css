@@ -24,6 +24,13 @@
 .w-p-100 {
   width: 100% !important;
 }
+
+/* font-sizes in px's */
+
+.font-size-100 {
+  font-size: 100px !important;
+}
+
 /*Common Margin Padding*/
 .p-0 {
   padding: 0 !important;
