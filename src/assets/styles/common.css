@@ -10,6 +10,16 @@
   height: 100% !important;
 }
 
+/* Height in px's  */
+
+.h-px-70 {
+  height: 70px !important;
+}
+.h-px-75 {
+  height: 75px !important;
+}
+
+
 /* common-widths */
 .w-p-100 {
   width: 100% !important;
