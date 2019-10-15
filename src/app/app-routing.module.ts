@@ -49,6 +49,10 @@ const routes: Routes = [
         canLoad: [CanLoadService] // Use when we want to make a disission to load sub modules or not
       },
       {
+      path: 'profile',
+      loadChildren: () => import('./views/admin-views/profile/profile.module').then(m => m.ProfileModule),
+      },
+      {
         path: 'companies',
         loadChildren: () => import('./views/admin-views/companies/companies.module').then(m => m.CompaniesModule)
 
