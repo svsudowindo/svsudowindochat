@@ -32,7 +32,7 @@ export class LoginComponent extends BaseClass implements OnInit {
     companyID: [
       { type: 'required', message: 'Company ID is required' }
     ]
-  }
+  };
   constructor(
     public route: Router,
     public injector: Injector,
