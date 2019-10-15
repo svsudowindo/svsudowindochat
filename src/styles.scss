@@ -28,11 +28,13 @@ body {
   .link-color {
     color: grey;
     border-bottom: 1px solid white;
-
   }
   .link-color:hover {
     color: blue;
     border-bottom:1px solid;
+  }
+  .remove-outline:focus {
+    outline: none;
   }
 }
 
