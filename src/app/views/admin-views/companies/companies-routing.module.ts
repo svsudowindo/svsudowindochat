@@ -11,7 +11,9 @@ const routes: Routes = [
   
   },
     {
-      path: 'details',
+      path: 'CompanyDetails',
+      loadChildren: () => import('./company-details/company-details.module').then(m => m.CompanyDetailsModule),
+
       component: CompanyDetailsComponent
     }
   ]
