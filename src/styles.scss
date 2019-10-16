@@ -99,3 +99,39 @@ body {
 .mat-option {
   font-size: 12px !important;
 }
+
+
+// mat table changes
+
+.custom-table {
+  mat-header-row.mat-header-row {
+    background-color: darkblue;
+  }
+
+  mat-header-cell.mat-header-cell {
+    color: white;
+    text-transform: capitalize;
+    cursor: pointer;
+    justify-content: flex-start;
+  }
+  mat-cell.mat-cell {
+    color: black;
+    font-weight: 400;
+    font-size: 14px;
+  }
+  mat-row.mat-row:nth-child(odd) {
+    background-color: #80808017;
+    border-bottom: none;
+  }
+  mat-cell.mat-cell {
+    justify-content: flex-start;
+
+  }
+  .mat-sort-header-arrow {
+    color: white;
+  }
+  .mat-sort-header-button {
+    outline: none;
+  }
+}
+

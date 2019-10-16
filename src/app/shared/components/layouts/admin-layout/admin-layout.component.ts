@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit, HostListener } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-layout',
@@ -15,7 +16,9 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
       this.openNav();
     }
   }
-  constructor() {
+  constructor(
+    private router: Router
+  ) {
     this.screenWidth = window.innerWidth;
   }
 

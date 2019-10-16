@@ -1,21 +1,21 @@
 <div id="sideNavigation" class="sidenav">
   <div class="d-flex justify-content-end">
-  <a class="closebtn pointer" (click)="closeNav()">&times;</a>
-</div>
+    <a class="closebtn pointer" (click)="closeNav()">&times;</a>
+  </div>
   <div class="d-flex flex-wrap">
-    <a class="pointer" routerLinkActive="active-link" [routerLink]="['/dashboard']">
+    <a class="pointer" routerLinkActive="active-link" [routerLink]="['/dashboard']" (click)="closeNav()">
       <span class="material-icons font-size-100">
         home
       </span>
       <p class="text-center m-t-n-20">Home</p>
     </a>
-    <a class="pointer" routerLinkActive="active-link" [routerLink]="['/profile']">
+    <a class="pointer" routerLinkActive="active-link" [routerLink]="['/profile']" (click)="closeNav()">
       <span class="material-icons font-size-100">
         account_box
       </span>
       <p class="text-center m-t-n-20">Profile</p>
     </a>
-    <a class="pointer" routerLinkActive="active-link" [routerLink]="['/companies']">
+    <a class="pointer" routerLinkActive="active-link" [routerLink]="['/companies']" (click)="closeNav()">
       <span class="material-icons font-size-100">
         format_list_bulleted
       </span>

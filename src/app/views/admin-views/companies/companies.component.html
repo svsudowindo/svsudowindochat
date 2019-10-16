@@ -1,1 +1,28 @@
-<p>companies works!</p>
+<mat-table [dataSource]="dataSource"  matSort class="mat-elevation-z8 custom-table">
+  <!-- Position Column -->
+  <ng-container matColumnDef="companyID">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Company ID </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.companyID}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="companyName">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Company Name </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.companyName}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="companyEmail">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Company Email </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.companyEmail}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="createdBy">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Created by</mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.createdBy}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="updatedBy">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Updated by </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.updatedBy}} </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
