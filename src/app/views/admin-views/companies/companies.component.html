@@ -2,7 +2,7 @@
   <div class="row m-b-10 action-buttons">
     <div class="col-sm-6 ">
       <mat-form-field style="width: 170px">
-        <input matInput placeholder="Search by Name or ID">
+        <input matInput placeholder="Search by Name or ID" [(ngModel)]="searchValue" [ngModelOptions]="{standalone: true}" (keyup)="search()">
       </mat-form-field>
     </div>
     <div class="col-sm-6 text-right">

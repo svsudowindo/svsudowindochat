@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
 import { SortService } from '../../../shared/services/common/sort/sort.service';
+import { SearchService } from '../../../shared/services/common/search/search.service';
 
 const ELEMENT_DATA = [
   { companyID: 1, companyName: 'Hydrogen', createdBy: 'sai', updatedBy: 'sai', companyEmail: 'H' },
@@ -25,9 +26,12 @@ export class CompaniesComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
   changeEvent: MatSort;
   list = ELEMENT_DATA;
+  searchValue = '';
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  constructor(private sortService: SortService) {
+  constructor(
+    private sortService: SortService,
+    private searchService: SearchService) {
     this.dataSource = new MatTableDataSource(ELEMENT_DATA);
   }
 
@@ -48,7 +52,10 @@ export class CompaniesComponent implements OnInit {
     }
   }
 
-  onPageSizeChange(ev) {
-
+  search() {
+    const filteredArray = this.searchService.searchFilterArrayOfJson(this.list, this.searchValue, ['companyName', 'companyID']);
+    this.dataSource = new MatTableDataSource(filteredArray);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 }
