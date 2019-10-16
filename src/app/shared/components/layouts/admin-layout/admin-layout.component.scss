@@ -7,6 +7,7 @@
   top: 0; /* Stay at the top */
   left: 0;
   background-color: #111; /* Black*/
+  // background-color: #563d7c;
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 60px; /* Place content 60px from the top */
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
@@ -53,6 +54,16 @@
 .m-t-n-20 {
   margin-top: -20px;
 }
+
+.nav-style {
+  height: 50px;
+  background-color: #a9a9a92e;
+}
+
+button.mat-button.remove-outline:focus {
+  outline: none !important;
+}
+
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
