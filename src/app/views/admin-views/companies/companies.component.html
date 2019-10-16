@@ -2,8 +2,7 @@
   <div class="d-flex justify-content-end m-b-10 action-buttons">
     <button mat-raised-button class="success">Create Company</button>
   </div>
-  <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 custom-table">
-    <!-- Position Column -->
+  <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 custom-table" (matSortChange)="sortChange($event)">
     <ng-container matColumnDef="companyID">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Company ID </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.companyID}} </mat-cell>
@@ -29,5 +28,8 @@
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
   </mat-table>
+  <mat-paginator [length]="list.length" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
 </div>
