@@ -4,10 +4,9 @@ import { CommonModule } from '@angular/common';
 import { CompaniesRoutingModule } from './companies-routing.module';
 import { CompaniesComponent } from './companies.component';
 import { SharedModule } from '../../../shared/shared.module';
-import { CompanyDetailsComponent } from './company-details/company-details.component';
 
 @NgModule({
-  declarations: [CompaniesComponent, CompanyDetailsComponent],
+  declarations: [CompaniesComponent],
   imports: [
     CommonModule,
     CompaniesRoutingModule,
