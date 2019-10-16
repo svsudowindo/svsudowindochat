@@ -54,6 +54,16 @@
 .m-t-n-20 {
   margin-top: -20px;
 }
+
+.nav-style {
+  height: 50px;
+  background-color: #a9a9a92e;
+}
+
+button.mat-button.remove-outline:focus {
+  outline: none !important;
+}
+
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}

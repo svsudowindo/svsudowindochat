@@ -23,9 +23,17 @@
     </a>
   </div>
 </div>
-<button mat-button (click)="openNav()">
-  <i class="material-icons">list</i>
-</button>
+<div class="d-flex justify-content-between nav-style">
+  <div>
+    <button mat-button (click)="openNav()" class="remove-outline">
+      <i class="material-icons">list</i>
+    </button>
+    <img src="../../../../../assets/images/logo.jpg" height="50" class="p-t-5 p-b-5" />
+  </div>
+  <div>
+    <app-account-box></app-account-box>
+  </div>
+</div>
 
 <div id="main" (click)="closeNav()">
   <router-outlet></router-outlet>

@@ -16,12 +16,14 @@ import { HeaderInterceptorsService } from './shared/services/http/header-interce
 
 import { environment } from './../environments/environment';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { AccountBoxComponent } from './shared/components/layouts/admin-layout/account-box/account-box.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthLayoutComponent,
-    AdminLayoutComponent
+    AdminLayoutComponent,
+    AccountBoxComponent
   ],
   imports: [
     AppRoutingModule,
