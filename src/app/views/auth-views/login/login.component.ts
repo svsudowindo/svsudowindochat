@@ -66,6 +66,6 @@ export class LoginComponent extends BaseClass implements OnInit {
   }
   // login service call
   login() {
-
+    this.route.navigate(['dashboard']);
   }
 }
