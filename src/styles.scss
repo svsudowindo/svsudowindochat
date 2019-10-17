@@ -156,3 +156,18 @@ body {
   }
 }
 
+.required::-webkit-input-placeholder:after {
+  content: " *";
+  color: red;
+}
+
+.required:-moz-placeholder:after {
+  content: " *";
+  color: red;
+}
+
+.required:-ms-input-placeholder:after {
+  content: " *";
+  color: red;
+}
+
