@@ -2,20 +2,22 @@
 import { NgModule } from '@angular/core';
 
 import { HttpClientModule } from '@angular/common/http';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MaterialModule } from '../material/material.module';
+import { BreadCrumbModule } from '../../components/bread-crumb/bread-crumb.module';
 
 @NgModule({
   declarations: [],
   imports: [
-  HttpClientModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
     NgbModule,
-    MaterialModule
+    MaterialModule,
+    BreadCrumbModule
   ],
   exports: [
     HttpClientModule,
@@ -23,7 +25,8 @@ import { MaterialModule } from '../material/material.module';
     ReactiveFormsModule,
     RouterModule,
     NgbModule,
-    MaterialModule
+    MaterialModule,
+    BreadCrumbModule
   ]
 })
 export class PredefinedModule { }

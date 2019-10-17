@@ -1,0 +1,19 @@
+.navigation,.slash {
+  color: black;
+  font-size: 22px;
+  font-weight: 400;
+  text-transform: capitalize;
+}
+.navigation:hover {
+  text-decoration: underline;
+}
+.navigation:focus {
+  outline: none;
+}
+
+.lastBreadCrumb{
+  color: grey;
+  font-size: 22px;
+  font-weight: 400;
+  text-transform: capitalize;
+}

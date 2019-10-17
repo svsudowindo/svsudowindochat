@@ -4,7 +4,7 @@
 
     <div class="h-px-70">
       <mat-form-field class="w-p-100">
-        <input matInput placeholder="Username" formControlName="email">
+        <input matInput placeholder="Username" formControlName="email" required>
       </mat-form-field>
       <div [hidden]="!isValidField('email')">
         <p class="error m-b-0">{{getErrorMessage(loginForm, validationMessages, 'email')}}</p>
@@ -13,7 +13,7 @@
 
     <div class="h-px-70">
       <mat-form-field class="w-p-100">
-        <input matInput placeholder="Password" formControlName="password">
+        <input matInput placeholder="Password" formControlName="password" required>
       </mat-form-field>
       <div [hidden]="!isValidField('password')">
         <p class="error m-b-0">{{getErrorMessage(loginForm, validationMessages, 'password')}}</p>
@@ -22,7 +22,7 @@
 
     <div class="h-px-70">
       <mat-form-field class="w-p-100">
-        <input matInput placeholder="Company ID" formControlName="companyID">
+        <input matInput placeholder="Company ID" formControlName="companyID" required>
       </mat-form-field>
       <div [hidden]="!isValidField('companyID')">
         <p class="error m-b-0">{{getErrorMessage(loginForm, validationMessages, 'companyID')}}</p>
