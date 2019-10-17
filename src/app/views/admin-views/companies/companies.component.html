@@ -1,6 +1,7 @@
-<div class="main">
+<div class="container main">
+  <app-bread-crumb [breadCrumbs]="breadCrumbs"></app-bread-crumb>
   <div class="row m-b-10 action-buttons">
-    <div class="col-sm-6 ">
+    <div class="col-sm-6">
       <mat-form-field style="width: 170px">
         <input matInput placeholder="Search by Name or ID" [(ngModel)]="searchValue" [ngModelOptions]="{standalone: true}"
           (keyup)="search()">

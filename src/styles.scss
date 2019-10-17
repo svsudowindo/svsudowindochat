@@ -114,6 +114,20 @@ body {
       color: white;
       height: 40px;
     }
+    .mat-raised-button.save {
+      background-color: green;
+      color: white;
+      height: 40px;
+    }
+    .mat-raised-button.cancel {
+      background-color: black;
+      color: white;
+      height: 40px;
+    }
+    .mat-raised-button[disabled][disabled] {
+      background-color: grey;
+      color: white
+    }
   }
   .custom-table {
     mat-header-row.mat-header-row {
@@ -144,5 +158,20 @@ body {
       outline: none;
     }
   }
+}
+
+.required::-webkit-input-placeholder:after {
+  content: " *";
+  color: red;
+}
+
+.required:-moz-placeholder:after {
+  content: " *";
+  color: red;
+}
+
+.required:-ms-input-placeholder:after {
+  content: " *";
+  color: red;
 }
 

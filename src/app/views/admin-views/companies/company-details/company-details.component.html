@@ -1,1 +1,51 @@
-<p>company-details works!</p>
+<div class="container main">
+  <form [formGroup]="companyForm">
+    <app-bread-crumb [breadCrumbs]="breadCrumbs"></app-bread-crumb>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="h-px-70">
+          <mat-form-field class="w-p-100">
+            <input matInput placeholder="Company Name" required formControlName="companyName">
+          </mat-form-field>
+          <div [hidden]="!isValidField('companyName')">
+            <p class="error m-b-0">{{getErrorMessage(companyForm, validationMessages, 'companyName')}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="h-px-70">
+          <mat-form-field class="w-p-100">
+            <input matInput placeholder="Admin Name / Representative Name" required formControlName="companyAdminName">
+          </mat-form-field>
+          <div [hidden]="!isValidField('companyAdminName')">
+            <p class="error m-b-0">{{getErrorMessage(companyForm, validationMessages, 'companyAdminName')}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="h-px-70">
+          <mat-form-field class="w-p-100">
+            <input matInput placeholder="Admin Email / Company Email" required formControlName="companyEmail">
+          </mat-form-field>
+          <div [hidden]="!isValidField('companyEmail')">
+            <p class="error m-b-0">{{getErrorMessage(companyForm, validationMessages, 'companyEmail')}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="h-px-70">
+          <mat-form-field class="w-p-100">
+            <input matInput placeholder="Office Mobile" required formControlName="companyMobileNumber">
+          </mat-form-field>
+          <div [hidden]="!isValidField('companyMobileNumber')">
+            <p class="error m-b-0">{{getErrorMessage(companyForm, validationMessages, 'companyMobileNumber')}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end action-buttons">
+      <button mat-raised-button class="cancel m-t-10 m-r-10" [routerLink]="['/companies']">Cancel</button>
+      <button mat-raised-button class="save m-t-10" [disabled]="companyForm.invalid">Create</button>
+    </div>
+  </form>
+</div>

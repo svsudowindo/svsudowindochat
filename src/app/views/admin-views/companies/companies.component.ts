@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
 import { SortService } from '../../../shared/services/common/sort/sort.service';
 import { SearchService } from '../../../shared/services/common/search/search.service';
+import { BreadCrumbModel } from '../../../shared/components/bread-crumb/bread-crumb.model';
 
 const ELEMENT_DATA = [
   { companyID: 1, companyName: 'Hydrogen', createdBy: 'sai', updatedBy: 'sai', companyEmail: 'H' },
@@ -29,6 +30,11 @@ export class CompaniesComponent implements OnInit {
   searchValue = '';
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  breadCrumbs: BreadCrumbModel[] = [
+    {
+      label: 'Companies'
+    }
+  ];
   constructor(
     private sortService: SortService,
     private searchService: SearchService) {

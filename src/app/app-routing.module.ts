@@ -54,8 +54,11 @@ const routes: Routes = [
       },
       {
         path: 'companies',
-        loadChildren: () => import('./views/admin-views/companies/companies.module').then(m => m.CompaniesModule)
-
+        loadChildren: () => import('./views/admin-views/companies/companies.module').then(m => m.CompaniesModule),
+      },
+      {
+      path: 'employees',
+      loadChildren: () => import('./views/admin-views/employees/employees.module').then(m => m.EmployeesModule),
       }
     ]
   },
