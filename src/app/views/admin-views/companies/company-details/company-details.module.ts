@@ -10,7 +10,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
     CommonModule,
     CompanyDetailsRoutingModule,
     SharedModule
-
   ]
 })
 export class CompanyDetailsModule { }
