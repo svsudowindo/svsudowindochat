@@ -1,0 +1,11 @@
+<div class="bread-crumb">
+    <ng-container *ngFor="let item of breadCrumbs">
+      <ng-container *ngIf="item.link; else lastBreadCrumb">
+        <span class="navigation pointer" routerLink="{{item.link}}">{{item.label}}</span>
+        <span class="slash p-r-5 p-l-5">/</span>
+      </ng-container>
+      <ng-template #lastBreadCrumb>
+        <span class="lastBreadCrumb">{{item.label}}</span>
+      </ng-template>
+    </ng-container>
+  </div>

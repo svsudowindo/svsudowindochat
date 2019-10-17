@@ -1,1 +1,38 @@
-<p>company-details works!</p>
+<div class="container main">
+  <app-bread-crumb [breadCrumbs]="breadCrumbs"></app-bread-crumb>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="h-px-70">
+        <mat-form-field class="w-p-100">
+          <input matInput placeholder="Company Name">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="h-px-70">
+        <mat-form-field class="w-p-100">
+          <input matInput placeholder="Admin Name / Representative Name">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="h-px-70">
+        <mat-form-field class="w-p-100">
+          <input matInput placeholder="Admin Email / Company Email">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="h-px-70">
+        <mat-form-field class="w-p-100">
+          <input matInput placeholder="Office Mobile">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-end action-buttons">
+    <button mat-raised-button class="cancel m-t-10 m-r-10" [routerLink]="['/companies/details']">Cancel</button>
+
+    <button mat-raised-button class="save m-t-10" [routerLink]="['/companies/details']">Create</button>
+  </div>
+</div>
