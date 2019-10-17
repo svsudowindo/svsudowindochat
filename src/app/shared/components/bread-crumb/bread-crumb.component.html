@@ -1,4 +1,5 @@
-<div class="bread-crumb">
+<div class="m-t-10 m-b-10">
+  <div class="bread-crumb">
     <ng-container *ngFor="let item of breadCrumbs">
       <ng-container *ngIf="item.link; else lastBreadCrumb">
         <span class="navigation pointer" routerLink="{{item.link}}">{{item.label}}</span>
@@ -9,3 +10,4 @@
       </ng-template>
     </ng-container>
   </div>
+</div>

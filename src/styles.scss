@@ -124,6 +124,10 @@ body {
       color: white;
       height: 40px;
     }
+    .mat-raised-button[disabled][disabled] {
+      background-color: grey;
+      color: white
+    }
   }
   .custom-table {
     mat-header-row.mat-header-row {
