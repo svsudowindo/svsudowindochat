@@ -1,1 +1,14 @@
-<p>profile works!</p>
+<div class="container main">
+  <app-bread-crumb [breadCrumbs]="breadCrumbs"></app-bread-crumb>
+  <mat-tab-group>
+    <mat-tab label="Personal Details">
+      <app-personal-details></app-personal-details>
+    </mat-tab>
+    <mat-tab label="Employment Details">
+        <app-employment-details></app-employment-details>
+      </mat-tab>
+    <mat-tab label="Educational Details">
+      <app-educational-details></app-educational-details>
+    </mat-tab>
+  </mat-tab-group>
+</div>
