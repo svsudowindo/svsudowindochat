@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-account-box',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountBoxComponent implements OnInit {
   isPopOpen = false;
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
+  }
+
+  goToProfile() {
+    this.router.navigate(['profile']);
+    this.isPopOpen = false;
+  }
+
+  goToLogin() {
+    this.router.navigate(['login']);
+    this.isPopOpen = false;
   }
 
 }

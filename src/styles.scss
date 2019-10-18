@@ -190,6 +190,23 @@ body {
       outline: none;
     }
   }
+
+  .mat-tab-label-active {
+    // background-color: #00008b38;
+    color: black;
+  }
+  .mat-tab-label-active.cdk-mouse-focused {
+    color:grey;
+  }
+  .mat-tab-body {
+    margin: 10px;
+    padding: 20px;
+    background-color: #dfdfdf1a;
+  }
+
+  .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+    background-color: darkblue;
+  }
 }
 
 .required::-webkit-input-placeholder:after {

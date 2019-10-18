@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BreadCrumbModel } from '../../../shared/components/bread-crumb/bread-crumb.model';
 
 @Component({
   selector: 'app-profile',
@@ -6,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-
+  breadCrumbs: BreadCrumbModel[] = [
+    {
+      label: 'Profile'
+    }
+  ];
   constructor() { }
 
   ngOnInit() {

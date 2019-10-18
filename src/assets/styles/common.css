@@ -39,6 +39,10 @@
   font-size: 100px !important;
 }
 
+.font-size-45 {
+  font-size: 45px !important;
+}
+
 /*Common Margin Padding*/
 .p-0 {
   padding: 0 !important;
