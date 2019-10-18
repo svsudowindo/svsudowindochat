@@ -13,6 +13,10 @@ body {
     cursor: pointer;
 }
 
+.circle {
+  border-radius: 50%;
+}
+
 .error {
   color: red;
   font-size: 14px;
@@ -109,6 +113,12 @@ body {
       min-width: 125px;
       outline: none;
     }
+    .mat-mini-fab {
+      outline: none;
+    }
+    .mat-fab {
+      outline: none;
+    }
     .mat-raised-button.success {
       background-color: darkblue;
       color: white;
@@ -127,6 +137,28 @@ body {
     .mat-raised-button[disabled][disabled] {
       background-color: grey;
       color: white
+    }
+
+    .mat-raised-button {
+      border-radius: 24px;
+      min-width: 125px;
+      outline: none;
+    }
+    .mat-fab.success,.mat-mini-fab.success {
+      background-color: darkblue;
+      color: white;
+    }
+    .mat-fab.save,.mat-mini-fab.save {
+      background-color: green;
+      color: white;
+    }
+    .mat-fab.cancel,.mat-mini-fab.cancel {
+      background-color: black;
+      color: white;
+    }
+    .mat-fab[disabled][disabled],.mat-mini-fab[disabled][disabled] {
+      background-color: grey;
+      color: white;
     }
   }
   .custom-table {

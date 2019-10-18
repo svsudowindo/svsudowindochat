@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 export class AdminLayoutComponent implements OnInit, AfterViewInit {
   screenWidth: number;
   isSideNavOpen = false;
+  isOutSideClick = false;
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.screenWidth = event.target.innerWidth;
@@ -31,6 +32,7 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
 
   openNav() {
     this.isSideNavOpen = true;
+    this.isOutSideClick = true;
     if (this.screenWidth < 576) {
       // very small screens
       document.getElementById('sideNavigation').style.width = '120px';
@@ -54,6 +56,15 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
   closeNav() {
     document.getElementById('sideNavigation').style.width = '0';
     document.getElementById('main').style.marginLeft = '0';
+  }
+
+  // closing on clicking outside
+  outsideClick() {
+    if (!this.isOutSideClick) {
+      this.closeNav();
+    } else {
+      this.isOutSideClick = !this.isOutSideClick;
+    }
   }
 
 }

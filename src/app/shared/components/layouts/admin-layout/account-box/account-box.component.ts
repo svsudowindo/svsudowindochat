@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./account-box.component.scss']
 })
 export class AccountBoxComponent implements OnInit {
-
+  isPopOpen = false;
   constructor() { }
 
   ngOnInit() {
