@@ -1,10 +1,10 @@
 <div class="container main">
-    <form [formGroup]="PersonalDetailsForm">
+    <form [formGroup]="personalDetailsForm">
         <div class="row">
             <div class="col-md-6">
                 <div class="h-px-70">
                     <mat-form-field class="w-p-100">
-                        <input matInput placeholder="Full Name" formControlName="FullName">
+                        <input matInput placeholder="Full Name" formControlName="fullName">
                     </mat-form-field>
                 </div>
             </div>
@@ -12,7 +12,7 @@
                 <div class="h-px-70">
                     <mat-form-field class="w-p-100">
                         <mat-label>Gender</mat-label>
-                        <mat-select formControlName = 'Gender'>
+                        <mat-select formControlName = 'gender'>
                             <mat-option>Female</mat-option>
                             <mat-option>Male</mat-option>
                             <mat-option>Other</mat-option>
@@ -24,7 +24,7 @@
                 <div class="h-px-70">
                     <mat-form-field class="w-p-100">
                         <input matInput [matDatepicker]="picker" placeholder=" Date Of Birth"
-                            formControlName="DateOfBirth">
+                            formControlName="dateOfBirth">
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
                     </mat-form-field>
@@ -33,14 +33,14 @@
             <div class="col-md-6">
                 <div class="h-px-70">
                     <mat-form-field class="w-p-100">
-                        <input matInput placeholder="Email ID" formControlName="EmailId">
+                        <input matInput placeholder="Email ID" formControlName="emailId">
                     </mat-form-field>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="h-px-70">
                     <mat-form-field class="w-p-100">
-                        <input matInput placeholder="Phone Number" formControlName="PhoneNumber">
+                        <input matInput placeholder="Phone Number" formControlName="phoneNumber">
                     </mat-form-field>
                 </div>
             </div>
@@ -55,7 +55,7 @@
                 <div class="h-px-70">
                     <mat-form-field class="w-p-100">
                         <mat-label>Country</mat-label>
-                        <mat-select formControlName="Country">
+                        <mat-select formControlName="country">
                             <mat-option>India</mat-option>
                             <mat-option>South Africa</mat-option>
                             <mat-option>Bangladesh</mat-option>
@@ -67,7 +67,7 @@
                 <div class="h-px-70">
                     <mat-form-field class="w-p-100">
                         <mat-label>State</mat-label>
-                        <mat-select formControlName="State">
+                        <mat-select formControlName="state">
                             <mat-option>Telangana</mat-option>
                             <mat-option>TamilNadu</mat-option>
                             <mat-option>Delhi</mat-option>
@@ -79,7 +79,7 @@
                 <div class="h-px-70">
                     <mat-form-field class="w-p-100">
                         <mat-label>City</mat-label>
-                        <mat-select formControlName="City">
+                        <mat-select formControlName="city">
                             <mat-option>Hyderabad</mat-option>
                             <mat-option>Chennai</mat-option>
                             <mat-option>Delhi</mat-option>
@@ -90,14 +90,14 @@
             <div class="col-md-6">
                 <div class="h-px-70">
                     <mat-form-field class="w-p-100">
-                        <input matInput placeholder="Pin Code" formControlName="PinCode">
+                        <input matInput placeholder="Pin Code" formControlName="pinCode">
                     </mat-form-field>
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="h-px-70">
                     <mat-form-field class="w-p-100">
-                        <textarea matInput placeholder="Address" rows="2" formControlName="Address"></textarea>
+                        <textarea matInput placeholder="Address" rows="2" formControlName="address"></textarea>
                     </mat-form-field>
                 </div>
             </div>

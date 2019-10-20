@@ -7,7 +7,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./personal-details.component.scss']
 })
 export class PersonalDetailsComponent implements OnInit {
-  PersonalDetailsForm: FormGroup;
+  personalDetailsForm: FormGroup;
   constructor(private formBuilder: FormBuilder) {
 
   }
@@ -16,18 +16,18 @@ export class PersonalDetailsComponent implements OnInit {
     this.initPersonalDetailsForm();
   }
   initPersonalDetailsForm() {
-    this.PersonalDetailsForm = this.formBuilder.group({
-      FullName: [''],
-      Gender: [''],
-      DateOfBirth: [''],
-      EmailId: [''],
-      PhoneNumber: [''],
+    this.personalDetailsForm = this.formBuilder.group({
+      fullName: [''],
+      gender: [''],
+      dateOfBirth: [''],
+      emailId: [''],
+      phoneNumber: [''],
       employeeId: [''],
-      Country: [''],
-      State: [''],
-      City: [''],
-      PinCode: [''],
-      Address: [''],
+      country: [''],
+      state: [''],
+      city: [''],
+      pinCode: [''],
+      address: [''],
     });
 
 
