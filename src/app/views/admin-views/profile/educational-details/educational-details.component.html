@@ -1,66 +1,81 @@
 <div class="container main">
-  <form class="m-t-10">
-    <mat-card>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="h-px-70">
-            <mat-form-field class="w-p-100">
-              <mat-label>Qualifications</mat-label>
-              <mat-select>
-                <ng-container *ngFor="let qualification of qualificationConst">
-                  <mat-option [value]="qualification.id">
-                    {{qualification.label}}
-                  </mat-option>
-                </ng-container>
-              </mat-select>
-            </mat-form-field>
+  <div class="d-flex justify-content-end action-buttons">
+    <button mat-mini-fab class="success" (click)="addNewQualification()">
+      <i class="material-icons">add_circle_outline</i>
+    </button>
+  </div>
+  <form [formGroup]="educationForm" class="m-t-10">
+    <div formArrayName="education">
+      <ng-container *ngFor="let eachForm of educationForm.get('education')['controls']; let i=index">
+        <mat-card [formGroupName]="i" class="m-t-20">
+          <div class="d-flex justify-content-between action-buttons">
+            <p class="heading">Qualification {{i + 1 }}</p>
+            <button mat-mini-fab class="danger">
+              <i class="material-icons">delete_forever</i>
+            </button>
           </div>
-        </div>
-        <div class="col-md-6">
-          <div class="h-px-70">
-            <mat-form-field class="w-p-100">
-              <input matInput placeholder="Institute Name">
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="h-px-70">
-            <mat-form-field class="w-p-100">
-              <input matInput placeholder="Location">
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="h-px-70">
-            <mat-form-field class="w-p-100">
-              <input matInput placeholder="State">
-            </mat-form-field>
-          </div>
-        </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="h-px-70">
+                <mat-form-field class="w-p-100">
+                  <mat-label>Qualifications</mat-label>
+                  <mat-select>
+                    <ng-container *ngFor="let qualification of qualificationConst">
+                      <mat-option [value]="qualification.id">
+                        {{qualification.label}}
+                      </mat-option>
+                    </ng-container>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="h-px-70">
+                <mat-form-field class="w-p-100">
+                  <input matInput placeholder="Institute Name" formControlName="instituteName">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="h-px-70">
+                <mat-form-field class="w-p-100">
+                  <input matInput placeholder="Location" formControlName="location">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="h-px-70">
+                <mat-form-field class="w-p-100">
+                  <input matInput placeholder="State" formControlName="state">
+                </mat-form-field>
+              </div>
+            </div>
 
-        <div class="col-md-6">
-          <div class="h-px-70">
-            <mat-form-field class="w-p-100">
-              <input matInput [matDatepicker]="startDate" placeholder="Start date">
-              <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
-              <mat-datepicker #startDate></mat-datepicker>
-            </mat-form-field>
-          </div>
-        </div>
+            <div class="col-md-6">
+              <div class="h-px-70">
+                <mat-form-field class="w-p-100">
+                  <input matInput [matDatepicker]="startDate" placeholder="Start date" formControlName="startDate">
+                  <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                  <mat-datepicker #startDate></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
 
-        <div class="col-md-6">
-          <div class="h-px-70">
-            <mat-form-field class="w-p-100">
-              <input matInput [matDatepicker]="endDate" placeholder="End date">
-              <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
-              <mat-datepicker #endDate></mat-datepicker>
-            </mat-form-field>
+            <div class="col-md-6">
+              <div class="h-px-70">
+                <mat-form-field class="w-p-100">
+                  <input matInput [matDatepicker]="endDate" placeholder="End date" formControlName="endDate">
+                  <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+                  <mat-datepicker #endDate></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="d-flex justify-content-end action-buttons">
-        <button mat-raised-button class="save">Save</button>
-      </div>
-    </mat-card>
+          <div class="d-flex justify-content-end action-buttons">
+            <button mat-raised-button class="save">Save</button>
+          </div>
+        </mat-card>
+      </ng-container>
+    </div>
   </form>
 </div>
