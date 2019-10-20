@@ -12,10 +12,12 @@
                 <div class="h-px-70">
                     <mat-form-field class="w-p-100">
                         <mat-label>Gender</mat-label>
-                        <mat-select formControlName = 'gender'>
-                            <mat-option>Female</mat-option>
-                            <mat-option>Male</mat-option>
-                            <mat-option>Other</mat-option>
+                        <mat-select formControlName='gender'>
+                            <ng-container *ngFor="let gender of  genderConst">
+                                <mat-option [value]="gender.id">
+                                    {{gender.label}}
+                                </mat-option>
+                            </ng-container>
                         </mat-select>
                     </mat-form-field>
                 </div>
