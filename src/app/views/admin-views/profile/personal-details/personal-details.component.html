@@ -1,1 +1,110 @@
-<p>personal-details works!</p>
+<div class="container main">
+    <form [formGroup]="personalDetailsForm">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="h-px-70">
+                    <mat-form-field class="w-p-100">
+                        <input matInput placeholder="Full Name" formControlName="fullName">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="h-px-70">
+                    <mat-form-field class="w-p-100">
+                        <mat-label>Gender</mat-label>
+                        <mat-select formControlName = 'gender'>
+                            <mat-option>Female</mat-option>
+                            <mat-option>Male</mat-option>
+                            <mat-option>Other</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="h-px-70">
+                    <mat-form-field class="w-p-100">
+                        <input matInput [matDatepicker]="picker" placeholder=" Date Of Birth"
+                            formControlName="dateOfBirth">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="h-px-70">
+                    <mat-form-field class="w-p-100">
+                        <input matInput placeholder="Email ID" formControlName="emailId">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="h-px-70">
+                    <mat-form-field class="w-p-100">
+                        <input matInput placeholder="Phone Number" formControlName="phoneNumber">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="h-px-70">
+                    <mat-form-field class="w-p-100">
+                        <input matInput placeholder="Employee ID" formControlName="employeeId">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="h-px-70">
+                    <mat-form-field class="w-p-100">
+                        <mat-label>Country</mat-label>
+                        <mat-select formControlName="country">
+                            <mat-option>India</mat-option>
+                            <mat-option>South Africa</mat-option>
+                            <mat-option>Bangladesh</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="h-px-70">
+                    <mat-form-field class="w-p-100">
+                        <mat-label>State</mat-label>
+                        <mat-select formControlName="state">
+                            <mat-option>Telangana</mat-option>
+                            <mat-option>TamilNadu</mat-option>
+                            <mat-option>Delhi</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="h-px-70">
+                    <mat-form-field class="w-p-100">
+                        <mat-label>City</mat-label>
+                        <mat-select formControlName="city">
+                            <mat-option>Hyderabad</mat-option>
+                            <mat-option>Chennai</mat-option>
+                            <mat-option>Delhi</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="h-px-70">
+                    <mat-form-field class="w-p-100">
+                        <input matInput placeholder="Pin Code" formControlName="pinCode">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="h-px-70">
+                    <mat-form-field class="w-p-100">
+                        <textarea matInput placeholder="Address" rows="2" formControlName="address"></textarea>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end action-buttons">
+            <!-- <button mat-raised-button class="cancel m-t-10 m-r-10" [routerLink]="['/employees']">Cancel</button> -->
+            <button mat-raised-button class="save m-t-20">Save</button>
+        </div>
+    </form>
+</div>

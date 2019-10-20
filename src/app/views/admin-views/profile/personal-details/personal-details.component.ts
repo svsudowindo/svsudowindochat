@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-personal-details',
@@ -6,10 +7,29 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./personal-details.component.scss']
 })
 export class PersonalDetailsComponent implements OnInit {
+  personalDetailsForm: FormGroup;
+  constructor(private formBuilder: FormBuilder) {
 
-  constructor() { }
-
-  ngOnInit() {
   }
 
-}
+  ngOnInit() {
+    this.initPersonalDetailsForm();
+  }
+  initPersonalDetailsForm() {
+    this.personalDetailsForm = this.formBuilder.group({
+      fullName: [''],
+      gender: [''],
+      dateOfBirth: [''],
+      emailId: [''],
+      phoneNumber: [''],
+      employeeId: [''],
+      country: [''],
+      state: [''],
+      city: [''],
+      pinCode: [''],
+      address: [''],
+    });
+
+
+  }
+} 
