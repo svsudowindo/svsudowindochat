@@ -10,7 +10,7 @@
         <mat-card [formGroupName]="i" class="m-t-20">
           <div class="d-flex justify-content-between action-buttons">
             <p class="heading">Qualification {{i + 1 }}</p>
-            <button mat-mini-fab class="danger">
+            <button mat-mini-fab class="danger" (click)="deleteEducation(i)">
               <i class="material-icons">delete_forever</i>
             </button>
           </div>

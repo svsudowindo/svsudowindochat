@@ -35,4 +35,8 @@ export class EducationalDetailsComponent implements OnInit {
   addNewQualification() {
     (this.educationForm.get('education') as FormArray).push(this.eachEducationForm());
   }
+
+  deleteEducation(index) {
+    (this.educationForm.get('education') as FormArray).removeAt(index);
+  }
 }
