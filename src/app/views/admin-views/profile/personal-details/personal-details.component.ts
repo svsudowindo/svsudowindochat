@@ -1,3 +1,4 @@
+import { GENDER } from './personal-details.enums';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
@@ -7,6 +8,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./personal-details.component.scss']
 })
 export class PersonalDetailsComponent implements OnInit {
+  genderConst = GENDER;
   personalDetailsForm: FormGroup;
   constructor(private formBuilder: FormBuilder) {
 

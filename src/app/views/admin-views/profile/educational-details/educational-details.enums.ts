@@ -1,4 +1,4 @@
-export const qualification = [
+export const QUALIFICATION = [
   {
     id: 'SCHOOLING',
     label: 'Schooling'

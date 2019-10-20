@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { qualification } from './educational-details.enums';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { QUALIFICATION } from './educational-details.enums';
 @Component({
   selector: 'app-educational-details',
   templateUrl: './educational-details.component.html',
   styleUrls: ['./educational-details.component.scss']
 })
 export class EducationalDetailsComponent implements OnInit {
-  qualificationConst = qualification;
+  qualificationConst = QUALIFICATION;
   educationForm: FormGroup;
   constructor(private formBuilder: FormBuilder) {
     this.initEducationalForm();
