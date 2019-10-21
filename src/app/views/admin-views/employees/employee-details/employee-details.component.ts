@@ -3,7 +3,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Component, OnInit, Injector, inject } from '@angular/core';
 import { VALIDATION_PATTERNS } from '../../../../shared/constants/validation-patterns';;
 import { BaseClass } from '../../../../shared/services/common/baseClass';
-import { DESIGNATION } from './employee-details.enum';
+import { EMPLOYEEDESIGNATION } from './employee-details.enum';
 
 @Component({
   selector: 'app-employee-details',
@@ -11,7 +11,7 @@ import { DESIGNATION } from './employee-details.enum';
   styleUrls: ['./employee-details.component.scss']
 })
 export class EmployeeDetailsComponent extends BaseClass implements OnInit {
-  designationConst = DESIGNATION;
+  employeeDesignationConst = EMPLOYEEDESIGNATION;
   breadCrumbs: BreadCrumbModel[] = [
     {
       label: 'employees',
@@ -35,6 +35,9 @@ export class EmployeeDetailsComponent extends BaseClass implements OnInit {
     ],
     employeeDateOfJoining: [
       { type: 'required', message: 'Date of Joining required' }
+    ],
+    employeeDesignation: [
+      { type: 'required', message: 'Designation required' }
     ]
   };
   constructor(
@@ -52,7 +55,8 @@ export class EmployeeDetailsComponent extends BaseClass implements OnInit {
       employeeName: ['', Validators.compose([Validators.required])],
       employeeEmail: ['', Validators.compose([Validators.required, Validators.pattern(VALIDATION_PATTERNS.EMAIL)])],
       employeeId: ['', Validators.compose([Validators.required])],
-      employeeDateOfJoining: ['', Validators.compose([Validators.required])]
+      employeeDateOfJoining: ['', Validators.compose([Validators.required])],
+      employeeDesignation: ['', Validators.compose([Validators.required])]
     });
   }
 

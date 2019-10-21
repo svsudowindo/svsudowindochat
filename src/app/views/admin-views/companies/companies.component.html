@@ -8,7 +8,7 @@
       </mat-form-field>
     </div>
     <div class="col-sm-6 text-right">
-      <button mat-raised-button class="success m-t-10" [routerLink]="['/companies/details']">Create Company</button>
+      <button mat-raised-button class="success m-t-10" [routerLink]="['/companies/details']">Add Company</button>
     </div>
   </div>
   <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 custom-table" (matSortChange)="sortChange($event)">
@@ -26,12 +26,12 @@
     </ng-container>
 
     <ng-container matColumnDef="createdBy">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Created by</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Created By</mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.createdBy}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="updatedBy">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Updated by </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Updated By </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.updatedBy}} </mat-cell>
     </ng-container>
 

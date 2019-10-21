@@ -1,4 +1,4 @@
-export const DESIGNATION = [
+export const EMPLOYEEDESIGNATION = [
     {
       id: 'ANGULAR DEVELOPER',
       label: 'Angular Developer'

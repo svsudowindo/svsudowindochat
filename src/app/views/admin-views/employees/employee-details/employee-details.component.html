@@ -45,15 +45,18 @@
       <div class="col-md-6">
           <div class="h-px-70">
               <mat-form-field class="w-p-100">
-                  <mat-label>Designation</mat-label>
-                  <mat-select formControlName='designation'>
-                      <ng-container *ngFor="let designation of designationConst">
-                          <mat-option [value]="designation.id">
-                              {{designation.label}}
+                  <mat-label>Employee Designation</mat-label>
+                  <mat-select required formControlName='employeeDesignation'>
+                      <ng-container *ngFor="let employeeDesignation of employeeDesignationConst">
+                          <mat-option [value]="employeeDesignation.id">
+                              {{employeeDesignation.label}}
                           </mat-option>
                       </ng-container>
                   </mat-select>
               </mat-form-field>
+              <div [hidden]="!isValidField('employeeDesignation')">
+                  <p class="error m-b-0">{{getErrorMessage(employeeForm, validationMessages, 'employeeDesignation')}}</p>
+                </div>
           </div>
       </div>
     </div>
