@@ -3,6 +3,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Component, OnInit, Injector, inject } from '@angular/core';
 import { VALIDATION_PATTERNS } from '../../../../shared/constants/validation-patterns';;
 import { BaseClass } from '../../../../shared/services/common/baseClass';
+import { DESIGNATION } from './employee-details.enum';
 
 @Component({
   selector: 'app-employee-details',
@@ -10,10 +11,11 @@ import { BaseClass } from '../../../../shared/services/common/baseClass';
   styleUrls: ['./employee-details.component.scss']
 })
 export class EmployeeDetailsComponent extends BaseClass implements OnInit {
+  designationConst = DESIGNATION;
   breadCrumbs: BreadCrumbModel[] = [
     {
-      label: 'employee',
-      link: '/employee'
+      label: 'employees',
+      link: '/employees'
     },
     {
       label: 'details'

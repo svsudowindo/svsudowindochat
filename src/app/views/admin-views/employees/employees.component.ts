@@ -5,16 +5,16 @@ import { MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
 import { Component, OnInit,ViewChild } from '@angular/core';
 
 const ELEMENT_DATA = [
-  { employeeID: 1, employeeName: 'Hydrogen', createdBy: 'sai', updatedBy: 'sai', employeeEmail: 'H' },
-  { employeeID: 2, employeeName: 'abc', createdBy: '123', updatedBy: 'sai', employeeEmail: 'H' },
-  { employeeID: 1, employeeName: 'Hydrogen', createdBy: 'sai', updatedBy: 'sai', employeeEmail: 'H' },
-  { employeeID: 2, employeeName: 'abc', createdBy: '123', updatedBy: 'sai', employeeEmail: 'H' },
-  { employeeID: 1, employeeName: 'Hydrogen', createdBy: 'sai', updatedBy: 'sai', employeeEmail: 'H' },
-  { employeeID: 2, employeeName: 'abc', createdBy: '123', updatedBy: 'sai', employeeEmail: 'H' },
-  { employeeID: 1, employeeName: 'Hydrogen', createdBy: 'sai', updatedBy: 'sai', employeeEmail: 'H' },
-  { employeeID: 2, employeeName: 'abc', createdBy: '123', updatedBy: 'sai', employeeEmail: 'H' },
-  { employeeID: 1, employeeName: 'Hydrogen', createdBy: 'sai', updatedBy: 'sai', employeeEmail: 'H' },
-  { employeeID: 2, employeeName: 'abc', createdBy: '123', updatedBy: 'sai', employeeEmail: 'H' }
+  { employeeID: 1, employeeName: 'Hydrogen', createdBy: 'sai', updatedBy: 'sai', employeeEmail: 'H', role: 'N' },
+  { employeeID: 2, employeeName: 'abc', createdBy: '123', updatedBy: 'sai', employeeEmail: 'H', role: 'N' },
+  { employeeID: 1, employeeName: 'Hydrogen', createdBy: 'sai', updatedBy: 'sai', employeeEmail: 'H', role: 'N'},
+  { employeeID: 2, employeeName: 'abc', createdBy: '123', updatedBy: 'sai', employeeEmail: 'H', role: 'N' },
+  { employeeID: 1, employeeName: 'Hydrogen', createdBy: 'sai', updatedBy: 'sai', employeeEmail: 'H', role: 'N' },
+  { employeeID: 2, employeeName: 'abc', createdBy: '123', updatedBy: 'sai', employeeEmail: 'H', role: 'N' },
+  { employeeID: 1, employeeName: 'Hydrogen', createdBy: 'sai', updatedBy: 'sai', employeeEmail: 'H', role: 'N' },
+  { employeeID: 2, employeeName: 'abc', createdBy: '123', updatedBy: 'sai', employeeEmail: 'H', role: 'N' },
+  { employeeID: 1, employeeName: 'Hydrogen', createdBy: 'sai', updatedBy: 'sai', employeeEmail: 'H', role: 'N' },
+  { employeeID: 2, employeeName: 'abc', createdBy: '123', updatedBy: 'sai', employeeEmail: 'H', role: 'N' }
 
 ];
 @Component({
@@ -23,7 +23,7 @@ const ELEMENT_DATA = [
   styleUrls: ['./employees.component.scss']
 })
 export class EmployeesComponent implements OnInit {
-  displayedColumns: string[] = ['employeeID', 'employeeName', 'employeeEmail', 'createdBy', 'updatedBy'];
+  displayedColumns: string[] = ['employeeID', 'employeeName', 'employeeEmail', 'createdBy', 'updatedBy', 'role'];
   dataSource: MatTableDataSource<any>;
   changeEvent: MatSort;
   list = ELEMENT_DATA;
