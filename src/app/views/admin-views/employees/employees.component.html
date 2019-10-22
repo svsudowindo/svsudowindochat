@@ -8,32 +8,37 @@
         </mat-form-field>
       </div>
       <div class="col-sm-6 text-right">
-        <button mat-raised-button class="success m-t-10" [routerLink]="['/employees/details']">Create employee</button>
+        <button mat-raised-button class="success m-t-10" [routerLink]="['/employees/details']">Add employee</button>
       </div>
     </div>
     <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 custom-table" (matSortChange)="sortChange($event)">
       <ng-container matColumnDef="employeeID">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> employee ID </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Employee ID </mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.employeeID}} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="employeeName">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> employee Name </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Employee Name </mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.employeeName}} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="employeeEmail">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> employee Email </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Employee Email </mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.employeeEmail}} </mat-cell>
       </ng-container>
   
       <ng-container matColumnDef="createdBy">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Created by</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Created By</mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.createdBy}} </mat-cell>
       </ng-container>
   
       <ng-container matColumnDef="updatedBy">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Updated by </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Updated By </mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.updatedBy}} </mat-cell>
       </ng-container>
+
+      <ng-container matColumnDef="designation">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Designation </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.designation}} </mat-cell>
+        </ng-container>
   
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row class="pointer" *matRowDef="let row; columns: displayedColumns;"></mat-row>
