@@ -5,8 +5,9 @@ var app = express();
 
 var authRoutes = require('./routes/auth-routes');
 
-var APP_CONFIG = require('./config/app.config');
-app.use(bodyParser.urlencoded({ extended: true }));
+var APP_CONFIG = require('./common/config/app.config');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 
 app.use('/auth', authRoutes.authRoutes);
