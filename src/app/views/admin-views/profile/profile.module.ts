@@ -6,9 +6,10 @@ import { SharedModule } from '../../../shared/shared.module';
 import { PersonalDetailsComponent } from './personal-details/personal-details.component';
 import { EmploymentDetailsComponent } from './employment-details/employment-details.component';
 import { EducationalDetailsComponent } from './educational-details/educational-details.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
-  declarations: [ProfileComponent, PersonalDetailsComponent, EmploymentDetailsComponent, EducationalDetailsComponent],
+  declarations: [ProfileComponent, PersonalDetailsComponent, EmploymentDetailsComponent, EducationalDetailsComponent, ResetPasswordComponent ],
   imports: [
     CommonModule,
     ProfileRoutingModule,
