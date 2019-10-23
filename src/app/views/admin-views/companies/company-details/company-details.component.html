@@ -15,10 +15,47 @@
       <div class="col-md-6">
         <div class="h-px-70">
           <mat-form-field class="w-p-100">
+            <input matInput placeholder="Company ID" required formControlName="companyId">
+          </mat-form-field>
+          <div [hidden]="!isValidField('companyId')">
+            <p class="error m-b-0">{{getErrorMessage(companyForm, validationMessages, 'companyId')}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="h-px-70">
+          <mat-form-field class="w-p-100">
             <input matInput placeholder="Admin Name / Representative Name" required formControlName="companyAdminName">
           </mat-form-field>
           <div [hidden]="!isValidField('companyAdminName')">
             <p class="error m-b-0">{{getErrorMessage(companyForm, validationMessages, 'companyAdminName')}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="h-px-70">
+          <mat-form-field class="w-p-100">
+            <input matInput placeholder="Employee ID" required formControlName="employeeId">
+          </mat-form-field>
+          <div [hidden]="!isValidField('employeeId')">
+            <p class="error m-b-0">{{getErrorMessage(companyForm, validationMessages, 'employeeId')}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="h-px-70">
+          <mat-form-field class="w-p-100">
+            <mat-label>Employee Designation</mat-label>
+            <mat-select required formControlName='employeeDesignation'>
+              <ng-container *ngFor="let employeeDesignation of employeeDesignationConst">
+                <mat-option [value]="employeeDesignation.id">
+                  <p>{{employeeDesignation.label}}</p>
+                </mat-option>
+              </ng-container>
+            </mat-select>
+          </mat-form-field>
+          <div [hidden]="!isValidField('employeeDesignation')">
+            <p class="error m-b-0">{{getErrorMessage(companyForm, validationMessages, 'employeeDesignation')}}</p>
           </div>
         </div>
       </div>
@@ -39,6 +76,36 @@
           </mat-form-field>
           <div [hidden]="!isValidField('companyMobileNumber')">
             <p class="error m-b-0">{{getErrorMessage(companyForm, validationMessages, 'companyMobileNumber')}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="h-px-70">
+          <mat-form-field class="w-p-100">
+            <mat-label>Status</mat-label>
+            <mat-select required formControlName='status'>
+              <ng-container *ngFor="let status of statusConst">
+                <mat-option [value]="status.id">
+                  <p>{{status.label}}</p>
+                </mat-option>
+              </ng-container>
+            </mat-select>
+          </mat-form-field>
+          <div [hidden]="!isValidField('status')">
+            <p class="error m-b-0">{{getErrorMessage(companyForm, validationMessages, 'status')}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="h-px-70">
+          <mat-form-field class="w-p-100">
+            <input matInput [matDatepicker]="picker" placeholder="Start Date Of Contract" required
+              formControlName="startDateOfContract">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+          </mat-form-field>
+          <div [hidden]="!isValidField('startDateOfContract')">
+            <p class="error m-b-0">{{getErrorMessage(companyForm, validationMessages, 'startDateOfContract')}}</p>
           </div>
         </div>
       </div>
