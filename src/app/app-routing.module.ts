@@ -1,3 +1,5 @@
+import { RegistrationComponent } from './views/auth-views/registration/registration.component';
+import { Registration } from './views/auth-views/registration/registration.model';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -10,6 +12,7 @@ import { CanActivateChildService } from './shared/services/guard-services/can-ac
 import { AuthLayoutComponent } from './shared/components/layouts/auth-layout/auth-layout.component';
 import { AdminLayoutComponent } from './shared/components/layouts/admin-layout/admin-layout.component';
 import { CustomPreloaderService } from './shared/services/common/preloaders/custom-preloader.service';
+import { AppComponent } from './app.component';
 
 const routes: Routes = [
   {
@@ -36,12 +39,22 @@ const routes: Routes = [
       }
     ]
   },
+  {
+    path: '',
+    component: AppComponent,
+    children: [
+      {
+        path: 'svsudowindo',
+        loadChildren: () => import('./views/auth-views/registration/registration.module').then(m => m.RegistrationModule)
+      }
+    ]
+  },
   // add the paths which can be used post login
   {
     path: '',
     component: AdminLayoutComponent,
     canActivate: [CanActivateService],
-    canActivateChild: [ CanActivateChildService ], // Use when we want to make a disission to load sub modules or not
+    canActivateChild: [CanActivateChildService], // Use when we want to make a disission to load sub modules or not
     children: [
       {
         path: 'dashboard',
@@ -49,16 +62,16 @@ const routes: Routes = [
         canLoad: [CanLoadService] // Use when we want to make a disission to load sub modules or not
       },
       {
-      path: 'profile',
-      loadChildren: () => import('./views/admin-views/profile/profile.module').then(m => m.ProfileModule),
+        path: 'profile',
+        loadChildren: () => import('./views/admin-views/profile/profile.module').then(m => m.ProfileModule),
       },
       {
         path: 'companies',
         loadChildren: () => import('./views/admin-views/companies/companies.module').then(m => m.CompaniesModule),
       },
       {
-      path: 'employees',
-      loadChildren: () => import('./views/admin-views/employees/employees.module').then(m => m.EmployeesModule),
+        path: 'employees',
+        loadChildren: () => import('./views/admin-views/employees/employees.module').then(m => m.EmployeesModule),
       }
     ]
   },
