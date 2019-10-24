@@ -1,8 +1,7 @@
 var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
 
 var companySchema = mongoose.Schema({
-  companyName : {
+  companyName: {
     type: String,
     required: true
   },
@@ -16,7 +15,7 @@ var companySchema = mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now()
+    default: (new Date()).getMilliseconds()
   },
   updatedBy: {
     type: String,
@@ -24,7 +23,23 @@ var companySchema = mongoose.Schema({
   },
   updatedAt: {
     type: Date,
-    default: Date.now()
+    default: (new Date()).getMilliseconds()
+  },
+  contractStartDate: {
+    type: Date,
+    required: true
+  },
+  contractEndDate: {
+    type: Date,
+    required: true
+  },
+  status: {
+    type: Number,
+    required: true
+  },
+  mobileNumber: {
+    type: Number,
+    required: true
   }
 }, { strict: false })
 

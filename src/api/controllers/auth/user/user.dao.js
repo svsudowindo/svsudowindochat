@@ -3,7 +3,25 @@ var utils = require('../../../common/services/utils')
 
 exports.createUser = (req, res, next) => {
   let payload = req.body;
-  User.find({ $or:[{ companyID: payload.companyID, email: payload.email }, {companyID: payload.companyID, email: payload.id}]}, (err, userslist) => {
+  if (payload.role === 'SUPER_ADMIN') {
+    console.log()
+    pushUserToDB(req, res, next);
+  } else {
+    User.find({ $or: [{ _id: req.params['id'], companyID: payload.companyID, role: 'ADMIN' }, { _id: req.params['id'], role: 'SUPER_ADMIN' }] }, (err, adminList) => {
+      if (err) {
+        return res.send('Unauthorized user to create err');
+      }
+      if (adminList.length <= 0) {
+        return res.send('Unauthorized user to create');
+      }
+      pushUserToDB(req, res, next);
+    })
+  }
+}
+
+pushUserToDB = (req, res, next) => {
+  let payload = req.body;
+  User.find({ $or: [{ companyID: payload.companyID, email: payload.email }, { companyID: payload.companyID, id: payload.id }] }, (err, userslist) => {
     if (err) {
       console.log('fetch users error');
       return;
@@ -21,7 +39,8 @@ exports.createUser = (req, res, next) => {
     user['password'] = utils.generatePassword(8);
     user['id'] = payload.id;
     user['companyID'] = payload.companyID;
-    console.log(user);
+    user['dateOfJoining'] = payload.dateOfJoining;
+    user['status'] = payload.status;
     user.save((err, savedUser) => {
       if (err) {
         console.log('user creation failed', err);

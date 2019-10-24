@@ -34,11 +34,19 @@ var UserSchema = mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now()
+    default: (new Date()).getMilliseconds()
   },
   updatedAt: {
     type: Date,
-    default: Date.now()
+    default: (new Date()).getMilliseconds()
+  },
+  dateOfJoining: {
+    type: Date,
+    required: true
+  },
+  status: {
+    type: Number,
+    required: true
   }
 })
 

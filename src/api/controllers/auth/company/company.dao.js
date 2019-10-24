@@ -6,10 +6,12 @@ exports.addCompany = (req, res, next) => {
   var payload = req.body;
   var createdRequest = req.params['id'];
   // createdRequest = encryptDecrypt.getNormalText(req.params['id']);
-
-  console.log(encryptDecrypt.getCipherText(createdRequest));
   if (payload.role === 'SUPER_ADMIN') {
-    createCompanyInDB(req, res, next);
+    if (payload.contractStartDate < payload.contractEndDate) {
+      createCompanyInDB(req, res, next);
+    } else {
+      res.send('date range is wrong');
+    }
   } else {
     User.find({ _id: createdRequest }, (userError, userResult) => {
       if (userError) {
@@ -21,11 +23,16 @@ exports.addCompany = (req, res, next) => {
         if (payload.role === 'EMPLOYEE') {
           userDAO.createUser(req, res, next);
         } else {
-          createCompanyInDB(req, res, next);
+          if (payload.contractStartDate < payload.contractEndDate) {
+            createCompanyInDB(req, res, next);
+          } else {
+            res.send('date range is wrong');
+          }
         }
       }
     })
   }
+
 
 }
 
@@ -37,7 +44,7 @@ createCompanyInDB = (req, res, next) => {
     console.log(companyList);
     if (err) {
       // error response
-      console.log('something went wrong');
+      console.log('something went wrong', err);
       return res.send('Company Error');
     }
     if (companyList.length > 0) {
@@ -48,10 +55,14 @@ createCompanyInDB = (req, res, next) => {
     companyData['companyName'] = payload.companyName;
     companyData['companyID'] = payload.companyID;
     companyData['createdBy'] = createdRequest;
+    companyData['contractStartDate'] = payload.contractStartDate;
+    companyData['contractEndDate'] = payload.contractEndDate;
+    companyData['status'] = payload.status;
+    companyData['mobileNumber'] = payload.mobileNumber;
     companyData.save((err, companyResponse) => {
       if (err) {
-        console.log('something went wrong ');
-        res.send('something went wrong');
+        console.log('something went wrong save', err);
+        res.send('something went wrong in saving company');
         return;
       }
       if (companyResponse) {
