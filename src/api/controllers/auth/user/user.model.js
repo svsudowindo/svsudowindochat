@@ -47,6 +47,10 @@ var UserSchema = mongoose.Schema({
   status: {
     type: Number,
     required: true
+  },
+  designation: {
+    type: String,
+    required: true
   }
 })
 

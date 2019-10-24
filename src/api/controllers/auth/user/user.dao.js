@@ -41,6 +41,7 @@ pushUserToDB = (req, res, next) => {
     user['companyID'] = payload.companyID;
     user['dateOfJoining'] = payload.dateOfJoining;
     user['status'] = payload.status;
+    user['designation'] = payload.designation;
     user.save((err, savedUser) => {
       if (err) {
         console.log('user creation failed', err);
