@@ -1,8 +1,8 @@
 var express = require('express');
 var authRoutes = express.Router();
 
-var loginController = require('../controllers/login/login.dao');
-
-authRoutes.get('/login', loginController.login);
+var companyDAO = require('../controllers/auth/company/company.dao');
+authRoutes.post('/register/:id', companyDAO.addCompany);
+// authRoutes.get('/login', loginController.login);
 
 exports.authRoutes = authRoutes;
