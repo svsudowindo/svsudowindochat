@@ -1,6 +1,7 @@
 var Company = require('./company.model');
 var User = require('../user/user.model');
 var userDAO = require('../user/user.dao');
+var Utils = require('../../../common/services/utils');
 var encryptDecrypt = require('../../../common/services/encrypt-decrypt');
 exports.addCompany = (req, res, next) => {
   var payload = req.body;
@@ -10,12 +11,12 @@ exports.addCompany = (req, res, next) => {
     if (payload.contractStartDate < payload.contractEndDate) {
       createCompanyInDB(req, res, next);
     } else {
-      res.send('date range is wrong');
+      return res.send(Utils.sendResponse(500, null, ['Contract From date must be less than contract To Date.'], 'Contract From date must be less than contract To Date.'));
     }
   } else {
     User.find({ _id: createdRequest }, (userError, userResult) => {
       if (userError) {
-        return res.send('Unable to fetch users');
+        return res.send(Utils.sendResponse(500, null, ['Unable to fetch Users. Please try again...'], 'Unable to fetch Users. Please try again...'));
       }
       if (userResult.length <= 0) {
         return res.send('No User exist');
@@ -26,7 +27,7 @@ exports.addCompany = (req, res, next) => {
           if (payload.contractStartDate < payload.contractEndDate) {
             createCompanyInDB(req, res, next);
           } else {
-            res.send('date range is wrong');
+            return res.send(Utils.sendResponse(500, null, ['Contract From date must be less than contract To Date.'], 'Contract From date must be less than contract To Date.'));
           }
         }
       }
@@ -41,14 +42,11 @@ createCompanyInDB = (req, res, next) => {
   var payload = req.body;
   var createdRequest = req.params['id'];
   Company.find({ companyName: payload.companyName, companyID: payload.companyID }, (err, companyList) => {
-    console.log(companyList);
     if (err) {
       // error response
-      console.log('something went wrong', err);
       return res.send('Company Error');
     }
     if (companyList.length > 0) {
-      console.log('length is greater');
       return res.send('user already exist');;
     }
     var companyData = new Company();

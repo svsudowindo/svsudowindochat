@@ -1,17 +1,18 @@
 var User = require('./user.model');
-var utils = require('../../../common/services/utils')
+var Utils = require('../../../common/services/utils')
 
 exports.createUser = (req, res, next) => {
   let payload = req.body;
   if (payload.role === 'SUPER_ADMIN') {
-    console.log()
     pushUserToDB(req, res, next);
   } else {
     User.find({ $or: [{ _id: req.params['id'], companyID: payload.companyID, role: 'ADMIN' }, { _id: req.params['id'], role: 'SUPER_ADMIN' }] }, (err, adminList) => {
       if (err) {
-        return res.send('Unauthorized user to create err');
+        return res.send(Utils.sendResponse(500, null, ['Unable to fetch Users. Please try again...'], 'Unable to fetch Users. Please try again...'));
       }
       if (adminList.length <= 0) {
+        return res.send(Utils.sendResponse(500, null, ['Unauthorized User'], 'Unauthorized User'));
+
         return res.send('Unauthorized user to create');
       }
       pushUserToDB(req, res, next);
