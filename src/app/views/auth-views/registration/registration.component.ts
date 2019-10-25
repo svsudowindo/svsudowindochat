@@ -13,10 +13,9 @@ import { VALIDATION_PATTERNS } from '../../../shared/constants/validation-patter
 export class RegistrationComponent extends BaseClass implements OnInit {
    employeeDesignationConst = EMPLOYEEDESIGNATION;
    statusConst = STATUS;
-
    breadCrumbs: BreadCrumbModel[] = [
     {
-      label: 'Registration`Details',
+      label: 'Registration Details',
     }
   ];
    superAdminForm: FormGroup;
@@ -47,8 +46,11 @@ export class RegistrationComponent extends BaseClass implements OnInit {
      status: [
       {type: 'required', message: 'Status required'}
     ],
-    startDateOfContract:[
-      {type: 'required', message: 'Start Date required'}
+    contractStartDate: [
+      {type: 'required', message: 'Contract Start Date required'}
+    ],
+    contractEndDate: [
+      {type: 'required', message: 'Contract End Date required'}
     ]
    };
    constructor(
@@ -57,11 +59,11 @@ export class RegistrationComponent extends BaseClass implements OnInit {
    ) {
      super(injector);
    }
- 
+
    ngOnInit() {
      this.initsuperAdminForm();
    }
- 
+
    initsuperAdminForm() {
      this.superAdminForm = this.formBuilder.group({
        companyName: ['', Validators.compose([Validators.required])],
@@ -70,12 +72,13 @@ export class RegistrationComponent extends BaseClass implements OnInit {
        employeeId: ['', Validators.compose([Validators.required])],
        status: ['', Validators.compose([Validators.required])],
        employeeDesignation: ['', Validators.compose([Validators.required])],
-       startDateOfContract: ['', Validators.compose([Validators.required])],
+       contractStartDate: ['', Validators.compose([Validators.required])],
+       contractEndDate: ['', Validators.compose([Validators.required])],
        companyEmail: ['', Validators.compose([Validators.required, Validators.pattern(VALIDATION_PATTERNS.EMAIL)])],
        companyMobileNumber: ['', Validators.compose([Validators.required, Validators.pattern(VALIDATION_PATTERNS.PHONE)])]
      });
    }
- 
+
    // field validation
    isValidField(fieldName) {
      if (this.superAdminForm.get(fieldName).invalid && (this.superAdminForm.get(fieldName).touched || this.superAdminForm.get(fieldName).dirty)) {
