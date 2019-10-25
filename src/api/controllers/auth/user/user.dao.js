@@ -1,6 +1,7 @@
 var User = require('./user.model');
 var Utils = require('../../../common/services/utils')
 var emailService = require('../../../common/email.config/email.config');
+
 exports.createUser = (req, res, next) => {
   let payload = req.body;
   if (payload.role === 'SUPER_ADMIN') {
@@ -53,5 +54,17 @@ pushUserToDB = (req, res, next) => {
         return res.send(Utils.sendResponse(200, user, [], 'User Created Successfully'));
       }
     })
+  })
+}
+
+exports.updateUser = (req, res, next, upadateUserObject) => {
+  User.updateOne({ _id: upadateUserObject._id }, upadateUserObject, (updateUserError, updateUserResult) => {
+    if (updateUserError) {
+      return res.send(Utils.sendResponse(500, null, ['Something went wrong. Please try to update again'], 'Something went wrong. Please try to update again'));
+    }
+    if (updateUserResult['ok'] !== 1) {
+      return res.send(Utils.sendResponse(500, null, ['Something went wrong. Please try to update again'], 'Something went wrong. Please try to update again'));
+    }
+    return res.send(Utils.sendResponse(200, 'User updated successfully', [], 'User Updated Successfully'));
   })
 }
