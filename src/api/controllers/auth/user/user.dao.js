@@ -68,3 +68,29 @@ exports.updateUser = (req, res, next, upadateUserObject) => {
     return res.send(Utils.sendResponse(200, 'User updated successfully', [], 'User Updated Successfully'));
   })
 }
+
+exports.getAllUsers = (req, res, next) => {
+  let payload = req.body;
+  User.find({ createdBy: req.params.id }, (userError, userResult) => {
+    if (userError) {
+      return res.send(Utils.sendResponse(500, null, ['Unable to fetch employees list'], 'Unable to fetch employees list'));
+    }
+    return res.send(Utils.sendResponse(200, userResult, [], 'Fetched successfully'));
+  })
+}
+
+exports.resetPassword = (req, res, next) => {
+  let payload = req.body;
+  User.find({ _id: req.params.id, password: payload.password }, (userError, userResult) => {
+    if (userError) {
+      return res.send(Utils.sendResponse(500, null, ['Unable to fetch user. Please try again'], 'Unable to fetch user. Please try again'));
+    }
+    if (userResult.length <= 0) {
+      return res.send(Utils.sendResponse(500, null, ['No User exists'], 'No User exists'));
+    }
+    var document = Object.assign({}, userResult[0]._doc);
+    document.password = payload.newPassword;
+    console.log(document);
+    this.updateUser(req, res, next, document);
+  });
+}
