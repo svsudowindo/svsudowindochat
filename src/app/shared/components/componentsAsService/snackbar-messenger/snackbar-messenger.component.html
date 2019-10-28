@@ -1,0 +1,13 @@
+<div class="main">
+  <div class="snackbar">
+    <div class="success-header" *ngIf="!data.isError">
+      SUCCESS
+    </div>
+    <div class="error-header" *ngIf="!data.isError">
+      ERROR
+    </div>
+    <div class="message">
+      <p>{{data.message}}</p>
+    </div>
+  </div>
+</div>

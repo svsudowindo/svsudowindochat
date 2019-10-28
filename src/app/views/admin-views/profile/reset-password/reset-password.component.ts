@@ -4,6 +4,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { CustomValidators } from '../../../../shared/services/common/validators';
 import { CommonRequestService } from '../../../../shared/services/common-request.service';
 import { RequestEnums } from '../../../../shared/constants/request-enums';
+import { SnackbarMessengerService } from '../../../../shared/components/componentsAsService/snackbar-messenger/snackbar-messenger.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -30,7 +31,8 @@ export class ResetPasswordComponent extends BaseClass implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     public injector: Injector,
-    private commonRequest: CommonRequestService) {
+    private commonRequest: CommonRequestService,
+    private snackbarService: SnackbarMessengerService) {
     super(injector);
   }
 
@@ -56,8 +58,9 @@ export class ResetPasswordComponent extends BaseClass implements OnInit {
   }
 
   resetPasswordSubmit() {
+    this.snackbarService.openSnackBar('hai sample', false);
+    return;
     delete this.resetpasswordForm.value.confirmPassword;
-    console.log(this.resetpasswordForm.value);
     this.commonRequest.request(RequestEnums.RESET_PASSWORD, this.resetpasswordForm.value).subscribe(res => {
       console.log(res);
     });

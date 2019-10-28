@@ -214,6 +214,10 @@ body,p,.mat-select-value-text {
   }
 }
 
+.mat-snack-bar-container {
+  background: white !important;
+  padding: 0px !important;
+}
 .required::-webkit-input-placeholder:after {
   content: " *";
   color: red;
