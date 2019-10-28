@@ -18,12 +18,12 @@ var mailOptions = {
 };
 
 // to connect to any email and allow them to send mail Less secure app access should be in ON state we can do by following link
-// https://myaccount.google.com/lesssecureapps?pli=1 
+// https://myaccount.google.com/lesssecureapps?pli=1
 
-module.exports = function (toEmail, toPassword = null, subject, textOtherThanCredentials, sendCredentials) {
-    mailOptions['to'] = toEmail;
+exports.sendMail = function (infoObject, subject, textOtherThanCredentials, sendCredentials) {
+    mailOptions['to'] = infoObject.email;
     mailOptions['subject'] = subject;
-    mailOptions['text'] = textOtherThanCredentials + (sendCredentials ? ('\nUsername: ' + toEmail + '\nPassword: ' + toPassword) : '');
+    mailOptions['text'] = textOtherThanCredentials + (sendCredentials ? ('\nUsername: ' + infoObject.email + '\nPassword: ' + infoObject.password + '\nCompanyID: ' + infoObject.companyID) : '' );
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
         } else {

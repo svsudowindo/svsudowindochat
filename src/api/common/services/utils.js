@@ -8,7 +8,7 @@ exports.generatePassword = (length) => {
   return result;
 }
 
-exports.sendResponse = (statusCode, data, errors, message) => {
+exports.sendResponse = (statusCode, data, errors = [], message) => {
   return JSON.stringify({ status: statusCode, data: data, errors: errors, message: message });
 }
 

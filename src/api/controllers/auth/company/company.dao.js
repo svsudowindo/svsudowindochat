@@ -1,6 +1,7 @@
 var Company = require('./company.model');
 var User = require('../user/user.model');
 var userDAO = require('../user/user.dao');
+var Utils = require('../../../common/services/utils');
 var encryptDecrypt = require('../../../common/services/encrypt-decrypt');
 exports.addCompany = (req, res, next) => {
   var payload = req.body;
@@ -10,12 +11,12 @@ exports.addCompany = (req, res, next) => {
     if (payload.contractStartDate < payload.contractEndDate) {
       createCompanyInDB(req, res, next);
     } else {
-      res.send('date range is wrong');
+      return res.send(Utils.sendResponse(500, null, ['Contract From date must be less than contract To Date.'], 'Contract From date must be less than contract To Date.'));
     }
   } else {
     User.find({ _id: createdRequest }, (userError, userResult) => {
       if (userError) {
-        return res.send('Unable to fetch users');
+        return res.send(Utils.sendResponse(500, null, ['Unable to fetch Users. Please try again...'], 'Unable to fetch Users. Please try again...'));
       }
       if (userResult.length <= 0) {
         return res.send('No User exist');
@@ -26,14 +27,12 @@ exports.addCompany = (req, res, next) => {
           if (payload.contractStartDate < payload.contractEndDate) {
             createCompanyInDB(req, res, next);
           } else {
-            res.send('date range is wrong');
+            return res.send(Utils.sendResponse(500, null, ['Contract From date must be less than contract To Date.'], 'Contract From date must be less than contract To Date.'));
           }
         }
       }
     })
   }
-
-
 }
 
 
@@ -41,14 +40,11 @@ createCompanyInDB = (req, res, next) => {
   var payload = req.body;
   var createdRequest = req.params['id'];
   Company.find({ companyName: payload.companyName, companyID: payload.companyID }, (err, companyList) => {
-    console.log(companyList);
     if (err) {
       // error response
-      console.log('something went wrong', err);
       return res.send('Company Error');
     }
     if (companyList.length > 0) {
-      console.log('length is greater');
       return res.send('user already exist');;
     }
     var companyData = new Company();
@@ -76,4 +72,49 @@ createCompanyInDB = (req, res, next) => {
       }
     })
   })
+}
+
+exports.getAllCompanies = (req, res, next) => {
+  const id = req.params['id'];
+  User.find({ _id: id, role: 'SUPER_ADMIN' }, (userError, userResult) => {
+    if (userError) {
+      return Utils.sendResponse(500, null, ['Unable to fetch user data ...'], 'Unable to fetch user data ...');
+    }
+    if (userResult.length <= 0) {
+      return Utils.sendResponse(500, null, ['User does"nt exist'], 'User does"nt exist');
+    }
+    getCompaniesList(req, res, next);
+  })
+}
+
+getCompaniesList = (req, res, next) => {
+  let payload = req.body;
+  Company.find({ createdBy: req.params['id'] }, (companyListError, companyListResult) => {
+    if (companyListError) {
+      return res.send(Utils.sendResponse(500, null, ['Unable to fetch companies.. Please try again', 'Unable to fetch companies.. Please try again']));
+    }
+    return res.send(Utils.sendResponse(200, companyListResult, [], 'Fetched companies list'));
+  })
+}
+
+exports.getCompanyById = (req, res, next) => {
+  let companyID = req.params['companyID'];
+  User.find({ _id: req.params['id'], role: 'SUPER_ADMIN' }, (userError, userResult) => {
+    if (userError) {
+      return res.send(Utils.sendResponse(500, null, ['Unable to fetch User details.. Please try again'], 'Unable to fetch User details.. Please try again'));
+    }
+    if (userResult.length <= 0) {
+      return res.send(Utils.sendResponse(500, null, ['User doesn"t exeed'], 'User doesn"t exeed'));
+    }
+    Company.find({ companyID: companyID }, (companyError, companyList) => {
+      if (companyError) {
+        return res.send(Utils.sendResponse(500, null, ['Unable to fetch company details.. Please try again'], 'Unable to fetch company details.. Please try again'));
+      }
+      if (companyList.length <= 0) {
+        return res.send(Utils.sendResponse(500, null, ['No company found'], 'No company found'));
+      }
+      userDAO.getEmployeeByCompanyID(req, res, next, companyList[0]._doc);
+    })
+  })
+
 }
