@@ -67,15 +67,18 @@ export class LoginComponent extends BaseClass implements OnInit {
   }
   // login service call
   login() {
-    console.log(this.loginForm.value);
+    this.loaderService.showLoading();
+    // return;
     this.commonRequest.request(RequestEnums.LOGIN, this.loginForm.value).subscribe(res => {
-      console.log(res);
       if (res.errors.length > 0) {
+        this.loaderService.hideLoading();
         // error message
         console.log(res.errors[0]);
         return;
       }
       if (res.status === 200 && res.data) {
+        this.loaderService.hideLoading();
+
         this.route.navigate(['dashboard']);
       }
     });
