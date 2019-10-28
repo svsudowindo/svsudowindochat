@@ -13,6 +13,8 @@ import { GlobalVariableEnums } from '../../../shared/constants/gloabal-variable-
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { VALIDATION_PATTERNS } from '../../../shared/constants/validation-patterns';
 import { errors } from '../../../shared/constants/errors';
+import { StorageService } from '../../../shared/services/storage.service';
+import { LocalStorageEnums } from '../../../shared/constants/localstorage-enums';
 
 @Component({
   selector: 'app-login',
@@ -41,7 +43,8 @@ export class LoginComponent extends BaseClass implements OnInit {
     private globalVariables: GlobalVariables,
     private popService: PopupService,
     private loaderService: LoaderService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private storageService: StorageService) {
     super(injector);
   }
 
@@ -78,7 +81,8 @@ export class LoginComponent extends BaseClass implements OnInit {
       }
       if (res.status === 200 && res.data) {
         this.loaderService.hideLoading();
-
+        console.log(res.data);
+        this.storageService.setLocalStorageItem(LocalStorageEnums.TOKEN, res.data._id);
         this.route.navigate(['dashboard']);
       }
     });

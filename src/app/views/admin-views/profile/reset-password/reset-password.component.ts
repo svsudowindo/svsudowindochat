@@ -2,6 +2,8 @@ import { Component, Injector, OnInit, Input } from '@angular/core';
 import { BaseClass } from '../../../../shared/services/common/baseClass';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { CustomValidators } from '../../../../shared/services/common/validators';
+import { CommonRequestService } from '../../../../shared/services/common-request.service';
+import { RequestEnums } from '../../../../shared/constants/request-enums';
 
 @Component({
   selector: 'app-reset-password',
@@ -14,7 +16,7 @@ export class ResetPasswordComponent extends BaseClass implements OnInit {
   @Input() newPassword = '';
 
   validationMessages = {
-    currentPassword: [
+    password: [
       { type: 'required', message: 'Current Password required' }
     ],
     newPassword: [
@@ -27,7 +29,8 @@ export class ResetPasswordComponent extends BaseClass implements OnInit {
   };
   constructor(
     private formBuilder: FormBuilder,
-    public injector: Injector) {
+    public injector: Injector,
+    private commonRequest: CommonRequestService) {
     super(injector);
   }
 
@@ -36,7 +39,7 @@ export class ResetPasswordComponent extends BaseClass implements OnInit {
   }
   initResetPasswordForm() {
     this.resetpasswordForm = this.formBuilder.group({
-      currentPassword: ['', Validators.compose([Validators.required])],
+      password: ['', Validators.compose([Validators.required])],
       newPassword: ['', Validators.compose([Validators.required])],
       confirmPassword: ['', Validators.compose([Validators.required])]
     }, {
@@ -50,5 +53,13 @@ export class ResetPasswordComponent extends BaseClass implements OnInit {
       return true;
     }
     return false;
+  }
+
+  resetPasswordSubmit() {
+    delete this.resetpasswordForm.value.confirmPassword;
+    console.log(this.resetpasswordForm.value);
+    this.commonRequest.request(RequestEnums.RESET_PASSWORD, this.resetpasswordForm.value).subscribe(res => {
+      console.log(res);
+    });
   }
 }
