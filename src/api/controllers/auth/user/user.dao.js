@@ -46,17 +46,22 @@ pushUserToDB = (req, res, next) => {
     user['designation'] = payload.designation;
     emailService.sendMail(emailBody, 'Registration with SVsudowindo', 'You have registered with SVsudowindo chat application', 'Please Use following credentials to login', true);
     user.save((err, savedUser) => {
-      let user = Object.assign({}, savedUser._doc);
-      if (err) {
-        return res.send(Utils.sendResponse(500, null, ['User Creation failed'], 'User Creation failed'));
-      } else {
-        delete user.password;
-        return res.send(Utils.sendResponse(200, user, [], 'User Created Successfully'));
-      }
+      this.sendUserInfo(req, res, next, err, savedUser);
     })
   })
 }
 
+this.sendUserInfo = (req, res, next, userError, userResult) => {
+  if (userError) {
+    return res.send(Utils.sendResponse(500, null, ['Unable to fetch user. Please try again'], 'Unable to fetch user. Please try again'));
+  }
+  if (userResult.length <= 0) {
+    return res.send(Utils.sendResponse(400, null, ['Unauthorized user'], 'Unauthorized user'));
+  }
+  let document = Object.assign({}, userResult[0]._doc);
+  delete document.password;
+  return res.send(Utils.sendResponse(200, document, [], 'Fetched employee'));
+}
 exports.updateUser = (req, res, next, upadateUserObject) => {
   User.updateOne({ _id: upadateUserObject._id }, upadateUserObject, (updateUserError, updateUserResult) => {
     if (updateUserError) {
@@ -90,7 +95,37 @@ exports.resetPassword = (req, res, next) => {
     }
     var document = Object.assign({}, userResult[0]._doc);
     document.password = payload.newPassword;
-    console.log(document);
-    this.updateUser(req, res, next, document);
+    updateUser(req, res, next, document);
   });
+}
+
+exports.getEmployeeByID = (req, res, next) => {
+  console.log(req.params.employeeID);
+  User.find({ _id: req.params.employeeID }, (userError, userResult) => {
+    this.sendUserInfo(req, res, next, userError, userResult);
+  })
+}
+
+
+exports.getEmployeeByCompanyID = (req, res, next, otherObject = null) => {
+  let companyID = req.params['companyID'];
+ User.find({ companyID: companyID, role: 'ADMIN' }, (employeeError, employeeResult) => {
+    if (employeeError) {
+      return res.send(Utils.sendResponse(500, null, ['Unable to fetch user by company id . Please try again'], 'Unable to fetch user by company id . Please try again'));
+    }
+    if (employeeResult.length <= 0) {
+      return res.send(Utils.sendResponse(500, null, ['No employee exist . Please try again'], 'No employee exist. Please try again'));
+    }
+    if (otherObject !== null) {
+      let employee = employeeResult[0]._doc;
+      delete employee.password;
+      let otherDetails = {
+        otherData: otherObject,
+        employeeDetails: employee
+      };
+      return res.send(Utils.sendResponse(500, otherDetails, [], 'Success'));
+    } else {
+      this.sendUserInfo(req, res, next, employeeError, employeeResult)
+    }
+  })
 }
