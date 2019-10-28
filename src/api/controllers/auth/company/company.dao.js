@@ -99,7 +99,6 @@ getCompaniesList = (req, res, next) => {
 
 exports.getCompanyById = (req, res, next) => {
   let companyID = req.params['companyID'];
-  console.log(req.params.id);
   User.find({ _id: req.params['id'], role: 'SUPER_ADMIN' }, (userError, userResult) => {
     if (userError) {
       return res.send(Utils.sendResponse(500, null, ['Unable to fetch User details.. Please try again'], 'Unable to fetch User details.. Please try again'));
