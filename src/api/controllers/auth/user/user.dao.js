@@ -46,7 +46,7 @@ pushUserToDB = (req, res, next) => {
     user['designation'] = payload.designation;
     emailService.sendMail(emailBody, 'Registration with SVsudowindo', 'You have registered with SVsudowindo chat application', 'Please Use following credentials to login', true);
     user.save((err, savedUser) => {
-      this.sendUserInfo(req, res, next, err, savedUser);
+      this.sendUserInfo(req, res, next, err, [savedUser]);
     })
   })
 }
@@ -95,6 +95,8 @@ exports.resetPassword = (req, res, next) => {
     }
     var document = Object.assign({}, userResult[0]._doc);
     document.password = payload.newPassword;
+    document.updatedBy = req.params.id;
+    document.updatedAt = (new Date()).getMilliseconds();
     updateUser(req, res, next, document);
   });
 }
