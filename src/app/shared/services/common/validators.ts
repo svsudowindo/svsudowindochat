@@ -73,7 +73,6 @@ export class CustomValidators {
   static passwordsMatch(cg: FormGroup) {
     const pwd1 = cg.controls.newPassword;
     const pwd2 = cg.controls.confirmPassword;
-    const rv: any = {};
     if ((pwd1.touched || pwd2.touched) && pwd1.value !== pwd2.value) {
       pwd2.setErrors({ 'passwordMismatch': true });
     }
