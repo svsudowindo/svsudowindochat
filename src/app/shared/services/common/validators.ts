@@ -1,4 +1,4 @@
-import { FormControl, AbstractControl } from '@angular/forms';
+import { FormControl, AbstractControl, FormGroup } from '@angular/forms';
 import Utils from './utils';
 
 export class CustomValidators {
@@ -68,5 +68,14 @@ export class CustomValidators {
     const isWhitespace = (control.value || '').trim().length === 0;
     const isValid = !isWhitespace;
     return isValid ? null : { 'whitespace': true };
+  }
+
+  static passwordsMatch(cg: FormGroup) {
+    const pwd1 = cg.controls.newPassword;
+    const pwd2 = cg.controls.confirmPassword;
+    const rv: any = {};
+    if ((pwd1.touched || pwd2.touched) && pwd1.value !== pwd2.value) {
+      pwd2.setErrors({ 'passwordMismatch': true });
+    }
   }
 }
