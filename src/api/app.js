@@ -2,12 +2,16 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var app = express();
+var cors = require('cors');
 
 var authRoutes = require('./routes/auth-routes');
 
 var adminRoutes = require('./routes/admin-routes');
 
 var APP_CONFIG = require('./common/config/app.config');
+
+app.use(cors());
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
