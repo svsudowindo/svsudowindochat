@@ -12,6 +12,7 @@ import { GlobalVariables } from '../../../shared/services/common/globalVariables
 import { GlobalVariableEnums } from '../../../shared/constants/gloabal-variable-enums';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { VALIDATION_PATTERNS } from '../../../shared/constants/validation-patterns';
+import { errors } from '../../../shared/constants/errors';
 
 @Component({
   selector: 'app-login',
@@ -66,6 +67,17 @@ export class LoginComponent extends BaseClass implements OnInit {
   }
   // login service call
   login() {
-    this.route.navigate(['dashboard']);
+    console.log(this.loginForm.value);
+    this.commonRequest.request(RequestEnums.LOGIN, this.loginForm.value).subscribe(res => {
+      console.log(res);
+      if (res.errors.length > 0) {
+        // error message
+        console.log(res.errors[0]);
+        return;
+      }
+      if (res.status === 200 && res.data) {
+        this.route.navigate(['dashboard']);
+      }
+    });
   }
 }

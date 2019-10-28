@@ -14,7 +14,7 @@ export class CommonRequestService {
     request(requestObject, postBody = null): Observable<any> {
       return this.mainRequest(Utils.avoidShallowClone(requestObject), postBody);
     }
-    mainRequest(requestObject, postBody = null): Observable<any> {
+    private mainRequest(requestObject, postBody = null): Observable<any> {
       requestObject.path = this._frameUrlService.getHttpFramedURL(requestObject);
       return this._commonHttpService.sendReciveService(requestObject, postBody);
     }
