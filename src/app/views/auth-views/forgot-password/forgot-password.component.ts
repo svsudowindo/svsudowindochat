@@ -2,6 +2,10 @@ import { Component, OnInit, Injector } from '@angular/core';
 import { BaseClass } from '../../../shared/services/common/baseClass';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { VALIDATION_PATTERNS } from '../../../shared/constants/validation-patterns';
+import { CommonRequestService } from '../../../shared/services/common-request.service';
+import { RequestEnums } from '../../../shared/constants/request-enums';
+import { SnackbarMessengerService } from '../../../shared/components/componentsAsService/snackbar-messenger/snackbar-messenger.service';
+import { LoaderService } from '../../../shared/components/componentsAsService/loader/loader.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -22,7 +26,10 @@ export class ForgotPasswordComponent extends BaseClass implements OnInit {
   };
   constructor(
     public injector: Injector,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private commonRequestService: CommonRequestService,
+    private snackbarMessengerService: SnackbarMessengerService,
+    private loaderService: LoaderService) {
     super(injector);
   }
 
@@ -45,5 +52,26 @@ export class ForgotPasswordComponent extends BaseClass implements OnInit {
       return true;
     }
     return false;
+  }
+
+  requestPassword() {
+    this.loaderService.showLoading();
+    this.commonRequestService.request(RequestEnums.FORGOT_PASSWORD, this.forgetPasswordForm.value).subscribe(res => {
+      if (res.errors.length > 0) {
+        this.loaderService.hideLoading();
+        this.snackbarMessengerService.openSnackBar(res.errors[0], true);
+        return;
+      }
+      if (res.status !== 200 || res.data === undefined || res.data === null) {
+        this.loaderService.hideLoading();
+        this.snackbarMessengerService.openSnackBar(res.message, true);
+        return;
+      }
+      this.snackbarMessengerService.openSnackBar('Request sent successfully', false);
+      this.loaderService.hideLoading();
+    }, (error) => {
+      this.loaderService.hideLoading();
+      this.snackbarMessengerService.openSnackBar(error, true);
+    });
   }
 }

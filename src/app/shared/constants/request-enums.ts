@@ -11,6 +11,12 @@ export const RequestEnums = {
     keys: [],
     values: []
   },
+  FORGOT_PASSWORD: {
+    type: 'POST',
+    path: '/auth/forgot-password',
+    keys: [],
+    values: []
+  },
   RESET_PASSWORD: {
     type: 'POST',
     path: '/admin/token/reset-password',
