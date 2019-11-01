@@ -11,79 +11,84 @@ import { VALIDATION_PATTERNS } from '../../../shared/constants/validation-patter
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent extends BaseClass implements OnInit {
-   employeeDesignationConst = EMPLOYEEDESIGNATION;
-   statusConst = STATUS;
-   breadCrumbs: BreadCrumbModel[] = [
+  employeeDesignationConst = EMPLOYEEDESIGNATION;
+  statusConst = STATUS;
+  breadCrumbs: BreadCrumbModel[] = [
     {
       label: 'Registration Details',
     }
   ];
-   superAdminForm: FormGroup;
-   validationMessages = {
-     companyName: [
-       { type: 'required', message: 'Company Name required' }
-     ],
-     superAdminName: [
-       { type: 'required', message: 'Company Admin Name required' }
-     ],
-     companyId: [
-       { type: 'required', message: 'Company Id required' }
-     ],
-     employeeId: [
-       { type: 'required', message: 'Company Id required' }
-     ],
-     companyEmail: [
-       { type: 'required', message: 'Email required' },
-       { type: 'pattern', message: 'Enter Valid Email' }
-     ],
-     companyMobileNumber: [
-       { type: 'required', message: 'Mobile number required' },
-       { type: 'pattern', message: 'Enter Valid Mobile Number' }
-     ],
-     employeeDesignation: [
-       { type: 'required', message: 'Designation required' }
-     ],
-     status: [
-      {type: 'required', message: 'Status required'}
+  superAdminForm: FormGroup;
+  validationMessages = {
+    companyName: [
+      { type: 'required', message: 'Company Name required' }
+    ],
+    name: [
+      { type: 'required', message: 'Company Admin Name required' }
+    ],
+    companyId: [
+      { type: 'required', message: 'Company Id required' }
+    ],
+    id: [
+      { type: 'required', message: 'Company Id required' }
+    ],
+    email: [
+      { type: 'required', message: 'Email required' },
+      { type: 'pattern', message: 'Enter Valid Email' }
+    ],
+    mobileNumber: [
+      { type: 'required', message: 'Mobile number required' },
+      { type: 'pattern', message: 'Enter Valid Mobile Number' }
+    ],
+    designation: [
+      { type: 'required', message: 'Designation required' }
+    ],
+    status: [
+      { type: 'required', message: 'Status required' }
     ],
     contractStartDate: [
-      {type: 'required', message: 'Contract Start Date required'}
+      { type: 'required', message: 'Contract Start Date required' }
     ],
     contractEndDate: [
-      {type: 'required', message: 'Contract End Date required'}
+      { type: 'required', message: 'Contract End Date required' }
+    ],
+    dateOfJoining: [
+      { type: 'required', message: 'Contract End Date required' }
     ]
-   };
-   constructor(
-     private formBuilder: FormBuilder,
-     public injector: Injector
-   ) {
-     super(injector);
-   }
+  };
+  constructor(
+    private formBuilder: FormBuilder,
+    public injector: Injector
+  ) {
+    super(injector);
+  }
 
-   ngOnInit() {
-     this.initsuperAdminForm();
-   }
+  ngOnInit() {
+    this.initsuperAdminForm();
+  }
 
-   initsuperAdminForm() {
-     this.superAdminForm = this.formBuilder.group({
-       companyName: ['', Validators.compose([Validators.required])],
-       superAdminName: ['', Validators.compose([Validators.required])],
-       companyId: ['', Validators.compose([Validators.required])],
-       employeeId: ['', Validators.compose([Validators.required])],
-       status: ['', Validators.compose([Validators.required])],
-       employeeDesignation: ['', Validators.compose([Validators.required])],
-       contractStartDate: ['', Validators.compose([Validators.required])],
-       contractEndDate: ['', Validators.compose([Validators.required])],
-       companyEmail: ['', Validators.compose([Validators.required, Validators.pattern(VALIDATION_PATTERNS.EMAIL)])],
-       companyMobileNumber: ['', Validators.compose([Validators.required, Validators.pattern(VALIDATION_PATTERNS.PHONE)])]
-     });
-   }
+  initsuperAdminForm() {
+    this.superAdminForm = this.formBuilder.group({
+      companyName: ['', Validators.compose([Validators.required])],
+      name: ['', Validators.compose([Validators.required])],
+      companyId: ['', Validators.compose([Validators.required])],
+      id: ['', Validators.compose([Validators.required])],
+      status: [1, Validators.compose([Validators.required])],
+      designation: ['', Validators.compose([Validators.required])],
+      contractStartDate: ['', Validators.compose([Validators.required])],
+      contractEndDate: ['', Validators.compose([Validators.required])],
+      email: ['', Validators.compose([Validators.required, Validators.pattern(VALIDATION_PATTERNS.EMAIL)])],
+      mobileNumber: ['', Validators.compose([Validators.required, Validators.pattern(VALIDATION_PATTERNS.PHONE)])],
+      role: ['SUPER_ADMIN'],
+      dateOfJoining: ['', Validators.compose([Validators.required])]
+    });
+  }
 
-   // field validation
-   isValidField(fieldName) {
-     if (this.superAdminForm.get(fieldName).invalid && (this.superAdminForm.get(fieldName).touched || this.superAdminForm.get(fieldName).dirty)) {
-       return true;
-     }
-     return false;
-   }
+  // field validation
+  isValidField(fieldName) {
+    if (this.superAdminForm.get(fieldName).invalid && (this.superAdminForm.get(fieldName).touched || this.superAdminForm.get(fieldName).dirty)) {
+      return true;
+    }
+    return false;
+  }
 }

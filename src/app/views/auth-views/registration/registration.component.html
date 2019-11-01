@@ -26,10 +26,35 @@
       <div class="col-md-6">
         <div class="h-px-70">
           <mat-form-field class="w-p-100">
-            <input matInput placeholder="Super Admin Name / Representative Name" required formControlName="superAdminName">
+            <input matInput [matDatepicker]="startDatePicker" placeholder="Contract Start Date" required
+              formControlName="contractStartDate">
+            <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #startDatePicker startView="year"></mat-datepicker>
           </mat-form-field>
-          <div [hidden]="!isValidField('superAdminName')">
-            <p class="error m-b-0">{{getErrorMessage(superAdminForm, validationMessages, 'superAdminName')}}
+          <div [hidden]="!isValidField('contractStartDate')">
+            <p class="error m-b-0">{{getErrorMessage(superAdminForm, validationMessages, 'contractStartDate')}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="h-px-70">
+          <mat-form-field class="w-p-100">
+            <input matInput [matDatepicker]="endDatePicker" placeholder="Contract End Date" required formControlName="contractEndDate">
+            <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #endDatePicker startView="year"></mat-datepicker>
+          </mat-form-field>
+          <div [hidden]="!isValidField('contractEndDate')">
+            <p class="error m-b-0">{{getErrorMessage(superAdminForm, validationMessages, 'contractEndDate')}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="h-px-70">
+          <mat-form-field class="w-p-100">
+            <input matInput placeholder="Super Admin Name / Representative Name" required formControlName="name">
+          </mat-form-field>
+          <div [hidden]="!isValidField('name')">
+            <p class="error m-b-0">{{getErrorMessage(superAdminForm, validationMessages, 'name')}}
             </p>
           </div>
         </div>
@@ -37,38 +62,31 @@
       <div class="col-md-6">
         <div class="h-px-70">
           <mat-form-field class="w-p-100">
-            <input matInput placeholder="Employee ID" required formControlName="employeeId">
+            <input matInput placeholder="Employee ID" required formControlName="id">
           </mat-form-field>
-          <div [hidden]="!isValidField('employeeId')">
-            <p class="error m-b-0">{{getErrorMessage(superAdminForm, validationMessages, 'employeeId')}}</p>
+          <div [hidden]="!isValidField('id')">
+            <p class="error m-b-0">{{getErrorMessage(superAdminForm, validationMessages, 'id')}}</p>
           </div>
         </div>
       </div>
       <div class="col-md-6">
         <div class="h-px-70">
           <mat-form-field class="w-p-100">
-            <mat-label>Employee Designation</mat-label>
-            <mat-select required formControlName='employeeDesignation'>
-              <ng-container *ngFor="let employeeDesignation of employeeDesignationConst">
-                <mat-option [value]="employeeDesignation.id">
-                  {{employeeDesignation.label}}
-                </mat-option>
-              </ng-container>
-            </mat-select>
+            <input matInput placeholder="Employee Designation" required formControlName="designation">
           </mat-form-field>
-          <div [hidden]="!isValidField('employeeDesignation')">
+          <div [hidden]="!isValidField('designation')">
             <p class="error m-b-0">
-              {{getErrorMessage(superAdminForm, validationMessages, 'employeeDesignation')}}</p>
+              {{getErrorMessage(superAdminForm, validationMessages, 'designation')}}</p>
           </div>
         </div>
       </div>
       <div class="col-md-6">
         <div class="h-px-70">
           <mat-form-field class="w-p-100">
-            <input matInput placeholder="Admin Email / Company Email" required formControlName="companyEmail">
+            <input matInput placeholder="Admin Email / Company Email" required formControlName="email">
           </mat-form-field>
-          <div [hidden]="!isValidField('companyEmail')">
-            <p class="error m-b-0">{{getErrorMessage(superAdminForm, validationMessages, 'companyEmail')}}
+          <div [hidden]="!isValidField('email')">
+            <p class="error m-b-0">{{getErrorMessage(superAdminForm, validationMessages, 'email')}}
             </p>
           </div>
         </div>
@@ -76,11 +94,11 @@
       <div class="col-md-6">
         <div class="h-px-70">
           <mat-form-field class="w-p-100">
-            <input matInput placeholder="Office Mobile" required formControlName="companyMobileNumber">
+            <input matInput placeholder="Office Mobile" required formControlName="mobileNumber">
           </mat-form-field>
-          <div [hidden]="!isValidField('companyMobileNumber')">
+          <div [hidden]="!isValidField('mobileNumber')">
             <p class="error m-b-0">
-              {{getErrorMessage(superAdminForm, validationMessages, 'companyMobileNumber')}}</p>
+              {{getErrorMessage(superAdminForm, validationMessages, 'mobileNumber')}}</p>
           </div>
         </div>
       </div>
@@ -101,29 +119,16 @@
           </div>
         </div>
       </div>
-      <div class="col-md-6">
-        <div class="h-px-70">
-          <mat-form-field class="w-p-100">
-            <input matInput [matDatepicker]="startDatePicker" placeholder="Contract Start Date" required
-              formControlName="contractStartDate">
-            <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
-            <mat-datepicker #startDatePicker startView="year"></mat-datepicker>
-          </mat-form-field>
-          <div [hidden]="!isValidField('contractStartDate')">
-            <p class="error m-b-0">{{getErrorMessage(superAdminForm, validationMessages, 'startDateOfContract')}}</p>
-          </div>
-        </div>
-      </div>
 
       <div class="col-md-6">
         <div class="h-px-70">
           <mat-form-field class="w-p-100">
-            <input matInput [matDatepicker]="endDatePicker" placeholder="Contract End Date" required formControlName="contractEndDate">
-            <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
-            <mat-datepicker #endDatePicker startView="year"></mat-datepicker>
+            <input matInput [matDatepicker]="dateOfJoining" placeholder="Contract Start Date" required formControlName="dateOfJoining">
+            <mat-datepicker-toggle matSuffix [for]="dateOfJoining"></mat-datepicker-toggle>
+            <mat-datepicker #dateOfJoining startView="year"></mat-datepicker>
           </mat-form-field>
-          <div [hidden]="!isValidField('contractEndDate')">
-            <p class="error m-b-0">{{getErrorMessage(superAdminForm, validationMessages, 'startDateOfContract')}}</p>
+          <div [hidden]="!isValidField('dateOfJoining')">
+            <p class="error m-b-0">{{getErrorMessage(superAdminForm, validationMessages, 'dateOfJoining')}}</p>
           </div>
         </div>
       </div>

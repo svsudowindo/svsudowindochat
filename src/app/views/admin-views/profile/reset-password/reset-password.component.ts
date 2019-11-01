@@ -59,7 +59,7 @@ export class ResetPasswordComponent extends BaseClass implements OnInit {
 
   resetPasswordSubmit() {
     this.snackbarService.openSnackBar('hai sample', false);
-    return;
+    // return;
     delete this.resetpasswordForm.value.confirmPassword;
     this.commonRequest.request(RequestEnums.RESET_PASSWORD, this.resetpasswordForm.value).subscribe(res => {
       console.log(res);
