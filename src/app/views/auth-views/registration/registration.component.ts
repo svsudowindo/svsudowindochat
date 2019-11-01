@@ -4,6 +4,8 @@ import { EMPLOYEEDESIGNATION, STATUS } from './registration.enum';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { BaseClass } from '../../../shared/services/common/baseClass';
 import { VALIDATION_PATTERNS } from '../../../shared/constants/validation-patterns';
+import { RequestEnums } from '../../../shared/constants/request-enums';
+import { CommonRequestService } from '../../../shared/services/common-request.service';
 
 @Component({
   selector: 'app-registration',
@@ -26,7 +28,7 @@ export class RegistrationComponent extends BaseClass implements OnInit {
     name: [
       { type: 'required', message: 'Company Admin Name required' }
     ],
-    companyId: [
+    companyID: [
       { type: 'required', message: 'Company Id required' }
     ],
     id: [
@@ -53,12 +55,13 @@ export class RegistrationComponent extends BaseClass implements OnInit {
       { type: 'required', message: 'Contract End Date required' }
     ],
     dateOfJoining: [
-      { type: 'required', message: 'Contract End Date required' }
+      { type: 'required', message: 'Employee Date of Joining required' }
     ]
   };
   constructor(
     private formBuilder: FormBuilder,
-    public injector: Injector
+    public injector: Injector,
+    private commonRequestService: CommonRequestService
   ) {
     super(injector);
   }
@@ -71,7 +74,7 @@ export class RegistrationComponent extends BaseClass implements OnInit {
     this.superAdminForm = this.formBuilder.group({
       companyName: ['', Validators.compose([Validators.required])],
       name: ['', Validators.compose([Validators.required])],
-      companyId: ['', Validators.compose([Validators.required])],
+      companyID: ['', Validators.compose([Validators.required])],
       id: ['', Validators.compose([Validators.required])],
       status: [1, Validators.compose([Validators.required])],
       designation: ['', Validators.compose([Validators.required])],
@@ -86,9 +89,24 @@ export class RegistrationComponent extends BaseClass implements OnInit {
 
   // field validation
   isValidField(fieldName) {
+    // tslint:disable-next-line:max-line-length
     if (this.superAdminForm.get(fieldName).invalid && (this.superAdminForm.get(fieldName).touched || this.superAdminForm.get(fieldName).dirty)) {
       return true;
     }
     return false;
+  }
+
+  // registration flow
+  registerSuperAdmin() {
+    const postBody = this.superAdminForm.value;
+    postBody.contractEndDate = this.superAdminForm.get('contractEndDate').value.getTime();
+    postBody.contractStartDate = this.superAdminForm.get('contractStartDate').value.getTime();
+    postBody.dateOfJoining = this.superAdminForm.get('contractEndDate').value.getTime();
+
+    console.log(postBody);
+    RequestEnums.REGISTRATION.values[0] = 'abc123';
+    this.commonRequestService.request(RequestEnums.REGISTRATION, postBody).subscribe(res => {
+      console.log(res);
+    });
   }
 }

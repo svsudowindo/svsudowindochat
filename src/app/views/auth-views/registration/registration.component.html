@@ -16,10 +16,10 @@
       <div class="col-md-6">
         <div class="h-px-70">
           <mat-form-field class="w-p-100">
-            <input matInput placeholder="Company ID" required formControlName="companyId">
+            <input matInput placeholder="Company ID" required formControlName="companyID">
           </mat-form-field>
-          <div [hidden]="!isValidField('companyId')">
-            <p class="error m-b-0">{{getErrorMessage(superAdminForm, validationMessages, 'companyId')}}</p>
+          <div [hidden]="!isValidField('companyID')">
+            <p class="error m-b-0">{{getErrorMessage(superAdminForm, validationMessages, 'companyID')}}</p>
           </div>
         </div>
       </div>
@@ -123,7 +123,8 @@
       <div class="col-md-6">
         <div class="h-px-70">
           <mat-form-field class="w-p-100">
-            <input matInput [matDatepicker]="dateOfJoining" placeholder="Contract Start Date" required formControlName="dateOfJoining">
+            <input matInput [matDatepicker]="dateOfJoining" placeholder="Employee Date of Joining" required
+              formControlName="dateOfJoining">
             <mat-datepicker-toggle matSuffix [for]="dateOfJoining"></mat-datepicker-toggle>
             <mat-datepicker #dateOfJoining startView="year"></mat-datepicker>
           </mat-form-field>
@@ -135,7 +136,7 @@
     </div>
     <div class="d-flex justify-content-end action-buttons">
       <button mat-raised-button class="cancel m-t-10 m-r-10" [routerLink]="['/login']">Cancel</button>
-      <button mat-raised-button class="save m-t-10" [disabled]="superAdminForm.invalid">Registration</button>
+      <button mat-raised-button class="save m-t-10" [disabled]="superAdminForm.invalid" (click)="registerSuperAdmin()">Registration</button>
     </div>
   </form>
 </div>
