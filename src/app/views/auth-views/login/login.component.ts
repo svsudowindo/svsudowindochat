@@ -16,6 +16,7 @@ import { errors } from '../../../shared/constants/errors';
 import { StorageService } from '../../../shared/services/storage.service';
 import { LocalStorageEnums } from '../../../shared/constants/localstorage-enums';
 import { SnackbarMessengerService } from '../../../shared/components/componentsAsService/snackbar-messenger/snackbar-messenger.service';
+import { CanActivateService } from '../../../shared/services/guard-services/can-activate.service';
 
 @Component({
   selector: 'app-login',
@@ -46,7 +47,8 @@ export class LoginComponent extends BaseClass implements OnInit {
     private loaderService: LoaderService,
     private formBuilder: FormBuilder,
     private storageService: StorageService,
-    private snackbarMessengerService: SnackbarMessengerService) {
+    private snackbarMessengerService: SnackbarMessengerService,
+    private canActivateService: CanActivateService) {
     super(injector);
   }
 
