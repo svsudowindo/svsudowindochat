@@ -15,6 +15,7 @@ import { VALIDATION_PATTERNS } from '../../../shared/constants/validation-patter
 import { errors } from '../../../shared/constants/errors';
 import { StorageService } from '../../../shared/services/storage.service';
 import { LocalStorageEnums } from '../../../shared/constants/localstorage-enums';
+import { SnackbarMessengerService } from '../../../shared/components/componentsAsService/snackbar-messenger/snackbar-messenger.service';
 
 @Component({
   selector: 'app-login',
@@ -44,7 +45,8 @@ export class LoginComponent extends BaseClass implements OnInit {
     private popService: PopupService,
     private loaderService: LoaderService,
     private formBuilder: FormBuilder,
-    private storageService: StorageService) {
+    private storageService: StorageService,
+    private snackbarMessengerService: SnackbarMessengerService) {
     super(injector);
   }
 
@@ -75,13 +77,12 @@ export class LoginComponent extends BaseClass implements OnInit {
     this.commonRequest.request(RequestEnums.LOGIN, this.loginForm.value).subscribe(res => {
       if (res.errors.length > 0) {
         this.loaderService.hideLoading();
+        this.snackbarMessengerService.openSnackBar(res.errors[0], true);
         // error message
-        console.log(res.errors[0]);
         return;
       }
       if (res.status === 200 && res.data) {
         this.loaderService.hideLoading();
-        console.log(res.data);
         this.storageService.setLocalStorageItem(LocalStorageEnums.TOKEN, res.data._id);
         this.route.navigate(['dashboard']);
       }
