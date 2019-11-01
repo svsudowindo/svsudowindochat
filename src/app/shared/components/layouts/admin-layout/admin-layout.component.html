@@ -21,9 +21,9 @@
       </span>
       <p class="text-center m-t-n-20">Companies</p>
     </a>
-    <a class="pointer" routerLinkActive="active-link" [routerLink]="['/employees']" (click)="closeNav()">
+    <a class="pointer" routerLinkActive="active-link" [routerLink]="['/employees']" (click)="closeNav()" *ngIf="roleToAccess.isAdmin">
       <span class="material-icons font-size-100">
-          group
+        group
       </span>
       <p class="text-center m-t-n-20">Employees</p>
     </a>

@@ -1,3 +1,5 @@
-export enum GlobalVariableEnums {
-    TOKEN = 'token'
+export enum ROLES {
+  SUPER_ADMIN = 'SUPER_ADMIN',
+  ADMIN = 'ADMIN',
+  EMPLOYEE = 'EMPLOYEE'
 }

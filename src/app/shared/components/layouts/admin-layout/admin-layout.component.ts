@@ -1,5 +1,8 @@
 import { Component, OnInit, AfterViewInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+import { StorageService } from '../../../services/storage.service';
+import { LocalStorageEnums } from '../../../constants/localstorage-enums';
+import { ROLES } from '../../../constants/gloabal-variable-enums';
 
 @Component({
   selector: 'app-admin-layout',
@@ -10,6 +13,11 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
   screenWidth: number;
   isSideNavOpen = false;
   isOutSideClick = false;
+  roleToAccess = {
+    isAdmin: false,
+    isSuperAdmin: false,
+    isEmployee: false
+  };
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.screenWidth = event.target.innerWidth;
@@ -18,9 +26,24 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
     }
   }
   constructor(
-    private router: Router
+    private router: Router,
+    private storageService: StorageService
   ) {
     this.screenWidth = window.innerWidth;
+    const role = storageService.getLocalStorageItem(LocalStorageEnums.ROLE);
+    if (role !== undefined && role !== null) {
+      if (role === ROLES.SUPER_ADMIN) {
+        this.roleToAccess.isSuperAdmin = true;
+        return;
+      }
+      if (role === ROLES.ADMIN) {
+        this.roleToAccess.isAdmin = true;
+        return;
+      }
+      if (role === ROLES.EMPLOYEE) {
+        this.roleToAccess.isEmployee = true;
+      }
+    }
   }
 
   ngOnInit() {
