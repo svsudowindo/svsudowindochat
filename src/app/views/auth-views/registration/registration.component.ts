@@ -6,6 +6,9 @@ import { BaseClass } from '../../../shared/services/common/baseClass';
 import { VALIDATION_PATTERNS } from '../../../shared/constants/validation-patterns';
 import { RequestEnums } from '../../../shared/constants/request-enums';
 import { CommonRequestService } from '../../../shared/services/common-request.service';
+import { SnackbarMessengerService } from '../../../shared/components/componentsAsService/snackbar-messenger/snackbar-messenger.service';
+import { Router } from '@angular/router';
+import { LoaderService } from '../../../shared/components/componentsAsService/loader/loader.service';
 
 @Component({
   selector: 'app-registration',
@@ -61,7 +64,10 @@ export class RegistrationComponent extends BaseClass implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     public injector: Injector,
-    private commonRequestService: CommonRequestService
+    private commonRequestService: CommonRequestService,
+    private snackbarMessengerService: SnackbarMessengerService,
+    private router: Router,
+    private loaderService: LoaderService
   ) {
     super(injector);
   }
@@ -98,15 +104,29 @@ export class RegistrationComponent extends BaseClass implements OnInit {
 
   // registration flow
   registerSuperAdmin() {
+    this.loaderService.showLoading();
     const postBody = this.superAdminForm.value;
     postBody.contractEndDate = this.superAdminForm.get('contractEndDate').value.getTime();
     postBody.contractStartDate = this.superAdminForm.get('contractStartDate').value.getTime();
     postBody.dateOfJoining = this.superAdminForm.get('contractEndDate').value.getTime();
-
-    console.log(postBody);
     RequestEnums.REGISTRATION.values[0] = 'abc123';
     this.commonRequestService.request(RequestEnums.REGISTRATION, postBody).subscribe(res => {
-      console.log(res);
+      if (res.errors.length > 0) {
+        // error
+        this.loaderService.hideLoading();
+        this.snackbarMessengerService.openSnackBar(res.errors[0], true);
+      } else if (res.status !== 200 || res.data === undefined || res.data === null) {
+        this.snackbarMessengerService.openSnackBar('Something went wrong... Please try again.', true);
+        this.loaderService.hideLoading();
+      } else {
+        this.snackbarMessengerService.openSnackBar('SuperAdmin Registered Successfully', false);
+        this.loaderService.hideLoading();
+        this.router.navigate(['login']);
+      }
+    }, (error) => {
+      console.log('err', error);
+      this.snackbarMessengerService.openSnackBar(error, true);
+      this.loaderService.hideLoading();
     });
   }
 }
