@@ -13,6 +13,10 @@ import { GlobalVariableEnums } from '../../../shared/constants/gloabal-variable-
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { VALIDATION_PATTERNS } from '../../../shared/constants/validation-patterns';
 import { errors } from '../../../shared/constants/errors';
+import { StorageService } from '../../../shared/services/storage.service';
+import { LocalStorageEnums } from '../../../shared/constants/localstorage-enums';
+import { SnackbarMessengerService } from '../../../shared/components/componentsAsService/snackbar-messenger/snackbar-messenger.service';
+import { CanActivateService } from '../../../shared/services/guard-services/can-activate.service';
 
 @Component({
   selector: 'app-login',
@@ -41,7 +45,10 @@ export class LoginComponent extends BaseClass implements OnInit {
     private globalVariables: GlobalVariables,
     private popService: PopupService,
     private loaderService: LoaderService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private storageService: StorageService,
+    private snackbarMessengerService: SnackbarMessengerService,
+    private canActivateService: CanActivateService) {
     super(injector);
   }
 
@@ -67,15 +74,19 @@ export class LoginComponent extends BaseClass implements OnInit {
   }
   // login service call
   login() {
-    console.log(this.loginForm.value);
+    this.loaderService.showLoading();
+    // return;
     this.commonRequest.request(RequestEnums.LOGIN, this.loginForm.value).subscribe(res => {
-      console.log(res);
       if (res.errors.length > 0) {
+        this.loaderService.hideLoading();
+        this.snackbarMessengerService.openSnackBar(res.errors[0], true);
         // error message
-        console.log(res.errors[0]);
         return;
       }
       if (res.status === 200 && res.data) {
+        this.loaderService.hideLoading();
+        this.storageService.setLocalStorageItem(LocalStorageEnums.TOKEN, res.data._id);
+        this.storageService.setLocalStorageItem(LocalStorageEnums.ROLE, res.data.role);
         this.route.navigate(['dashboard']);
       }
     });

@@ -13,7 +13,7 @@
 
     <div class="h-px-70">
       <mat-form-field class="w-p-100">
-        <input matInput placeholder="Password" formControlName="password" required>
+        <input matInput type="password" placeholder="Password" formControlName="password" required>
       </mat-form-field>
       <div [hidden]="!isValidField('password')">
         <p class="error m-b-0">{{getErrorMessage(loginForm, validationMessages, 'password')}}</p>
@@ -28,7 +28,7 @@
         <p class="error m-b-0">{{getErrorMessage(loginForm, validationMessages, 'companyID')}}</p>
       </div>
     </div>
-    <button mat-raised-button color="primary" class="btn-block m-t-10" [disabled]="loginForm.invalid">Login</button>
+    <button mat-raised-button type="submit" color="primary" class="btn-block m-t-10" [disabled]="loginForm.invalid">Login</button>
     <div class="d-flex justify-content-end m-t-10">
       <div class="link-color pointer">
         <p class="m-b-0 remove-outline" [routerLink]="['/forgot-password']">Forgot Password?</p>

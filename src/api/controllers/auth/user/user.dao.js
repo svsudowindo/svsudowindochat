@@ -97,7 +97,7 @@ exports.resetPassword = (req, res, next) => {
     document.password = payload.newPassword;
     document.updatedBy = req.params.id;
     document.updatedAt = (new Date()).getMilliseconds();
-    updateUser(req, res, next, document);
+    this.updateUser(req, res, next, document);
   });
 }
 
