@@ -6,6 +6,7 @@ import { CommonRequestService } from '../../../shared/services/common-request.se
 import { RequestEnums } from '../../../shared/constants/request-enums';
 import { SnackbarMessengerService } from '../../../shared/components/componentsAsService/snackbar-messenger/snackbar-messenger.service';
 import { LoaderService } from '../../../shared/components/componentsAsService/loader/loader.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-forgot-password',
@@ -29,7 +30,8 @@ export class ForgotPasswordComponent extends BaseClass implements OnInit {
     private formBuilder: FormBuilder,
     private commonRequestService: CommonRequestService,
     private snackbarMessengerService: SnackbarMessengerService,
-    private loaderService: LoaderService) {
+    private loaderService: LoaderService,
+    private router: Router) {
     super(injector);
   }
 
@@ -68,6 +70,7 @@ export class ForgotPasswordComponent extends BaseClass implements OnInit {
         return;
       }
       this.snackbarMessengerService.openSnackBar('Request sent successfully', false);
+      this.router.navigate(['login']);
       this.loaderService.hideLoading();
     }, (error) => {
       this.loaderService.hideLoading();
