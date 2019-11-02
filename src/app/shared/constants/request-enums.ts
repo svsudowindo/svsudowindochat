@@ -22,6 +22,12 @@ export const RequestEnums = {
     path: '/admin/token/reset-password',
     keys: [],
     values: []
+  },
+  CREATE_COMPANY: {
+    type: 'POST',
+    path: '/auth/token/register',
+    keys: [],
+    values: []
   }
 };
 

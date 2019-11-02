@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { GlobalVariables } from '../common/globalVariables';
-import { GlobalVariableEnums } from '../../constants/gloabal-variable-enums';
 import { environment } from '../../../../environments/environment';
 import { StorageService } from '../storage.service';
 import { LocalStorageEnums } from '../../constants/localstorage-enums';

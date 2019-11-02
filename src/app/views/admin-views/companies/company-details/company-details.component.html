@@ -1,5 +1,5 @@
 <div class="container main">
-  <form [formGroup]="companyForm">
+  <form [formGroup]="companyForm" (ngSubmit)="companyDetails()">
     <app-bread-crumb [breadCrumbs]="breadCrumbs"></app-bread-crumb>
     <div class="row">
       <div class="col-md-6">
@@ -15,67 +15,60 @@
       <div class="col-md-6">
         <div class="h-px-70">
           <mat-form-field class="w-p-100">
-            <input matInput placeholder="Company ID" required formControlName="companyId">
+            <input matInput placeholder="Company ID" required formControlName="companyID">
           </mat-form-field>
-          <div [hidden]="!isValidField('companyId')">
-            <p class="error m-b-0">{{getErrorMessage(companyForm, validationMessages, 'companyId')}}</p>
+          <div [hidden]="!isValidField('companyID')">
+            <p class="error m-b-0">{{getErrorMessage(companyForm, validationMessages, 'companyID')}}</p>
           </div>
         </div>
       </div>
       <div class="col-md-6">
         <div class="h-px-70">
           <mat-form-field class="w-p-100">
-            <input matInput placeholder="Admin Name / Representative Name" required formControlName="companyAdminName">
+            <input matInput placeholder="Admin Name / Representative Name" required formControlName="name">
           </mat-form-field>
-          <div [hidden]="!isValidField('companyAdminName')">
-            <p class="error m-b-0">{{getErrorMessage(companyForm, validationMessages, 'companyAdminName')}}</p>
+          <div [hidden]="!isValidField('name')">
+            <p class="error m-b-0">{{getErrorMessage(companyForm, validationMessages, 'name')}}</p>
           </div>
         </div>
       </div>
       <div class="col-md-6">
         <div class="h-px-70">
           <mat-form-field class="w-p-100">
-            <input matInput placeholder="Employee ID" required formControlName="employeeId">
+            <input matInput placeholder="Employee ID" required formControlName="id">
           </mat-form-field>
-          <div [hidden]="!isValidField('employeeId')">
-            <p class="error m-b-0">{{getErrorMessage(companyForm, validationMessages, 'employeeId')}}</p>
+          <div [hidden]="!isValidField('id')">
+            <p class="error m-b-0">{{getErrorMessage(companyForm, validationMessages, 'id')}}</p>
           </div>
         </div>
       </div>
       <div class="col-md-6">
         <div class="h-px-70">
           <mat-form-field class="w-p-100">
-            <mat-label>Employee Designation</mat-label>
-            <mat-select required formControlName='employeeDesignation'>
-              <ng-container *ngFor="let employeeDesignation of employeeDesignationConst">
-                <mat-option [value]="employeeDesignation.id">
-                  <p>{{employeeDesignation.label}}</p>
-                </mat-option>
-              </ng-container>
-            </mat-select>
+            <input matInput placeholder="Employee Designation" required formControlName="designation">
           </mat-form-field>
-          <div [hidden]="!isValidField('employeeDesignation')">
-            <p class="error m-b-0">{{getErrorMessage(companyForm, validationMessages, 'employeeDesignation')}}</p>
+          <div [hidden]="!isValidField('designation')">
+            <p class="error m-b-0">{{getErrorMessage(companyForm, validationMessages, 'designation')}}</p>
           </div>
         </div>
       </div>
       <div class="col-md-6">
         <div class="h-px-70">
           <mat-form-field class="w-p-100">
-            <input matInput placeholder="Admin Email / Company Email" required formControlName="companyEmail">
+            <input matInput placeholder="Admin Email / Company Email" required formControlName="email">
           </mat-form-field>
-          <div [hidden]="!isValidField('companyEmail')">
-            <p class="error m-b-0">{{getErrorMessage(companyForm, validationMessages, 'companyEmail')}}</p>
+          <div [hidden]="!isValidField('email')">
+            <p class="error m-b-0">{{getErrorMessage(companyForm, validationMessages, 'email')}}</p>
           </div>
         </div>
       </div>
       <div class="col-md-6">
         <div class="h-px-70">
           <mat-form-field class="w-p-100">
-            <input matInput placeholder="Office Mobile" required formControlName="companyMobileNumber">
+            <input matInput type="number" placeholder="Office Mobile" required formControlName="mobileNumber">
           </mat-form-field>
-          <div [hidden]="!isValidField('companyMobileNumber')">
-            <p class="error m-b-0">{{getErrorMessage(companyForm, validationMessages, 'companyMobileNumber')}}</p>
+          <div [hidden]="!isValidField('mobileNumber')">
+            <p class="error m-b-0">{{getErrorMessage(companyForm, validationMessages, 'mobileNumber')}}</p>
           </div>
         </div>
       </div>
@@ -99,20 +92,47 @@
       <div class="col-md-6">
         <div class="h-px-70">
           <mat-form-field class="w-p-100">
-            <input matInput [matDatepicker]="picker" placeholder="Start Date Of Contract" required
-              formControlName="startDateOfContract">
+            <input matInput [matDatepicker]="picker" placeholder="Contract Start Date " required formControlName="contractStartDate">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
           </mat-form-field>
-          <div [hidden]="!isValidField('startDateOfContract')">
-            <p class="error m-b-0">{{getErrorMessage(companyForm, validationMessages, 'startDateOfContract')}}</p>
+          <div [hidden]="!isValidField('contractStartDate')">
+            <p class="error m-b-0">{{getErrorMessage(companyForm, validationMessages, 'contractStartDate')}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="h-px-70">
+          <mat-form-field class="w-p-100">
+            <input matInput [matDatepicker]="contractEndDatePiker" placeholder="Contract End Date" required
+              formControlName="contractEndDate">
+            <mat-datepicker-toggle matSuffix [for]="contractEndDatePiker"></mat-datepicker-toggle>
+            <mat-datepicker #contractEndDatePiker startView="year" [startAt]="startDate"></mat-datepicker>
+          </mat-form-field>
+          <div [hidden]="!isValidField('contractEndDate')">
+            <p class="error m-b-0">{{getErrorMessage(companyForm, validationMessages, 'contractEndDate')}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="h-px-70">
+          <mat-form-field class="w-p-100">
+            <input matInput [matDatepicker]="dateOfJoiningPicker" placeholder="Date of Joining" required
+              formControlName="dateOfJoining">
+            <mat-datepicker-toggle matSuffix [for]="dateOfJoiningPicker"></mat-datepicker-toggle>
+            <mat-datepicker #dateOfJoiningPicker startView="year" [startAt]="startDate"></mat-datepicker>
+          </mat-form-field>
+          <div [hidden]="!isValidField('dateOfJoining')">
+            <p class="error m-b-0">{{getErrorMessage(companyForm, validationMessages, 'dateOfJoining')}}</p>
           </div>
         </div>
       </div>
     </div>
     <div class="d-flex justify-content-end action-buttons">
       <button mat-raised-button class="cancel m-t-10 m-r-10" [routerLink]="['/companies']">Cancel</button>
-      <button mat-raised-button class="save m-t-10" [disabled]="companyForm.invalid">Create</button>
+      <button mat-raised-button type="submit" class="save m-t-10" [disabled]="companyForm.invalid">Create</button>
     </div>
   </form>
 </div>
