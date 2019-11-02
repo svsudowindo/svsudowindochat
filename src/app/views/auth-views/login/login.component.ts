@@ -9,7 +9,6 @@ import { POPUP } from '../../../shared/constants/popup-enum';
 import { IDataInfo } from '../../../shared/components/componentsAsService/popup/popup-info.service';
 import { LoaderService } from '../../../shared/components/componentsAsService/loader/loader.service';
 import { GlobalVariables } from '../../../shared/services/common/globalVariables';
-import { GlobalVariableEnums } from '../../../shared/constants/gloabal-variable-enums';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { VALIDATION_PATTERNS } from '../../../shared/constants/validation-patterns';
 import { errors } from '../../../shared/constants/errors';
@@ -42,8 +41,6 @@ export class LoginComponent extends BaseClass implements OnInit {
     public route: Router,
     public injector: Injector,
     private commonRequest: CommonRequestService,
-    private globalVariables: GlobalVariables,
-    private popService: PopupService,
     private loaderService: LoaderService,
     private formBuilder: FormBuilder,
     private storageService: StorageService,

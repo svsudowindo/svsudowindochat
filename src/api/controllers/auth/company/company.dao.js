@@ -39,13 +39,13 @@ exports.addCompany = (req, res, next) => {
 createCompanyInDB = (req, res, next) => {
   var payload = req.body;
   var createdRequest = req.params['id'];
-  Company.find({ companyName: payload.companyName, companyID: payload.companyID }, (err, companyList) => {
+  Company.find({ companyID: payload.companyID }, (err, companyList) => {
     if (err) {
       // error response
-      return res.send('Company Error');
+      return res.send(Utils.sendResponse(500, null, ['Company creation error'], 'Company creation error'));
     }
     if (companyList.length > 0) {
-      return res.send('user already exist');;
+      return res.send(Utils.sendResponse(500, null, ['User already exist'], 'User already exist'));
     }
     var companyData = new Company();
     companyData['companyName'] = payload.companyName;
@@ -57,9 +57,7 @@ createCompanyInDB = (req, res, next) => {
     companyData['mobileNumber'] = payload.mobileNumber;
     companyData.save((err, companyResponse) => {
       if (err) {
-        console.log('something went wrong save', err);
-        res.send('something went wrong in saving company');
-        return;
+        return res.send(Utils.sendResponse(500, null, ['something went wrong in saving company'], 'something went wrong in saving company'));
       }
       if (companyResponse) {
         // return res.send('success');

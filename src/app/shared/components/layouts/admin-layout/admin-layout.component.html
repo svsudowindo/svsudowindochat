@@ -15,7 +15,7 @@
       </span>
       <p class="text-center m-t-n-20">Profile</p>
     </a>
-    <a class="pointer" routerLinkActive="active-link" [routerLink]="['/companies']" (click)="closeNav()">
+    <a class="pointer" routerLinkActive="active-link" [routerLink]="['/companies']" (click)="closeNav()" *ngIf="roleToAccess.isSuperAdmin">
       <span class="material-icons font-size-100">
         format_list_bulleted
       </span>
