@@ -84,6 +84,7 @@ export class LoginComponent extends BaseClass implements OnInit {
         this.loaderService.hideLoading();
         this.storageService.setLocalStorageItem(LocalStorageEnums.TOKEN, res.data._id);
         this.storageService.setLocalStorageItem(LocalStorageEnums.ROLE, res.data.role);
+        this.storageService.setLocalStorageItem(LocalStorageEnums.COMPANY_ID, res.data.companyID);
         this.route.navigate(['dashboard']);
       }
     });
