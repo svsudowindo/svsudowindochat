@@ -13,7 +13,7 @@ export class AccountBoxComponent implements OnInit {
   constructor(
     private router: Router,
     private storageService: StorageService
-    ) { }
+  ) { }
 
   ngOnInit() {
   }
@@ -25,7 +25,7 @@ export class AccountBoxComponent implements OnInit {
 
   goToLogin() {
     this.router.navigate(['login']);
-    this.storageService.deleteLocalStorageItem([LocalStorageEnums.TOKEN]);
+    this.storageService.deleteLocalStorageItem([LocalStorageEnums.TOKEN, LocalStorageEnums.ROLE, LocalStorageEnums.COMPANY_ID]);
     this.isPopOpen = false;
   }
 
