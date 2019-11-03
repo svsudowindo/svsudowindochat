@@ -15,7 +15,7 @@
       <div class="col-md-6">
         <div class="h-px-70">
           <mat-form-field class="w-p-100">
-            <input matInput placeholder="Company ID" required formControlName="companyID">
+            <input matInput placeholder="Company ID" required formControlName="companyID" [readonly]="companyID">
           </mat-form-field>
           <div [hidden]="!isValidField('companyID')">
             <p class="error m-b-0">{{getErrorMessage(companyForm, validationMessages, 'companyID')}}</p>
