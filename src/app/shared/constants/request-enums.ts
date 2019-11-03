@@ -28,6 +28,18 @@ export const RequestEnums = {
     path: '/auth/token/register',
     keys: [],
     values: []
+  },
+  COMPANY_LIST: {
+    type: 'GET',
+    path: '/admin/token/fetch-company-list',
+    keys: [],
+    values: []
+  },
+  GET_COMPANY_BY_ID: {
+    type: 'GET',
+    path: '/admin/token/get-company-details/:companyID',
+    keys: ['companyID'],
+    values: []
   }
 };
 

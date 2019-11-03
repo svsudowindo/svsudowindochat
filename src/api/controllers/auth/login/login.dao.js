@@ -4,7 +4,7 @@ var Utils = require('../../../common/services/utils');
 exports.login = (req, res, next) => {
   var payload = req.body;
   console.log(payload);
-  User.find({ email: payload.email, password: payload.password, companyID: payload.companyID }, (loginErr, loginResult) => {
+  User.find({ email: payload.email, password: payload.password, companyID: payload.companyID, status: 1 }, (loginErr, loginResult) => {
     if (loginErr) {
       return res.send(Utils.sendResponse(500, null, ['Unable to fetch Users. Please try again...'], 'Unable to fetch Users. Please try again...'));
     }
