@@ -125,7 +125,7 @@ exports.getEmployeeByCompanyID = (req, res, next, otherObject = null) => {
         otherData: otherObject,
         employeeDetails: employee
       };
-      return res.send(Utils.sendResponse(500, otherDetails, [], 'Success'));
+      return res.send(Utils.sendResponse(200, otherDetails, [], 'Success'));
     } else {
       this.sendUserInfo(req, res, next, employeeError, employeeResult)
     }

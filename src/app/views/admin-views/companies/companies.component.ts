@@ -5,20 +5,8 @@ import { SearchService } from '../../../shared/services/common/search/search.ser
 import { BreadCrumbModel } from '../../../shared/components/bread-crumb/bread-crumb.model';
 import { CommonRequestService } from '../../../shared/services/common-request.service';
 import { RequestEnums } from '../../../shared/constants/request-enums';
-
-const ELEMENT_DATA = [
-  { companyID: 1, companyName: 'Hydrogen', createdBy: 'sai', updatedBy: 'sai', companyEmail: 'H' },
-  { companyID: 2, companyName: 'abc', createdBy: '123', updatedBy: 'sai', companyEmail: 'H' },
-  { companyID: 1, companyName: 'Hydrogen', createdBy: 'sai', updatedBy: 'sai', companyEmail: 'H' },
-  { companyID: 2, companyName: 'abc', createdBy: '123', updatedBy: 'sai', companyEmail: 'H' },
-  { companyID: 1, companyName: 'Hydrogen', createdBy: 'sai', updatedBy: 'sai', companyEmail: 'H' },
-  { companyID: 2, companyName: 'abc', createdBy: '123', updatedBy: 'sai', companyEmail: 'H' },
-  { companyID: 1, companyName: 'Hydrogen', createdBy: 'sai', updatedBy: 'sai', companyEmail: 'H' },
-  { companyID: 2, companyName: 'abc', createdBy: '123', updatedBy: 'sai', companyEmail: 'H' },
-  { companyID: 1, companyName: 'Hydrogen', createdBy: 'sai', updatedBy: 'sai', companyEmail: 'H' },
-  { companyID: 2, companyName: 'abc', createdBy: '123', updatedBy: 'sai', companyEmail: 'H' }
-
-];
+import { Router } from '@angular/router';
+import { EncryptDectryptService } from '../../../shared/services/common/encrypt-decrypt/encrypt-dectrypt.service';
 @Component({
   selector: 'app-companies',
   templateUrl: './companies.component.html',
@@ -40,7 +28,9 @@ export class CompaniesComponent implements OnInit {
   constructor(
     private sortService: SortService,
     private searchService: SearchService,
-    private commonRequestService: CommonRequestService) {
+    private commonRequestService: CommonRequestService,
+    private router: Router,
+    private encryptDectryptService: EncryptDectryptService) {
   }
 
   ngOnInit() {
@@ -61,7 +51,6 @@ export class CompaniesComponent implements OnInit {
       const listData = this.sortService.getSortedData(this.dataSource, this.list, this.displayedColumns, eve.active, eve.direction);
       this.dataSource = new MatTableDataSource(listData);
       this.dataSource.paginator = this.paginator;
-
     }
   }
 
@@ -70,5 +59,9 @@ export class CompaniesComponent implements OnInit {
     this.dataSource = new MatTableDataSource(filteredArray);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  navigateToCompanyEdit(row) {
+    this.router.navigate(['companies', 'details', this.encryptDectryptService.getCipherText(row.companyID)]);
   }
 }

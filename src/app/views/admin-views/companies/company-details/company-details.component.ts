@@ -8,8 +8,12 @@ import { CommonRequestService } from '../../../../shared/services/common-request
 import { RequestEnums } from '../../../../shared/constants/request-enums';
 import { errors } from '../../../../shared/constants/errors';
 import { SnackbarMessengerService } from '../../../../shared/components/componentsAsService/snackbar-messenger/snackbar-messenger.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { LoaderService } from '../../../../shared/components/componentsAsService/loader/loader.service';
+import { EncryptDectryptService } from '../../../../shared/services/common/encrypt-decrypt/encrypt-dectrypt.service';
+import Utils from '../../../../shared/services/common/utils';
+import { StorageService } from '../../../../shared/services/storage.service';
+import { LocalStorageEnums } from '../../../../shared/constants/localstorage-enums';
 
 @Component({
   selector: 'app-company-details',
@@ -66,19 +70,30 @@ export class CompanyDetailsComponent extends BaseClass implements OnInit {
       { type: 'required', message: 'Contract End Date required' }
     ]
   };
+  companyID: any;
   constructor(
     private formBuilder: FormBuilder,
     public injector: Injector,
     private commonRequestService: CommonRequestService,
     private snackbarMessengerService: SnackbarMessengerService,
     private router: Router,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private activatedRoute: ActivatedRoute,
+    private encryptDectryptService: EncryptDectryptService
   ) {
     super(injector);
+    this.activatedRoute.paramMap.subscribe(res => {
+      if (res.params.id) {
+        this.companyID = this.encryptDectryptService.getNormalText(res.params.id);
+      }
+    });
   }
 
   ngOnInit() {
     this.initCompanyForm();
+    if (Utils.isValidInput(this.companyID)) {
+      this.setCompanyForm();
+    }
   }
 
   initCompanyForm() {
@@ -95,6 +110,22 @@ export class CompanyDetailsComponent extends BaseClass implements OnInit {
       email: ['', Validators.compose([Validators.required, Validators.pattern(VALIDATION_PATTERNS.EMAIL)])],
       mobileNumber: [, Validators.compose([Validators.required, Validators.pattern(VALIDATION_PATTERNS.PHONE)])],
       role: ['ADMIN']
+    });
+  }
+
+  setCompanyForm() {
+    RequestEnums.GET_COMPANY_BY_ID.values[0] = this.companyID;
+    this.commonRequestService.request(RequestEnums.GET_COMPANY_BY_ID).subscribe(res => {
+      if (res.errors.length > 0) {
+        this.snackbarMessengerService.openSnackBar(res.errors[0], true);
+        return;
+      }
+      if (res.status !== 200 || res.data === undefined || res.data === null) {
+        this.snackbarMessengerService.openSnackBar(res.message, true);
+        return;
+      }
+      const payload = Object.assign({}, res.data.employeeDetails, res.data.otherData);
+      this.companyForm.patchValue(payload);
     });
   }
 
