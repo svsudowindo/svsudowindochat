@@ -9,6 +9,7 @@ import { LoaderModule } from '../../components/componentsAsService/loader/loader
 import { UnderscoreRemovalPipe } from '../../directives/underscore-removal.pipe';
 import { NumberOnlyDirective } from '../../directives/number-only.directive';
 import { AuthHeaderComponent } from '../../components/auth-header/auth-header.component';
+import { SnackbarMessengerModule } from '../../components/componentsAsService/snackbar-messenger/snackbar-messenger.module';
 
 @NgModule({
     declarations: [
@@ -21,7 +22,8 @@ import { AuthHeaderComponent } from '../../components/auth-header/auth-header.co
     imports: [
         CommonModule,
         PopupModule,
-        LoaderModule
+        LoaderModule,
+        SnackbarMessengerModule
     ],
     exports: [
         TrimOnBlurDirective,

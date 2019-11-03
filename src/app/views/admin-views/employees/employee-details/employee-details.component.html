@@ -1,1 +1,68 @@
-<p>employee-details works!</p>
+<div class="container main">
+  <form [formGroup]="employeeForm">
+    <app-bread-crumb [breadCrumbs]="breadCrumbs"></app-bread-crumb>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="h-px-70">
+          <mat-form-field class="w-p-100">
+            <input matInput placeholder="Employee Name" required formControlName="employeeName">
+          </mat-form-field>
+          <div [hidden]="!isValidField('employeeName')">
+            <p class="error m-b-0">{{getErrorMessage(employeeForm, validationMessages, 'employeeName')}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="h-px-70">
+          <mat-form-field class="w-p-100">
+            <input matInput placeholder="Employee ID" required formControlName="employeeId">
+          </mat-form-field>
+          <div [hidden]="!isValidField('employeeId')">
+            <p class="error m-b-0">{{getErrorMessage(employeeForm, validationMessages, 'employeeId')}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="h-px-70">
+          <mat-form-field class="w-p-100">
+            <input matInput placeholder="Employee Email" required formControlName="employeeEmail">
+          </mat-form-field>
+          <div [hidden]="!isValidField('employeeEmail')">
+            <p class="error m-b-0">{{getErrorMessage(employeeForm, validationMessages, 'employeeEmail')}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="h-px-70">
+          <mat-form-field class="w-p-100">
+            <input matInput placeholder="Employee Date Of Joining" required formControlName="employeeDateOfJoining">
+          </mat-form-field>
+          <div [hidden]="!isValidField('employeeDateOfJoining')">
+            <p class="error m-b-0">{{getErrorMessage(employeeForm, validationMessages, 'employeeDateOfJoining')}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+          <div class="h-px-70">
+              <mat-form-field class="w-p-100">
+                  <mat-label>Employee Designation</mat-label>
+                  <mat-select required formControlName='employeeDesignation'>
+                      <ng-container *ngFor="let employeeDesignation of employeeDesignationConst">
+                          <mat-option [value]="employeeDesignation.id">
+                              {{employeeDesignation.label}}
+                          </mat-option>
+                      </ng-container>
+                  </mat-select>
+              </mat-form-field>
+              <div [hidden]="!isValidField('employeeDesignation')">
+                  <p class="error m-b-0">{{getErrorMessage(employeeForm, validationMessages, 'employeeDesignation')}}</p>
+                </div>
+          </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end action-buttons">
+      <button mat-raised-button class="cancel m-t-10 m-r-10" [routerLink]="['/employees']">Cancel</button>
+      <button mat-raised-button class="save m-t-10" [disabled]="employeeForm.invalid">Create</button>
+    </div>
+  </form>
+</div>

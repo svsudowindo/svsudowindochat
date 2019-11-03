@@ -1,0 +1,74 @@
+<div class="container main">
+  <div class="d-flex justify-content-end action-buttons">
+    <button mat-mini-fab class="success" (click)="addNewEmployment()">
+      <i class="material-icons">add_circle_outline</i>
+    </button>
+  </div>
+  <form [formGroup]="employmentForm" class="m-t-10">
+    <div formArrayName="employment">
+      <ng-container *ngFor="let eachForm of employmentForm.get('employment')['controls']; let i=index">
+        <mat-card [formGroupName]="i" class="m-t-20">
+          <div class="d-flex justify-content-between action-buttons">
+            <p class="heading">Employment {{i + 1 }}</p>
+            <button mat-mini-fab class="danger" (click)="deleteemployment(i)">
+              <i class="material-icons">delete_forever</i>
+            </button>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="h-px-70">
+                <mat-form-field class="w-p-100">
+                  <input matInput placeholder="Previous Company Name" formControlName="previousCompanyName">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="h-px-70">
+                <mat-form-field class="w-p-100">
+                  <input matInput placeholder="Previous Company ID" formControlName="previousCompanyID">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="h-px-70">
+                <mat-form-field class="w-p-100">
+                  <input matInput placeholder="Locaion" formControlName="location">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="h-px-70">
+                <mat-form-field class="w-p-100">
+                  <input matInput placeholder="Role" formControlName="role">
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="h-px-70">
+                <mat-form-field class="w-p-100">
+                  <input matInput [matDatepicker]="startDate" placeholder="Start date" formControlName="startDate">
+                  <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                  <mat-datepicker #startDate></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="h-px-70">
+                <mat-form-field class="w-p-100">
+                  <input matInput [matDatepicker]="endDate" placeholder="End date" formControlName="endDate">
+                  <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+                  <mat-datepicker #endDate></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-end action-buttons">
+            <button mat-raised-button class="save">Save</button>
+          </div>
+        </mat-card>
+      </ng-container>
+    </div>
+  </form>
+</div>

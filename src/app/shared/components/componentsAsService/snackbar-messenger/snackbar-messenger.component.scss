@@ -1,0 +1,26 @@
+.snackbar {
+  @mixin header {
+    padding: 5px;
+    padding-left: 15px;
+    color: white;
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  .success-header {
+    @include header;
+    background-color: green;
+  }
+  .error-header {
+    @include header;
+    background-color: #7d0808;
+
+  }
+  .message {
+    font-size: 16px;
+    padding: 5px;
+    padding-left: 20px;
+    font-weight: 500;
+    color: black;
+  }
+}

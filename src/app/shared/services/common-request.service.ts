@@ -9,13 +9,14 @@ import Utils from './common/utils';
 })
 export class CommonRequestService {
 
-  constructor(private _frameUrlService: FrameURLService,
-    private _commonHttpService: CommonHttpService) { }
-    request(requestObject, postBody = null): Observable<any> {
-      return this.mainRequest(Utils.avoidShallowClone(requestObject), postBody);
-    }
-    mainRequest(requestObject, postBody = null): Observable<any> {
-      requestObject.path = this._frameUrlService.getHttpFramedURL(requestObject);
-      return this._commonHttpService.sendReciveService(requestObject, postBody);
-    }
+  constructor(
+    private frameUrlService: FrameURLService,
+    private commonHttpService: CommonHttpService) { }
+  request(requestObject, postBody = null, httpParams = null, customHeaders = null): Observable<any> {
+    return this.mainRequest(Utils.avoidShallowClone(requestObject), postBody, httpParams, customHeaders);
+  }
+  private mainRequest(requestObject, postBody = null, httpParams = null, customHeaders = null): Observable<any> {
+    requestObject.path = this.frameUrlService.getHttpFramedURL(requestObject);
+    return this.commonHttpService.sendReciveService(requestObject, postBody, httpParams, customHeaders);
+  }
 }

@@ -1,4 +1,4 @@
-<div id="sideNavigation" class="sidenav">
+<div id="sideNavigation" class="sidenav" (clickOutside)="outsideClick()">
   <div class="d-flex justify-content-end">
     <a class="closebtn pointer" (click)="closeNav()">&times;</a>
   </div>
@@ -11,22 +11,28 @@
     </a>
     <a class="pointer" routerLinkActive="active-link" [routerLink]="['/profile']" (click)="closeNav()">
       <span class="material-icons font-size-100">
-        account_box
+        person_outline
       </span>
       <p class="text-center m-t-n-20">Profile</p>
     </a>
-    <a class="pointer" routerLinkActive="active-link" [routerLink]="['/companies']" (click)="closeNav()">
+    <a class="pointer" routerLinkActive="active-link" [routerLink]="['/companies']" (click)="closeNav()" *ngIf="roleToAccess.isSuperAdmin">
       <span class="material-icons font-size-100">
         format_list_bulleted
       </span>
       <p class="text-center m-t-n-20">Companies</p>
+    </a>
+    <a class="pointer" routerLinkActive="active-link" [routerLink]="['/employees']" (click)="closeNav()" *ngIf="roleToAccess.isAdmin">
+      <span class="material-icons font-size-100">
+        group
+      </span>
+      <p class="text-center m-t-n-20">Employees</p>
     </a>
   </div>
 </div>
 <div class="d-flex justify-content-between nav-style">
   <div>
     <button mat-button (click)="openNav()" class="remove-outline">
-      <i class="material-icons">list</i>
+      <i class="material-icons font-size-45">view_module</i>
     </button>
     <img src="../../../../../assets/images/logo.jpg" height="50" class="p-t-5 p-b-5" />
   </div>

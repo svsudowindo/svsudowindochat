@@ -1,9 +1,14 @@
-import { Component, OnInit, Injector, ViewChild } from '@angular/core';
-import { FormGroup, Validators, FormGroupDirective, FormBuilder } from '@angular/forms';
+import { BreadCrumbModel } from './../../../shared/components/bread-crumb/bread-crumb.model';
+import { Component, OnInit, Injector } from '@angular/core';
+import { EMPLOYEEDESIGNATION, STATUS } from './registration.enum';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { BaseClass } from '../../../shared/services/common/baseClass';
-import { Registration } from './registration.model';
 import { VALIDATION_PATTERNS } from '../../../shared/constants/validation-patterns';
-import { CustomValidators } from '../../../shared/services/common/validators';
+import { RequestEnums } from '../../../shared/constants/request-enums';
+import { CommonRequestService } from '../../../shared/services/common-request.service';
+import { SnackbarMessengerService } from '../../../shared/components/componentsAsService/snackbar-messenger/snackbar-messenger.service';
+import { Router } from '@angular/router';
+import { LoaderService } from '../../../shared/components/componentsAsService/loader/loader.service';
 
 @Component({
   selector: 'app-registration',
@@ -11,95 +16,117 @@ import { CustomValidators } from '../../../shared/services/common/validators';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent extends BaseClass implements OnInit {
-
-  @ViewChild('registerationNgForm', { static: false }) registerationNgForm: FormGroupDirective; // used only for angular material
-  public registerationForm: FormGroup;
-  public registrationObject = new Registration();
-  public successMessageStatus: string;
-  public errorMessageStatus: string;
-  public genderData = ['Male', 'Female'];
-
-
-  public validation_messages = {
-    'firstname': [
-      { type: 'required', message: 'Please enter firstname' },
-      { type: 'whitespace', message: 'Please enter valid firstname' },
-      { type: 'pattern', message: 'Please enter alphabets only' },
-      { type: 'maxlength', message: 'Firstname can be maximum of 20 characters' },
-      { type: 'minlength', message: 'Firstname should be minimum of 2 characters' }
+  employeeDesignationConst = EMPLOYEEDESIGNATION;
+  statusConst = STATUS;
+  breadCrumbs: BreadCrumbModel[] = [
+    {
+      label: 'Registration Details',
+    }
+  ];
+  superAdminForm: FormGroup;
+  validationMessages = {
+    companyName: [
+      { type: 'required', message: 'Company Name required' }
     ],
-    'email': [
-      { type: 'required', message: 'Please enter email' },
-      { type: 'pattern', message: 'Please enter valid email' }
+    name: [
+      { type: 'required', message: 'Company Admin Name required' }
     ],
-    'lastname': [
-      { type: 'required', message: 'Please enter LastName' },
-      { type: 'whitespace', message: 'Please enter valid lastname' },
-      { type: 'pattern', message: 'Please enter alphabets only' },
-      { type: 'maxlength', message: 'Lastname can be maximum of 20 characters' },
-      { type: 'minlength', message: 'Lastname should be minimum of 3 characters' }
+    companyID: [
+      { type: 'required', message: 'Company Id required' }
     ],
-    'phone': [
-      { type: 'required', message: 'Please enter Phone number' },
-      { type: 'pattern', message: 'Please enter only digits for phone number' },
-      { type: 'maxlength', message: 'Phone number can be maximum of 10 digits' },
-      { type: 'minlength', message: 'Phone number should be minimum of 10 digits' },
-      { type: 'phoneNumber', message: 'Please enter valid mobile number' }
+    id: [
+      { type: 'required', message: 'Company Id required' }
     ],
-    'gender': [
-      { type: 'required', message: 'Please select Gender' }
+    email: [
+      { type: 'required', message: 'Email required' },
+      { type: 'pattern', message: 'Enter Valid Email' }
+    ],
+    mobileNumber: [
+      { type: 'required', message: 'Mobile number required' },
+      { type: 'pattern', message: 'Enter Valid Mobile Number' }
+    ],
+    designation: [
+      { type: 'required', message: 'Designation required' }
+    ],
+    status: [
+      { type: 'required', message: 'Status required' }
+    ],
+    contractStartDate: [
+      { type: 'required', message: 'Contract Start Date required' }
+    ],
+    contractEndDate: [
+      { type: 'required', message: 'Contract End Date required' }
+    ],
+    dateOfJoining: [
+      { type: 'required', message: 'Employee Date of Joining required' }
     ]
   };
-
-  constructor(public injector: Injector,
-    private _formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    public injector: Injector,
+    private commonRequestService: CommonRequestService,
+    private snackbarMessengerService: SnackbarMessengerService,
+    private router: Router,
+    private loaderService: LoaderService
+  ) {
     super(injector);
   }
 
   ngOnInit() {
-    // this.registerationForm = this._formBuilder.
-    this.initializeForm();
-    setTimeout(() => {
-      // this.postShow();
-    }, 5000);
-
+    this.initsuperAdminForm();
   }
 
-  initializeForm() {
-    this.registerationForm = this._formBuilder.group({
-      firstname: ['', Validators.compose([
-        Validators.required, CustomValidators.noWhitespaceValidator, Validators.pattern('^[A-Za-z\' \']*$'),
-        Validators.maxLength(20),
-        Validators.minLength(2)
-      ])],
-      email: ['', Validators.compose([
-        Validators.required,
-        Validators.pattern(VALIDATION_PATTERNS.EMAIL)
-      ])],
-      lastname: ['', Validators.compose([
-        Validators.required, CustomValidators.noWhitespaceValidator, Validators.pattern('^[A-Za-z\' \']*$'),
-        Validators.maxLength(20),
-        Validators.minLength(3)
-      ])],
-      phone: ['', Validators.compose([
-        Validators.minLength(10),
-        Validators.pattern(VALIDATION_PATTERNS.POSITIVE_INTEGER),
-        Validators.maxLength(10),
-        Validators.minLength(10),
-        CustomValidators.phoneNumberValidator
-      ])],
-      gender: ['', Validators.compose([
-        Validators.required
-      ])]
+  initsuperAdminForm() {
+    this.superAdminForm = this.formBuilder.group({
+      companyName: ['', Validators.compose([Validators.required])],
+      name: ['', Validators.compose([Validators.required])],
+      companyID: ['', Validators.compose([Validators.required])],
+      id: ['', Validators.compose([Validators.required])],
+      status: [1, Validators.compose([Validators.required])],
+      designation: ['', Validators.compose([Validators.required])],
+      contractStartDate: ['', Validators.compose([Validators.required])],
+      contractEndDate: ['', Validators.compose([Validators.required])],
+      email: ['', Validators.compose([Validators.required, Validators.pattern(VALIDATION_PATTERNS.EMAIL)])],
+      mobileNumber: ['', Validators.compose([Validators.required, Validators.pattern(VALIDATION_PATTERNS.PHONE)])],
+      role: ['SUPER_ADMIN'],
+      dateOfJoining: ['', Validators.compose([Validators.required])]
     });
   }
 
-
-  onSubmit() {
-    if (this.registerationForm.valid) {
-      console.log(this.registerationForm.value);
-      this.registerationForm.reset();
-      this.registerationNgForm.resetForm(); // used only for angular material
+  // field validation
+  isValidField(fieldName) {
+    // tslint:disable-next-line:max-line-length
+    if (this.superAdminForm.get(fieldName).invalid && (this.superAdminForm.get(fieldName).touched || this.superAdminForm.get(fieldName).dirty)) {
+      return true;
     }
+    return false;
+  }
+
+  // registration flow
+  registerSuperAdmin() {
+    this.loaderService.showLoading();
+    const postBody = this.superAdminForm.value;
+    postBody.contractEndDate = this.superAdminForm.get('contractEndDate').value.getTime();
+    postBody.contractStartDate = this.superAdminForm.get('contractStartDate').value.getTime();
+    postBody.dateOfJoining = this.superAdminForm.get('contractEndDate').value.getTime();
+    RequestEnums.REGISTRATION.values[0] = 'abc123';
+    this.commonRequestService.request(RequestEnums.REGISTRATION, postBody).subscribe(res => {
+      if (res.errors.length > 0) {
+        // error
+        this.loaderService.hideLoading();
+        this.snackbarMessengerService.openSnackBar(res.errors[0], true);
+      } else if (res.status !== 200 || res.data === undefined || res.data === null) {
+        this.snackbarMessengerService.openSnackBar('Something went wrong... Please try again.', true);
+        this.loaderService.hideLoading();
+      } else {
+        this.snackbarMessengerService.openSnackBar('SuperAdmin Registered Successfully', false);
+        this.loaderService.hideLoading();
+        this.router.navigate(['login']);
+      }
+    }, (error) => {
+      console.log('err', error);
+      this.snackbarMessengerService.openSnackBar(error, true);
+      this.loaderService.hideLoading();
+    });
   }
 }

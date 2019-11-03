@@ -1,18 +1,21 @@
 import { Injectable } from '@angular/core';
+import { EncryptDectryptService } from './common/encrypt-decrypt/encrypt-dectrypt.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
 
-  constructor() { }
+  constructor(
+    private encryptDectryptService: EncryptDectryptService
+  ) { }
 
   setLocalStorageItem(key: string, value) {
     if (value) {
       if (typeof value === 'string') {
-        localStorage.setItem(key, value);
+        localStorage.setItem(key, this.encryptDectryptService.getCipherText(value));
       } else {
-        localStorage.setItem(key, JSON.stringify(value));
+        localStorage.setItem(key, this.encryptDectryptService.getCipherText(JSON.stringify(value)));
       }
     }
   }
@@ -20,16 +23,16 @@ export class StorageService {
   getLocalStorageItem(key) {
     if (key && localStorage.getItem(key)) {
       try {
-        return JSON.parse(localStorage.getItem(key));
+        return this.encryptDectryptService.getNormalText(JSON.parse(localStorage.getItem(key)));
       } catch (ex) {
-        return localStorage.getItem(key);
+        return this.encryptDectryptService.getNormalText(localStorage.getItem(key));
       }
     }
   }
 
   deleteLocalStorageItem(keys) {
     if (keys instanceof Array) {
-      for (let i = 0; i < keys.length ; i++) {
+      for (let i = 0; i < keys.length; i++) {
         localStorage.removeItem(keys[i]);
       }
     } else {

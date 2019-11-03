@@ -3,7 +3,7 @@
 
 
 html, body { height: 100%; }
-body {
+body,p,.mat-select-value-text {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
     font-family: 'Roboto', sans-serif;
@@ -11,6 +11,10 @@ body {
 }
 .pointer {
     cursor: pointer;
+}
+
+.circle {
+  border-radius: 50%;
 }
 
 .error {
@@ -109,10 +113,17 @@ body {
       min-width: 125px;
       outline: none;
     }
+    .mat-mini-fab {
+      outline: none;
+    }
+    .mat-fab {
+      outline: none;
+    }
     .mat-raised-button.success {
       background-color: darkblue;
       color: white;
       height: 40px;
+      text-transform: capitalize;
     }
     .mat-raised-button.save {
       background-color: green;
@@ -127,6 +138,32 @@ body {
     .mat-raised-button[disabled][disabled] {
       background-color: grey;
       color: white
+    }
+
+    .mat-raised-button {
+      border-radius: 24px;
+      min-width: 125px;
+      outline: none;
+    }
+    .mat-fab.success,.mat-mini-fab.success {
+      background-color: darkblue;
+      color: white;
+    }
+    .mat-fab.danger,.mat-mini-fab.danger {
+      background-color: #a24e56;
+      color: white;
+    }
+    .mat-fab.save,.mat-mini-fab.save {
+      background-color: green;
+      color: white;
+    }
+    .mat-fab.cancel,.mat-mini-fab.cancel {
+      background-color: black;
+      color: white;
+    }
+    .mat-fab[disabled][disabled],.mat-mini-fab[disabled][disabled] {
+      background-color: grey;
+      color: white;
     }
   }
   .custom-table {
@@ -158,8 +195,29 @@ body {
       outline: none;
     }
   }
+
+  .mat-tab-label-active {
+    // background-color: #00008b38;
+    color: black;
+  }
+  .mat-tab-label-active.cdk-mouse-focused {
+    color:grey;
+  }
+  .mat-tab-body {
+    margin: 10px;
+    padding: 20px;
+    background-color: #dfdfdf1a;
+  }
+
+  .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+    background-color: darkblue;
+  }
 }
 
+.mat-snack-bar-container {
+  background: white !important;
+  padding: 0px !important;
+}
 .required::-webkit-input-placeholder:after {
   content: " *";
   color: red;

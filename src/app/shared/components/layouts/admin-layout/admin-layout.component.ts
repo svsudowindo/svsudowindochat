@@ -1,5 +1,8 @@
 import { Component, OnInit, AfterViewInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+import { StorageService } from '../../../services/storage.service';
+import { LocalStorageEnums } from '../../../constants/localstorage-enums';
+import { ROLES } from '../../../constants/gloabal-variable-enums';
 
 @Component({
   selector: 'app-admin-layout',
@@ -9,6 +12,12 @@ import { Router } from '@angular/router';
 export class AdminLayoutComponent implements OnInit, AfterViewInit {
   screenWidth: number;
   isSideNavOpen = false;
+  isOutSideClick = false;
+  roleToAccess = {
+    isAdmin: false,
+    isSuperAdmin: false,
+    isEmployee: false
+  };
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.screenWidth = event.target.innerWidth;
@@ -17,9 +26,24 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
     }
   }
   constructor(
-    private router: Router
+    private router: Router,
+    private storageService: StorageService
   ) {
     this.screenWidth = window.innerWidth;
+    const role = storageService.getLocalStorageItem(LocalStorageEnums.ROLE);
+    if (role !== undefined && role !== null) {
+      if (role === ROLES.SUPER_ADMIN) {
+        this.roleToAccess.isSuperAdmin = true;
+        return;
+      }
+      if (role === ROLES.ADMIN) {
+        this.roleToAccess.isAdmin = true;
+        return;
+      }
+      if (role === ROLES.EMPLOYEE) {
+        this.roleToAccess.isEmployee = true;
+      }
+    }
   }
 
   ngOnInit() {
@@ -31,6 +55,7 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
 
   openNav() {
     this.isSideNavOpen = true;
+    this.isOutSideClick = true;
     if (this.screenWidth < 576) {
       // very small screens
       document.getElementById('sideNavigation').style.width = '120px';
@@ -54,6 +79,15 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
   closeNav() {
     document.getElementById('sideNavigation').style.width = '0';
     document.getElementById('main').style.marginLeft = '0';
+  }
+
+  // closing on clicking outside
+  outsideClick() {
+    if (!this.isOutSideClick) {
+      this.closeNav();
+    } else {
+      this.isOutSideClick = !this.isOutSideClick;
+    }
   }
 
 }

@@ -8,7 +8,7 @@
       </mat-form-field>
     </div>
     <div class="col-sm-6 text-right">
-      <button mat-raised-button class="success m-t-10" [routerLink]="['/companies/details']">Create Company</button>
+      <button mat-raised-button class="success m-t-10" [routerLink]="['/companies/details']">Add Company</button>
     </div>
   </div>
   <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 custom-table" (matSortChange)="sortChange($event)">
@@ -18,25 +18,19 @@
     </ng-container>
     <ng-container matColumnDef="companyName">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Company Name </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.companyName}} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="companyEmail">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Company Email </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.companyEmail}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.companyName | titlecase}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="createdBy">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Created by</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.createdBy}} </mat-cell>
+    <ng-container matColumnDef="createdAt">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Created On </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.createdAt | date: 'dd/MMM/yyyy hh:mm:ss'}} </mat-cell>
     </ng-container>
-
-    <ng-container matColumnDef="updatedBy">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Updated by </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.updatedBy}} </mat-cell>
+    <ng-container matColumnDef="updatedAt">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Last Updated On </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.updatedAt | date: 'dd/MMM/yyyy hh:mm:ss'}} </mat-cell>
     </ng-container>
-
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row class="pointer" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    <mat-row class="pointer" *matRowDef="let row; columns: displayedColumns;" (click)="navigateToCompanyEdit(row)"></mat-row>
 
   </mat-table>
   <mat-paginator [length]="list.length" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">

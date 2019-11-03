@@ -25,10 +25,22 @@
   width: 100% !important;
 }
 
+
+.w-px-250 {
+  width: 250px;
+}
+
+.w-px-200 {
+  width: 200px;
+}
 /* font-sizes in px's */
 
 .font-size-100 {
   font-size: 100px !important;
+}
+
+.font-size-45 {
+  font-size: 45px !important;
 }
 
 /*Common Margin Padding*/

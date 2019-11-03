@@ -9,9 +9,13 @@ import { POPUP } from '../../../shared/constants/popup-enum';
 import { IDataInfo } from '../../../shared/components/componentsAsService/popup/popup-info.service';
 import { LoaderService } from '../../../shared/components/componentsAsService/loader/loader.service';
 import { GlobalVariables } from '../../../shared/services/common/globalVariables';
-import { GlobalVariableEnums } from '../../../shared/constants/gloabal-variable-enums';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { VALIDATION_PATTERNS } from '../../../shared/constants/validation-patterns';
+import { errors } from '../../../shared/constants/errors';
+import { StorageService } from '../../../shared/services/storage.service';
+import { LocalStorageEnums } from '../../../shared/constants/localstorage-enums';
+import { SnackbarMessengerService } from '../../../shared/components/componentsAsService/snackbar-messenger/snackbar-messenger.service';
+import { CanActivateService } from '../../../shared/services/guard-services/can-activate.service';
 
 @Component({
   selector: 'app-login',
@@ -37,10 +41,11 @@ export class LoginComponent extends BaseClass implements OnInit {
     public route: Router,
     public injector: Injector,
     private commonRequest: CommonRequestService,
-    private globalVariables: GlobalVariables,
-    private popService: PopupService,
     private loaderService: LoaderService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private storageService: StorageService,
+    private snackbarMessengerService: SnackbarMessengerService,
+    private canActivateService: CanActivateService) {
     super(injector);
   }
 
@@ -66,6 +71,22 @@ export class LoginComponent extends BaseClass implements OnInit {
   }
   // login service call
   login() {
-    this.route.navigate(['dashboard']);
+    this.loaderService.showLoading();
+    // return;
+    this.commonRequest.request(RequestEnums.LOGIN, this.loginForm.value).subscribe(res => {
+      if (res.errors.length > 0) {
+        this.loaderService.hideLoading();
+        this.snackbarMessengerService.openSnackBar(res.errors[0], true);
+        // error message
+        return;
+      }
+      if (res.status === 200 && res.data) {
+        this.loaderService.hideLoading();
+        this.storageService.setLocalStorageItem(LocalStorageEnums.TOKEN, res.data._id);
+        this.storageService.setLocalStorageItem(LocalStorageEnums.ROLE, res.data.role);
+        this.storageService.setLocalStorageItem(LocalStorageEnums.COMPANY_ID, res.data.companyID);
+        this.route.navigate(['dashboard']);
+      }
+    });
   }
 }

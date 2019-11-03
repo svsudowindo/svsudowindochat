@@ -1,0 +1,142 @@
+<div class="container main m-b-10">
+  <form [formGroup]="superAdminForm">
+    <app-bread-crumb [breadCrumbs]="breadCrumbs"></app-bread-crumb>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="h-px-70">
+          <mat-form-field class="w-p-100">
+            <input matInput placeholder="Company Name" required formControlName="companyName">
+          </mat-form-field>
+          <div [hidden]="!isValidField('companyName')">
+            <p class="error m-b-0">{{getErrorMessage(superAdminForm, validationMessages, 'companyName')}}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="h-px-70">
+          <mat-form-field class="w-p-100">
+            <input matInput placeholder="Company ID" required formControlName="companyID">
+          </mat-form-field>
+          <div [hidden]="!isValidField('companyID')">
+            <p class="error m-b-0">{{getErrorMessage(superAdminForm, validationMessages, 'companyID')}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="h-px-70">
+          <mat-form-field class="w-p-100">
+            <input matInput [matDatepicker]="startDatePicker" placeholder="Contract Start Date" required
+              formControlName="contractStartDate">
+            <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #startDatePicker startView="year"></mat-datepicker>
+          </mat-form-field>
+          <div [hidden]="!isValidField('contractStartDate')">
+            <p class="error m-b-0">{{getErrorMessage(superAdminForm, validationMessages, 'contractStartDate')}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="h-px-70">
+          <mat-form-field class="w-p-100">
+            <input matInput [matDatepicker]="endDatePicker" placeholder="Contract End Date" required formControlName="contractEndDate">
+            <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #endDatePicker startView="year"></mat-datepicker>
+          </mat-form-field>
+          <div [hidden]="!isValidField('contractEndDate')">
+            <p class="error m-b-0">{{getErrorMessage(superAdminForm, validationMessages, 'contractEndDate')}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="h-px-70">
+          <mat-form-field class="w-p-100">
+            <input matInput placeholder="Super Admin Name / Representative Name" required formControlName="name">
+          </mat-form-field>
+          <div [hidden]="!isValidField('name')">
+            <p class="error m-b-0">{{getErrorMessage(superAdminForm, validationMessages, 'name')}}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="h-px-70">
+          <mat-form-field class="w-p-100">
+            <input matInput placeholder="Employee ID" required formControlName="id">
+          </mat-form-field>
+          <div [hidden]="!isValidField('id')">
+            <p class="error m-b-0">{{getErrorMessage(superAdminForm, validationMessages, 'id')}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="h-px-70">
+          <mat-form-field class="w-p-100">
+            <input matInput placeholder="Employee Designation" required formControlName="designation">
+          </mat-form-field>
+          <div [hidden]="!isValidField('designation')">
+            <p class="error m-b-0">
+              {{getErrorMessage(superAdminForm, validationMessages, 'designation')}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="h-px-70">
+          <mat-form-field class="w-p-100">
+            <input matInput placeholder="Admin Email / Company Email" required formControlName="email">
+          </mat-form-field>
+          <div [hidden]="!isValidField('email')">
+            <p class="error m-b-0">{{getErrorMessage(superAdminForm, validationMessages, 'email')}}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="h-px-70">
+          <mat-form-field class="w-p-100">
+            <input matInput placeholder="Office Mobile" required formControlName="mobileNumber">
+          </mat-form-field>
+          <div [hidden]="!isValidField('mobileNumber')">
+            <p class="error m-b-0">
+              {{getErrorMessage(superAdminForm, validationMessages, 'mobileNumber')}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="h-px-70">
+          <mat-form-field class="w-p-100">
+            <mat-label>Status</mat-label>
+            <mat-select required formControlName='status'>
+              <ng-container *ngFor="let status of statusConst">
+                <mat-option [value]="status.id">
+                  <p>{{status.label}}</p>
+                </mat-option>
+              </ng-container>
+            </mat-select>
+          </mat-form-field>
+          <div [hidden]="!isValidField('status')">
+            <p class="error m-b-0">{{getErrorMessage(superAdminForm, validationMessages, 'status')}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="h-px-70">
+          <mat-form-field class="w-p-100">
+            <input matInput [matDatepicker]="dateOfJoining" placeholder="Employee Date of Joining" required
+              formControlName="dateOfJoining">
+            <mat-datepicker-toggle matSuffix [for]="dateOfJoining"></mat-datepicker-toggle>
+            <mat-datepicker #dateOfJoining startView="year"></mat-datepicker>
+          </mat-form-field>
+          <div [hidden]="!isValidField('dateOfJoining')">
+            <p class="error m-b-0">{{getErrorMessage(superAdminForm, validationMessages, 'dateOfJoining')}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end action-buttons">
+      <button mat-raised-button class="cancel m-t-10 m-r-10" [routerLink]="['/login']">Cancel</button>
+      <button mat-raised-button class="save m-t-10" [disabled]="superAdminForm.invalid" (click)="registerSuperAdmin()">Registration</button>
+    </div>
+  </form>
+</div>
