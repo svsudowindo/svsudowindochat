@@ -82,11 +82,9 @@ export class CompanyDetailsComponent extends BaseClass implements OnInit {
     private encryptDectryptService: EncryptDectryptService
   ) {
     super(injector);
-    this.activatedRoute.paramMap.subscribe(res => {
-      if (res.params.id) {
-        this.companyID = this.encryptDectryptService.getNormalText(res.params.id);
-      }
-    });
+    if (this.activatedRoute.snapshot.params.id) {
+      this.companyID = this.encryptDectryptService.getNormalText(this.activatedRoute.snapshot.params.id);
+    }
   }
 
   ngOnInit() {
