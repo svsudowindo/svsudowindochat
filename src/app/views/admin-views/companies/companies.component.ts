@@ -25,7 +25,7 @@ export class CompaniesComponent implements OnInit {
       label: 'Companies'
     }
   ];
-  constructor(
+  constructor( 
     private sortService: SortService,
     private searchService: SearchService,
     private commonRequestService: CommonRequestService,
