@@ -116,3 +116,41 @@ exports.getCompanyById = (req, res, next) => {
   })
 
 }
+
+exports.updateCompany = (req, res, next) => {
+  var superAdminID = req.params.id;
+  var companyID = req.params.companyID;
+  let payload = req.body;
+  User.find({ _id: superAdminID }, (userError, userResult) => {
+    if (userError) {
+      return res.send(Utils.sendResponse(500, null, ['Unable to Update company details.. Please try again'], 'Unable to Update company details.. Please try again'));
+    }
+    if (userResult.length <= 0) {
+      return res.send(Utils.sendResponse(500, null, ['Not a super admin to update company details'], 'Not a super admin to update company details'));
+    }
+
+    Company.find({ createdBy: superAdminID, companyID: companyID }, (companyError, companyDetails) => {
+      if (companyError) {
+        return res.send(Utils.sendResponse(500, null, ['Unable to Update company details.. Please try again'], 'Unable to Update company details.. Please try again'));
+      }
+      if (companyDetails.length <= 0) {
+        return res.send(Utils.sendResponse(500, null, ['No company found. Please try to update valid company id'], 'No company found. Please try to update valid company id'));
+      }
+      let obj = {
+        updatedBy: superAdminID,
+        updatedAt: (new Date()).getMilliseconds(),
+        contractStartDate: payload.contractStartDate,
+        contractEndDate: payload.contractEndDate,
+        status: payload.status,
+        mobileNumber: payload.mobileNumber,
+        companyName: payload.companyName
+      }
+      Company.updateOne({ companyID: companyID }, obj, (companyUpdateError, companySuccess) => {
+        if (companyError) {
+          return res.send(Utils.sendResponse(500, null, ['Unable to Update company details.. Please try again'], 'Unable to Update company details.. Please try again'));
+        }
+        userDAO.updateUser(req, res, next, req.body);
+      })
+    })
+  })
+}

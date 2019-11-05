@@ -9,5 +9,5 @@ adminRoutes.get('/:id/fetch-employees', userDAO.getAllUsers);
 adminRoutes.post('/:id/reset-password', userDAO.resetPassword);
 adminRoutes.get('/:id/getEmployeeByID/:employeeID', userDAO.getEmployeeByID);
 adminRoutes.get('/:id/get-company-details/:companyID', companyDAO.getCompanyById);
-
+adminRoutes.post('/:id/update-company/:companyID', companyDAO.updateCompany);
 exports.adminRoutes = adminRoutes;

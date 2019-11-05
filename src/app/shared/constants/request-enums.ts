@@ -40,6 +40,12 @@ export const RequestEnums = {
     path: '/admin/token/get-company-details/:companyID',
     keys: ['companyID'],
     values: []
+  },
+  UPDATE_COMPANY: {
+    type: 'POST',
+    path: '/admin/token/update-company/:companyID',
+    keys: ['companyID'],
+    values: []
   }
 };
 
