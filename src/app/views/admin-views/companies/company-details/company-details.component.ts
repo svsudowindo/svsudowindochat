@@ -123,6 +123,9 @@ export class CompanyDetailsComponent extends BaseClass implements OnInit {
         return;
       }
       const payload = Object.assign({}, res.data.employeeDetails, res.data.otherData);
+      payload.contractStartDate = new Date(payload.contractStartDate);
+      payload.contractEndDate = new Date(payload.contractEndDate);
+      payload.dateOfJoining = new Date(payload.dateOfJoining);
       this.companyForm.patchValue(payload);
     });
   }
@@ -140,7 +143,12 @@ export class CompanyDetailsComponent extends BaseClass implements OnInit {
     postBody.contractStartDate = this.companyForm.value.contractStartDate.getTime();
     postBody.contractEndDate = this.companyForm.value.contractEndDate.getTime();
     postBody.dateOfJoining = this.companyForm.value.dateOfJoining.getTime();
-    this.commonRequestService.request(RequestEnums.CREATE_COMPANY, postBody).subscribe(res => {
+    let url = RequestEnums.CREATE_COMPANY;
+    if (Utils.isValidInput(this.companyID)) {
+      url = RequestEnums.UPDATE_COMPANY;
+      url.values[0] = this.companyID;
+    }
+    this.commonRequestService.request(url, postBody).subscribe(res => {
       if (res.errors.length > 0) {
         this.loaderService.hideLoading();
         this.snackbarMessengerService.openSnackBar(res.errors[0], true);
@@ -151,7 +159,11 @@ export class CompanyDetailsComponent extends BaseClass implements OnInit {
         this.snackbarMessengerService.openSnackBar(res.message, true);
         return;
       }
-      this.snackbarMessengerService.openSnackBar('Company created successfully', false);
+      let message = 'Company created successfully';
+      if (Utils.isValidInput(this.companyID)) {
+        message = 'Company Details Updated Successfully';
+      }
+      this.snackbarMessengerService.openSnackBar(message, false);
       this.loaderService.hideLoading();
       this.router.navigate(['companies']);
     });

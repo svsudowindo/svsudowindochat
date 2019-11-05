@@ -41,6 +41,12 @@ export const RequestEnums = {
     keys: ['companyID'],
     values: []
   },
+  UPDATE_COMPANY: {
+    type: 'POST',
+    path: '/admin/token/update-company/:companyID',
+    keys: ['companyID'],
+    values: []
+  },
   CREATE_EMPLOYEE: {
     type: 'POST',
     path: '/auth/token/register',
