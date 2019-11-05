@@ -63,6 +63,8 @@ export class EmployeesComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
   navigateToEmployeeEdit(row) {
-    this.router.navigate(['employees', 'details', this.encryptDectryptService.getCipherText(row.employeeID)]);
+    console.log(row._id);
+    this.router.navigate(['employees', 'details', this.encryptDectryptService.getCipherText(row._id)]);
+ 
   }
 }

@@ -55,7 +55,7 @@ export const RequestEnums = {
   },
   GET_EMPLOYEE_BY_ID: {
     type: 'GET',
-    path: '/admin/token/get-employee-details/:employeeID',
+    path: '/admin/token/getEmployeeByID/:employeeID',
     keys: ['employeeID'],
     values: []
   }

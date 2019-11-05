@@ -70,6 +70,7 @@ export class EmployeeDetailsComponent extends BaseClass implements OnInit {
     super(injector);
     if (this.activatedRoute.snapshot.params.id) {
       this.employeeID = this.encryptDectryptService.getNormalText(this.activatedRoute.snapshot.params.id);
+      console.log(this.employeeID);
     }
   } 
 
@@ -96,6 +97,7 @@ export class EmployeeDetailsComponent extends BaseClass implements OnInit {
   setEmployeeForm() {
     RequestEnums.GET_EMPLOYEE_BY_ID.values[0] = this.employeeID;
     this.commonRequestService.request(RequestEnums.GET_EMPLOYEE_BY_ID).subscribe(res => {
+      console.log(res);
       if (res.errors.length > 0) {
         this.snackbarMessengerService.openSnackBar(res.errors[0], true);
         return;
@@ -104,7 +106,8 @@ export class EmployeeDetailsComponent extends BaseClass implements OnInit {
         this.snackbarMessengerService.openSnackBar(res.message, true);
         return;
       }
-      const payload = Object.assign({}, res.data.employeeDetails, res.data.otherData);
+      const payload = Object.assign({}, res.data);
+      payload.dateOfJoining = new Date(payload.dateOfJoining);
       this.employeeForm.patchValue(payload);
     });
   }
