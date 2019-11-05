@@ -63,7 +63,8 @@ this.sendUserInfo = (req, res, next, userError, userResult) => {
   return res.send(Utils.sendResponse(200, document, [], 'Fetched employee'));
 }
 exports.updateUser = (req, res, next, upadateUserObject) => {
-  User.updateOne({ _id: upadateUserObject._id }, upadateUserObject, (updateUserError, updateUserResult) => {
+  console.log(upadateUserObject);
+  User.updateOne({ id: upadateUserObject.id }, upadateUserObject, (updateUserError, updateUserResult) => {
     if (updateUserError) {
       return res.send(Utils.sendResponse(500, null, ['Something went wrong. Please try to update again'], 'Something went wrong. Please try to update again'));
     }
@@ -111,7 +112,7 @@ exports.getEmployeeByID = (req, res, next) => {
 
 exports.getEmployeeByCompanyID = (req, res, next, otherObject = null) => {
   let companyID = req.params['companyID'];
- User.find({ companyID: companyID, role: 'ADMIN' }, (employeeError, employeeResult) => {
+  User.find({ companyID: companyID, role: 'ADMIN' }, (employeeError, employeeResult) => {
     if (employeeError) {
       return res.send(Utils.sendResponse(500, null, ['Unable to fetch user by company id . Please try again'], 'Unable to fetch user by company id . Please try again'));
     }

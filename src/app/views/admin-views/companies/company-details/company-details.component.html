@@ -15,10 +15,53 @@
       <div class="col-md-6">
         <div class="h-px-70">
           <mat-form-field class="w-p-100">
-            <input matInput placeholder="Company ID" required formControlName="companyID">
+            <input matInput placeholder="Company ID" required formControlName="companyID" [readonly]="companyID">
           </mat-form-field>
           <div [hidden]="!isValidField('companyID')">
             <p class="error m-b-0">{{getErrorMessage(companyForm, validationMessages, 'companyID')}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="h-px-70">
+          <mat-form-field class="w-p-100">
+            <input matInput [matDatepicker]="picker" placeholder="Contract Start Date " required formControlName="contractStartDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+          </mat-form-field>
+          <div [hidden]="!isValidField('contractStartDate')">
+            <p class="error m-b-0">{{getErrorMessage(companyForm, validationMessages, 'contractStartDate')}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="h-px-70">
+          <mat-form-field class="w-p-100">
+            <input matInput [matDatepicker]="contractEndDatePiker" placeholder="Contract End Date" required
+              formControlName="contractEndDate">
+            <mat-datepicker-toggle matSuffix [for]="contractEndDatePiker"></mat-datepicker-toggle>
+            <mat-datepicker #contractEndDatePiker startView="year" [startAt]="startDate"></mat-datepicker>
+          </mat-form-field>
+          <div [hidden]="!isValidField('contractEndDate')">
+            <p class="error m-b-0">{{getErrorMessage(companyForm, validationMessages, 'contractEndDate')}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="h-px-70">
+          <mat-form-field class="w-p-100">
+            <mat-label>Status</mat-label>
+            <mat-select required formControlName='status'>
+              <ng-container *ngFor="let status of statusConst">
+                <mat-option [value]="status.id">
+                  <p>{{status.label}}</p>
+                </mat-option>
+              </ng-container>
+            </mat-select>
+          </mat-form-field>
+          <div [hidden]="!isValidField('status')">
+            <p class="error m-b-0">{{getErrorMessage(companyForm, validationMessages, 'status')}}</p>
           </div>
         </div>
       </div>
@@ -35,7 +78,7 @@
       <div class="col-md-6">
         <div class="h-px-70">
           <mat-form-field class="w-p-100">
-            <input matInput placeholder="Employee ID" required formControlName="id">
+            <input matInput placeholder="Employee ID" required formControlName="id" [readonly]="companyID">
           </mat-form-field>
           <div [hidden]="!isValidField('id')">
             <p class="error m-b-0">{{getErrorMessage(companyForm, validationMessages, 'id')}}</p>
@@ -75,50 +118,6 @@
       <div class="col-md-6">
         <div class="h-px-70">
           <mat-form-field class="w-p-100">
-            <mat-label>Status</mat-label>
-            <mat-select required formControlName='status'>
-              <ng-container *ngFor="let status of statusConst">
-                <mat-option [value]="status.id">
-                  <p>{{status.label}}</p>
-                </mat-option>
-              </ng-container>
-            </mat-select>
-          </mat-form-field>
-          <div [hidden]="!isValidField('status')">
-            <p class="error m-b-0">{{getErrorMessage(companyForm, validationMessages, 'status')}}</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="h-px-70">
-          <mat-form-field class="w-p-100">
-            <input matInput [matDatepicker]="picker" placeholder="Contract Start Date " required formControlName="contractStartDate">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
-          </mat-form-field>
-          <div [hidden]="!isValidField('contractStartDate')">
-            <p class="error m-b-0">{{getErrorMessage(companyForm, validationMessages, 'contractStartDate')}}</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <div class="h-px-70">
-          <mat-form-field class="w-p-100">
-            <input matInput [matDatepicker]="contractEndDatePiker" placeholder="Contract End Date" required
-              formControlName="contractEndDate">
-            <mat-datepicker-toggle matSuffix [for]="contractEndDatePiker"></mat-datepicker-toggle>
-            <mat-datepicker #contractEndDatePiker startView="year" [startAt]="startDate"></mat-datepicker>
-          </mat-form-field>
-          <div [hidden]="!isValidField('contractEndDate')">
-            <p class="error m-b-0">{{getErrorMessage(companyForm, validationMessages, 'contractEndDate')}}</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <div class="h-px-70">
-          <mat-form-field class="w-p-100">
             <input matInput [matDatepicker]="dateOfJoiningPicker" placeholder="Date of Joining" required
               formControlName="dateOfJoining">
             <mat-datepicker-toggle matSuffix [for]="dateOfJoiningPicker"></mat-datepicker-toggle>
@@ -132,7 +131,8 @@
     </div>
     <div class="d-flex justify-content-end action-buttons">
       <button mat-raised-button class="cancel m-t-10 m-r-10" [routerLink]="['/companies']">Cancel</button>
-      <button mat-raised-button type="submit" class="save m-t-10" [disabled]="companyForm.invalid">{{companyID ? 'Update' : 'Create' }}</button>
+      <button mat-raised-button type="submit" class="save m-t-10" [disabled]="companyForm.invalid">{{companyID ?
+        'Update' : 'Create' }}</button>
     </div>
   </form>
 </div>

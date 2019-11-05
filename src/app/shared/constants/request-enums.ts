@@ -40,6 +40,30 @@ export const RequestEnums = {
     path: '/admin/token/get-company-details/:companyID',
     keys: ['companyID'],
     values: []
+  },
+  UPDATE_COMPANY: {
+    type: 'POST',
+    path: '/admin/token/update-company/:companyID',
+    keys: ['companyID'],
+    values: []
+  },
+  CREATE_EMPLOYEE: {
+    type: 'POST',
+    path: '/auth/token/register',
+    keys: [],
+    values: []
+  },
+  EMPLOYEE_LIST: {
+    type: 'GET',
+    path: '/admin/token/fetch-employees',
+    keys: [],
+    values: []
+  },
+  GET_EMPLOYEE_BY_ID: {
+    type: 'GET',
+    path: '/admin/token/getEmployeeByID/:employeeID',
+    keys: ['employeeID'],
+    values: []
   }
 };
 

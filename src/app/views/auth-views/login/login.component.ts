@@ -52,7 +52,6 @@ export class LoginComponent extends BaseClass implements OnInit {
   ngOnInit() {
     this.initLoginForm();
   }
-
   // initialize login form
   initLoginForm() {
     this.loginForm = this.formBuilder.group({
