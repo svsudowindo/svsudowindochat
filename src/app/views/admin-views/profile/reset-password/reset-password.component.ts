@@ -1,6 +1,6 @@
-import { Component, Injector, OnInit, Input } from '@angular/core';
+import { Component, Injector, OnInit, Input, ViewChild } from '@angular/core';
 import { BaseClass } from '../../../../shared/services/common/baseClass';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, FormGroupDirective } from '@angular/forms';
 import { CustomValidators } from '../../../../shared/services/common/validators';
 import { CommonRequestService } from '../../../../shared/services/common-request.service';
 import { RequestEnums } from '../../../../shared/constants/request-enums';
@@ -12,6 +12,9 @@ import { SnackbarMessengerService } from '../../../../shared/components/componen
   styleUrls: ['./reset-password.component.scss']
 })
 export class ResetPasswordComponent extends BaseClass implements OnInit {
+
+  // this is just for resetting the form without red underlines
+  @ViewChild('resetForm', { static: true }) resetForm: FormGroupDirective;
 
   resetpasswordForm: FormGroup;
   @Input() newPassword = '';
@@ -58,11 +61,14 @@ export class ResetPasswordComponent extends BaseClass implements OnInit {
   }
 
   resetPasswordSubmit() {
-    this.snackbarService.openSnackBar('hai sample', false);
+    this.snackbarService.openSnackBar('Password changed successfully', false);
     // return;
     delete this.resetpasswordForm.value.confirmPassword;
     this.commonRequest.request(RequestEnums.RESET_PASSWORD, this.resetpasswordForm.value).subscribe(res => {
       console.log(res);
+      this.resetpasswordForm.reset();
+      this.resetForm.resetForm();
+
     });
   }
 }
