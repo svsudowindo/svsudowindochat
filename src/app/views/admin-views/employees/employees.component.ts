@@ -5,7 +5,7 @@ import { BreadCrumbModel } from './../../../shared/components/bread-crumb/bread-
 import { SearchService } from './../../../shared/services/common/search/search.service';
 import { SortService } from './../../../shared/services/common/sort/sort.service';
 import { MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { RequestEnums } from 'src/app/shared/constants/request-enums';
 @Component({
   selector: 'app-employees',
@@ -13,7 +13,7 @@ import { RequestEnums } from 'src/app/shared/constants/request-enums';
   styleUrls: ['./employees.component.scss']
 })
 export class EmployeesComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'name', 'email', 'createdBy', 'updatedBy', 'designation'];
+  displayedColumns: string[] = ['id', 'name', 'email', 'designation'];
   dataSource: MatTableDataSource<any>;
   changeEvent: MatSort;
   list = [];
@@ -30,13 +30,11 @@ export class EmployeesComponent implements OnInit {
     private searchService: SearchService,
     private commonRequestService: CommonRequestService,
     private router: Router,
-    private encryptDectryptService: EncryptDectryptService){
+    private encryptDectryptService: EncryptDectryptService) {
   }
 
   ngOnInit() {
-    // this.dataSource.paginator = this.paginator;
-    this.commonRequestService.request(RequestEnums.EMPLOYEE_LIST).subscribe(res =>{
-    console.log(res);
+    this.commonRequestService.request(RequestEnums.EMPLOYEE_LIST).subscribe(res => {
       this.list = res.data;
       this.dataSource = new MatTableDataSource(res.data);
       this.dataSource.paginator = this.paginator;
@@ -52,12 +50,11 @@ export class EmployeesComponent implements OnInit {
       const listData = this.sortService.getSortedData(this.dataSource, this.list, this.displayedColumns, eve.active, eve.direction);
       this.dataSource = new MatTableDataSource(listData);
       this.dataSource.paginator = this.paginator;
-
     }
   }
 
   search() {
-    const filteredArray = this.searchService.searchFilterArrayOfJson(this.list, this. SearchValue, ['employeecName', 'employeeID']);
+    const filteredArray = this.searchService.searchFilterArrayOfJson(this.list, this.SearchValue, ['employeecName', 'employeeID']);
     this.dataSource = new MatTableDataSource(filteredArray);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -65,6 +62,6 @@ export class EmployeesComponent implements OnInit {
   navigateToEmployeeEdit(row) {
     console.log(row._id);
     this.router.navigate(['employees', 'details', this.encryptDectryptService.getCipherText(row._id)]);
- 
+
   }
 }
