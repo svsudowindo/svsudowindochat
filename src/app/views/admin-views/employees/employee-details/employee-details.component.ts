@@ -14,6 +14,7 @@ import { VALIDATION_PATTERNS } from '../../../../shared/constants/validation-pat
 import { BaseClass } from '../../../../shared/services/common/baseClass';
 import { DESIGNATION, STATUS } from './employee-details.enum';
 import Utils from '../../../../shared/services/common/utils';
+import { utils } from 'protractor';
 
 
 @Component({
@@ -118,12 +119,17 @@ export class EmployeeDetailsComponent extends BaseClass implements OnInit {
     }
     return false;
   }
-  employeeDetails() {
+  employeeDetails() { 
     this.loaderService.showLoading();
     const postBody = Object.assign({}, this.employeeForm.value);
     postBody.dateOfJoining = this.employeeForm.value.dateOfJoining.getTime();
     postBody.companyID = this.storageService.getLocalStorageItem(LocalStorageEnums.COMPANY_ID);
-    this.commonRequestService.request(RequestEnums.CREATE_EMPLOYEE, postBody).subscribe(res => {
+    let url = RequestEnums.CREATE_EMPLOYEE;
+    if (Utils.isValidInput(this.employeeID)) {
+      url = RequestEnums.UPDATE_EMPLOYEE;
+      url.values[0] = this.employeeForm.get('id').value;
+    }
+    this.commonRequestService.request(url, postBody).subscribe(res => {
       if (res.errors.length > 0) {
         this.loaderService.hideLoading();
         this.snackbarMessengerService.openSnackBar(res.errors[0], true);
@@ -134,9 +140,13 @@ export class EmployeeDetailsComponent extends BaseClass implements OnInit {
         this.snackbarMessengerService.openSnackBar(res.message, true);
         return;
       }
-      this.snackbarMessengerService.openSnackBar('Employee created successfully', false);
+        let message = 'Employee created successfully';
+        if (Utils.isValidInput(this.employeeID)) { 
+        message = 'Employee Details Updated Successfully';
+      }
+      this.snackbarMessengerService.openSnackBar(message, false);
       this.loaderService.hideLoading();
       this.router.navigate(['employees']);
     });
-  }
+  } 
 }

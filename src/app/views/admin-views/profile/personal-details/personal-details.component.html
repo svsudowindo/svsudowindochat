@@ -1,5 +1,5 @@
 <div class="container main">
-    <form [formGroup]="personalDetailsForm">
+    <form [formGroup]="personalDetailsForm" (ngSubmit)="personalDetails()">
         <div class="row">
             <div class="col-md-6">
                 <div class="h-px-70">
@@ -56,36 +56,21 @@
             <div class="col-md-6">
                 <div class="h-px-70">
                     <mat-form-field class="w-p-100">
-                        <mat-label>Country</mat-label>
-                        <mat-select formControlName="country">
-                            <mat-option>India</mat-option>
-                            <mat-option>South Africa</mat-option>
-                            <mat-option>Bangladesh</mat-option>
-                        </mat-select>
+                        <input matInput placeholder="Country" formControlName="country">
                     </mat-form-field>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="h-px-70">
                     <mat-form-field class="w-p-100">
-                        <mat-label>State</mat-label>
-                        <mat-select formControlName="state">
-                            <mat-option>Telangana</mat-option>
-                            <mat-option>TamilNadu</mat-option>
-                            <mat-option>Delhi</mat-option>
-                        </mat-select>
+                        <input matInput placeholder="State" formControlName="state">
                     </mat-form-field>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="h-px-70">
                     <mat-form-field class="w-p-100">
-                        <mat-label>City</mat-label>
-                        <mat-select formControlName="city">
-                            <mat-option>Hyderabad</mat-option>
-                            <mat-option>Chennai</mat-option>
-                            <mat-option>Delhi</mat-option>
-                        </mat-select>
+                        <input matInput placeholder="City" formControlName="city">
                     </mat-form-field>
                 </div>
             </div>

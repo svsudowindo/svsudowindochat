@@ -64,6 +64,18 @@ export const RequestEnums = {
     path: '/admin/token/getEmployeeByID/:employeeID',
     keys: ['employeeID'],
     values: []
+  },
+  UPDATE_EMPLOYEE: {
+    type: 'POST',
+    path: '/admin/token/updateEmployee/:employeeID',
+    keys: ['employeeID'],
+    values: []
+  },
+  PERSONAL_DETAILS: {
+    type: 'POST',
+    path: '/admin/token/setPersonalDetails/:companyID',
+    keys: ['companyID'],
+    values: []
   }
 };
 
