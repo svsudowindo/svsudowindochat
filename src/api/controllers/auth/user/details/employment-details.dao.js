@@ -20,9 +20,11 @@ exports.setEmploymentDetails = (req, res, next) => {
             if (employementFetchResult.length <= 0) {
                 // save data
                 this.saveEmployementData(req, res, next);
+            } else {
+                // update data
+                this.updateEmployementData(req, res, next);
             }
-            // update data
-            this.updateEmployementData(req, res, next);
+
         })
 
     })
@@ -53,13 +55,13 @@ exports.updateEmployementData = (req, res, next) => {
     const id = req.params.id;
     const companyID = req.params.companyID;
     const payload = req.body;
-    let employmentDetails = new EmployementDetails();
+    let employmentDetails = {};
     employmentDetails['employementInfo'] = payload.employementInfo;
     employmentDetails['updatedBy'] = id;
     employmentDetails['updatedAt'] = new Date().getMilliseconds();
     employmentDetails['companyID'] = companyID;
 
-    employmentDetails.updateOne({ createdBy: id, companyID: companyID }, employmentDetails, (employementUpdateError, employmentUpdateResult) => {
+    EmployementDetails.updateOne({ createdBy: id, companyID: companyID }, employmentDetails, (employementUpdateError, employmentUpdateResult) => {
         if (employementUpdateError) {
             return res.send(utils.sendResponse(500, null, ['Something went wrong.. Please try to update again'], 'Something went wrong.. Please try to update again'));
         }
