@@ -76,6 +76,24 @@ export const RequestEnums = {
     path: '/admin/token/setPersonalDetails/:companyID',
     keys: ['companyID'],
     values: []
+  },
+  GET_PERSONAL_DETAILS_BY_ID: {
+    type: 'GET',
+    path: '/admin/token/getPersonalDetails/:companyID',
+    keys: ['companyID'],
+    values: []
+  },
+  EMPLOYMENT_DETAILS:  {
+    type: 'POST',
+    path: '/admin/token/setEmployeementDetails/:companyID',
+    keys: ['companyID'],
+    values: []
+  },
+  GET_EMPLOYMENT_DETAILS_BY_ID: {
+    type: 'GET',
+    path: '/admin/token/getEmployeementDetails/:companyID',
+    keys: ['companyID'],
+    values: []
   }
 };
 

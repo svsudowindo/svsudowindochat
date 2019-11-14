@@ -1,3 +1,5 @@
+import { LocalStorageEnums } from './../../../../shared/constants/localstorage-enums';
+import { EncryptDectryptService } from './../../../../shared/services/common/encrypt-decrypt/encrypt-dectrypt.service';
 import { Router } from '@angular/router';
 import { StorageService } from './../../../../shared/services/storage.service';
 import { SnackbarMessengerService } from './../../../../shared/components/componentsAsService/snackbar-messenger/snackbar-messenger.service';
@@ -24,22 +26,23 @@ export class PersonalDetailsComponent implements OnInit {
     private loaderService: LoaderService,
     private snackbarMessengerService: SnackbarMessengerService,
     private storageService: StorageService,
-    private router: Router
+    private router: Router,
+    private encryptDectryptService: EncryptDectryptService
   ) {
 
   }
 
   ngOnInit() {
     this.initPersonalDetailsForm();
+    this.setPersonalDetailsForm();
   }
   initPersonalDetailsForm() {
     this.personalDetailsForm = this.formBuilder.group({
-      fullName: [''],
+      name: [''],
       gender: [''],
       dateOfBirth: [''],
-      emailId: [''],
-      phoneNumber: [''],
-      employeeId: [''],
+      email: [''],
+      phone: [''],
       country: [''],
       state: [''],
       city: [''],
@@ -47,6 +50,26 @@ export class PersonalDetailsComponent implements OnInit {
       address: [''],
     });
   }
+
+  setPersonalDetailsForm() {
+    RequestEnums.GET_PERSONAL_DETAILS_BY_ID.values[0] = this.storageService.getLocalStorageItem('companyID');
+    this.commonRequestService.request(RequestEnums.GET_PERSONAL_DETAILS_BY_ID).subscribe(res => {
+      if (res.errors.length > 0) {
+        this.snackbarMessengerService.openSnackBar(res.errors[0], true);
+        return; 
+      }
+      if (res.status !== 200 || res.data === undefined || res.data === null) {
+        this.snackbarMessengerService.openSnackBar(res.message, true);
+        return;
+      }
+      const payload = Object.assign({}, res.data);
+      payload.dateOfBirth = new Date(payload.dateOfBirth);
+      this.personalDetailsForm.patchValue(payload);
+    });
+  }
+
+
+
   personalDetails() {
     this.loaderService.showLoading();
     const postbody = Object.assign({}, this.personalDetailsForm.value);
