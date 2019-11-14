@@ -1,8 +1,10 @@
 <div class="container main">
   <div class="d-flex justify-content-end action-buttons">
-    <button mat-mini-fab class="success" (click)="addNewEmployment()">
-      <i class="material-icons">add_circle_outline</i>
+    <button mat-raised-button class="success" (click)="addNewEmployment()">
+      <i class="material-icons p-r-10">add_circle_outline</i>
+      Employment
     </button>
+    <button mat-raised-button class="save m-l-10">Save All</button>
   </div>
   <form [formGroup]="employmentForm" class="m-t-10">
     <div formArrayName="employment">
@@ -63,9 +65,6 @@
                 </mat-form-field>
               </div>
             </div>
-          </div>
-          <div class="d-flex justify-content-end action-buttons">
-            <button mat-raised-button class="save">Save</button>
           </div>
         </mat-card>
       </ng-container>
