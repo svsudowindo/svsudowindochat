@@ -4,12 +4,12 @@
       <i class="material-icons p-r-10" >add_circle_outline</i>
       Education
     </button>
-    <button mat-raised-button class="save m-l-10">Save All</button>
+    <button mat-raised-button class="save m-l-10"(click)="saveEducation()" >Save </button>
 
   </div>
   <form [formGroup]="educationForm" class="m-t-10">
-    <div formArrayName="education">
-      <ng-container *ngFor="let eachForm of educationForm.get('education')['controls']; let i=index">
+    <div formArrayName="educationalInfo">
+      <ng-container *ngFor="let eachForm of educationForm.get('educationalInfo')['controls']; let i=index">
         <mat-card [formGroupName]="i" class="m-t-20">
           <div class="d-flex justify-content-between action-buttons">
             <p class="heading">Qualification {{i + 1 }}</p>
@@ -21,14 +21,7 @@
             <div class="col-md-6">
               <div class="h-px-70">
                 <mat-form-field class="w-p-100">
-                  <mat-label>Qualifications</mat-label>
-                  <mat-select>
-                    <ng-container *ngFor="let qualification of qualificationConst">
-                      <mat-option [value]="qualification.id">
-                        {{qualification.label}}
-                      </mat-option>
-                    </ng-container>
-                  </mat-select>
+                  <input matInput placeholder="Qualification" formControlName="qualification">
                 </mat-form-field>
               </div>
             </div>

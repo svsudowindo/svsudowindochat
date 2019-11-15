@@ -11,7 +11,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import Utils from 'src/app/shared/services/common/utils';
 import { post } from 'selenium-webdriver/http';
 import { RequestEnums } from 'src/app/shared/constants/request-enums';
-import { LocalStorageEnums } from 'src/app/shared/constants/localstorage-enums';
 
 @Component({
   selector: 'app-personal-details',
