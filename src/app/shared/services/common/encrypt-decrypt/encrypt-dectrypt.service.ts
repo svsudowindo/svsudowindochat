@@ -23,7 +23,6 @@ export class EncryptDectryptService {
     if (Utils.getIsObject(input)) {
       return this.simpleCrypto.decryptObject(input);
     }
-    console.log(input);
     return this.simpleCrypto.decrypt(input);
   }
 }

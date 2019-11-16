@@ -37,7 +37,7 @@ pushUserToDB = (req, res, next) => {
     let emailBody = {
       email: user.email,
       password: user.password,
-      companyID: user.companyID
+      companyID: payload.companyID
     };
     user['id'] = payload.id;
     user['companyID'] = payload.companyID;
@@ -126,7 +126,6 @@ exports.resetPassword = (req, res, next) => {
 }
 
 exports.getEmployeeByID = (req, res, next) => {
-  console.log(req.params.employeeID);
   User.find({ _id: req.params.employeeID }, (userError, userResult) => {
     this.sendUserInfo(req, res, next, userError, userResult);
   })
