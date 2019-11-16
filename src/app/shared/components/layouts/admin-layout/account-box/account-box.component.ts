@@ -16,7 +16,6 @@ export class AccountBoxComponent implements OnInit {
     private router: Router,
     private storageService: StorageService
   ) {
-    console.log(this.storageService.getLocalStorageItem(LocalStorageEnums.employeeName));
     this.name = this.storageService.getLocalStorageItem(LocalStorageEnums.employeeName);
     this.id = this.storageService.getLocalStorageItem(LocalStorageEnums.employeeID);
   }
