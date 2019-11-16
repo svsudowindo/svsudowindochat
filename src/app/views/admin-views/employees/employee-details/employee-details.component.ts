@@ -12,7 +12,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Component, OnInit, Injector, inject } from '@angular/core';
 import { VALIDATION_PATTERNS } from '../../../../shared/constants/validation-patterns';;
 import { BaseClass } from '../../../../shared/services/common/baseClass';
-import { DESIGNATION, STATUS } from './employee-details.enum';
+import { STATUS } from './employee-details.enum';
 import Utils from '../../../../shared/services/common/utils';
 import { utils } from 'protractor';
 
@@ -23,7 +23,6 @@ import { utils } from 'protractor';
   styleUrls: ['./employee-details.component.scss']
 })
 export class EmployeeDetailsComponent extends BaseClass implements OnInit {
-  designationConst = DESIGNATION;
   statusConst = STATUS;
   breadCrumbs: BreadCrumbModel[] = [
     {
