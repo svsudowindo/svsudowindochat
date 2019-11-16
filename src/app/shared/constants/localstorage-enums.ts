@@ -2,5 +2,7 @@
 export enum LocalStorageEnums  {
   TOKEN = 'token',
   ROLE = 'role',
-  COMPANY_ID = 'companyID'
+  COMPANY_ID = 'companyID',
+  employeeID = 'employeeID',
+  employeeName = 'employeeName'
 }

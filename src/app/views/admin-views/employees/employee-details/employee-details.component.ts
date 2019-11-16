@@ -73,7 +73,7 @@ export class EmployeeDetailsComponent extends BaseClass implements OnInit {
       this.employeeID = this.encryptDectryptService.getNormalText(this.activatedRoute.snapshot.params.id);
       console.log(this.employeeID);
     }
-  } 
+  }
 
   ngOnInit() {
     this.initEmployeeForm(); 
@@ -119,7 +119,7 @@ export class EmployeeDetailsComponent extends BaseClass implements OnInit {
     }
     return false;
   }
-  employeeDetails() { 
+  employeeDetails() {
     this.loaderService.showLoading();
     const postBody = Object.assign({}, this.employeeForm.value);
     postBody.dateOfJoining = this.employeeForm.value.dateOfJoining.getTime();
