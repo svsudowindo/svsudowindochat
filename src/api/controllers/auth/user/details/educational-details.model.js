@@ -7,7 +7,7 @@ var EducationalDetailsSchema = mongoose.Schema({
                 type: String,
                 default: ''
             },
-            insitituteName: {
+            instituteName: {
                 type: String,
                 default: ''
             },

@@ -4,11 +4,11 @@
       <i class="material-icons p-r-10">add_circle_outline</i>
       Employment
     </button>
-    <button mat-raised-button class="save m-l-10">Save All</button>
+    <button mat-raised-button class="save m-l-10" (click)="saveEmployment()">Save</button>
   </div>
   <form [formGroup]="employmentForm" class="m-t-10">
-    <div formArrayName="employment">
-      <ng-container *ngFor="let eachForm of employmentForm.get('employment')['controls']; let i=index">
+    <div formArrayName="employementInfo">
+      <ng-container *ngFor="let eachForm of employmentForm.get('employementInfo')['controls']; let i=index">
         <mat-card [formGroupName]="i" class="m-t-20">
           <div class="d-flex justify-content-between action-buttons">
             <p class="heading">Employment {{i + 1 }}</p>
@@ -34,7 +34,7 @@
             <div class="col-md-6">
               <div class="h-px-70">
                 <mat-form-field class="w-p-100">
-                  <input matInput placeholder="Locaion" formControlName="location">
+                  <input matInput placeholder="Location" formControlName="location">
                 </mat-form-field>
               </div>
             </div>
