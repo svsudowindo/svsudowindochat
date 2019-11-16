@@ -13,7 +13,6 @@ exports.setPersonalDetails = (req, res, next) => {
     }
     PersonalDetails.find({ createdBy: userID, companyID: companyID }, (personalError, personalResult) => {
       if (personalError) {
-        console.log('personal error');
         return res.send(utils.sendResponse(500, null, ['Something went wrong... Please try again...'], 'Something went wrong... Please try again...'))
       }
       if (personalResult.length <= 0) {
@@ -74,7 +73,6 @@ exports.createPersonalDetails = (req, res, next) => {
     if (err) {
       return res.send(utils.sendResponse(500, null, ['Unable to save personal details'], 'Unable to save personal details'));
     }
-    console.log(savedUser);
     let document = Object.assign({}, savedUser._doc);
     return res.send(utils.sendResponse(200, document, [], 'Personal details saved successfully'));
   })

@@ -126,7 +126,6 @@ exports.resetPassword = (req, res, next) => {
 }
 
 exports.getEmployeeByID = (req, res, next) => {
-  console.log(req.params.employeeID);
   User.find({ _id: req.params.employeeID }, (userError, userResult) => {
     this.sendUserInfo(req, res, next, userError, userResult);
   })
