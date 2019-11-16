@@ -15,6 +15,7 @@ import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 export class EmploymentDetailsComponent implements OnInit {
 
   employmentForm: FormGroup;
+  maxDate = new Date();
   constructor(
     private formBuilder: FormBuilder,
     private commonRequestService: CommonRequestService,
