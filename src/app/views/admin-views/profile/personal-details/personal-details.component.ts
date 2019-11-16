@@ -9,9 +9,7 @@ import { GENDER } from './personal-details.enums';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import Utils from 'src/app/shared/services/common/utils';
-import { post } from 'selenium-webdriver/http';
 import { RequestEnums } from 'src/app/shared/constants/request-enums';
-import { LocalStorageEnums } from 'src/app/shared/constants/localstorage-enums';
 
 @Component({
   selector: 'app-personal-details',
@@ -21,7 +19,8 @@ import { LocalStorageEnums } from 'src/app/shared/constants/localstorage-enums';
 export class PersonalDetailsComponent implements OnInit {
   genderConst = GENDER;
   personalDetailsForm: FormGroup;
-  constructor(private formBuilder: FormBuilder,
+  constructor(
+    private formBuilder: FormBuilder,
     private commonRequestService: CommonRequestService,
     private loaderService: LoaderService,
     private snackbarMessengerService: SnackbarMessengerService,
@@ -56,19 +55,17 @@ export class PersonalDetailsComponent implements OnInit {
     this.commonRequestService.request(RequestEnums.GET_PERSONAL_DETAILS_BY_ID).subscribe(res => {
       if (res.errors.length > 0) {
         this.snackbarMessengerService.openSnackBar(res.errors[0], true);
-        return; 
+        return;
       }
       if (res.status !== 200 || res.data === undefined || res.data === null) {
         this.snackbarMessengerService.openSnackBar(res.message, true);
         return;
       }
       const payload = Object.assign({}, res.data);
-      payload.dateOfBirth = new Date(payload.dateOfBirth);
+      payload.dateOfBirth = Utils.isNull(payload.dateOfBirth) ? '' : new Date(payload.dateOfBirth);
       this.personalDetailsForm.patchValue(payload);
     });
   }
-
-
 
   personalDetails() {
     this.loaderService.showLoading();
@@ -76,7 +73,7 @@ export class PersonalDetailsComponent implements OnInit {
     if (!Utils.isEmpty(postbody.dateOfBirth)) {
       postbody.dateOfBirth = new Date(postbody.dateOfBirth).getTime();
     }
-    let companyID = this.storageService.getLocalStorageItem(LocalStorageEnums.COMPANY_ID);
+    const companyID = this.storageService.getLocalStorageItem(LocalStorageEnums.COMPANY_ID);
     RequestEnums.PERSONAL_DETAILS.values[0] = companyID;
     this.commonRequestService.request(RequestEnums.PERSONAL_DETAILS, postbody).subscribe(res => {
 
@@ -90,10 +87,8 @@ export class PersonalDetailsComponent implements OnInit {
         this.snackbarMessengerService.openSnackBar(res.message, true);
         return;
       }
-      this.snackbarMessengerService.openSnackBar('Personal Details created successfully', false);
-
+      this.snackbarMessengerService.openSnackBar('Personal Details Updated successfully', false);
       this.loaderService.hideLoading();
     });
-
   }
-} 
+}

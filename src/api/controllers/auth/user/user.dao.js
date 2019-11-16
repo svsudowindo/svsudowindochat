@@ -37,7 +37,7 @@ pushUserToDB = (req, res, next) => {
     let emailBody = {
       email: user.email,
       password: user.password,
-      companyID: user.companyID
+      companyID: payload.companyID
     };
     user['id'] = payload.id;
     user['companyID'] = payload.companyID;

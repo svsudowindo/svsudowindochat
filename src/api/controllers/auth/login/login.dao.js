@@ -9,7 +9,7 @@ exports.login = (req, res, next) => {
       return res.send(Utils.sendResponse(500, null, ['Unable to fetch Users. Please try again...'], 'Unable to fetch Users. Please try again...'));
     }
     if (loginResult.length <= 0) {
-      return res.send(Utils.sendResponse(500, null, ['Username , password or company id are invalid'], 'Unauthorized User.'));
+      return res.send(Utils.sendResponse(500, null, ['Username , Password or Company ID are invalid'], 'Unauthorized User.'));
     }
     let responseObj = Object.assign({}, loginResult[0]._doc);
     delete responseObj.password;
