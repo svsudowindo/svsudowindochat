@@ -14,12 +14,13 @@ import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 })
 export class EmploymentDetailsComponent implements OnInit {
 
-  employmentForm: FormGroup; 
-  constructor(private formBuilder: FormBuilder,
-  private commonRequestService: CommonRequestService,
-  private storageService: StorageService,
-  private loaderService: LoaderService,
-  private snackbarMessengerService: SnackbarMessengerService
+  employmentForm: FormGroup;
+  constructor(
+    private formBuilder: FormBuilder,
+    private commonRequestService: CommonRequestService,
+    private storageService: StorageService,
+    private loaderService: LoaderService,
+    private snackbarMessengerService: SnackbarMessengerService
   ) {
     this.initEmploymentForm();
   }
@@ -29,11 +30,11 @@ export class EmploymentDetailsComponent implements OnInit {
     });
     this.setEmploymentForm();
   }
-  setEmploymentForm(){
+  setEmploymentForm() {
     RequestEnums.GET_EMPLOYMENT_DETAILS_BY_ID.values[0] = this.storageService.getLocalStorageItem(LocalStorageEnums.COMPANY_ID);
-    this.commonRequestService.request(RequestEnums.GET_EMPLOYMENT_DETAILS_BY_ID).subscribe(res =>{
-      let employementInfo = res.data.employementInfo;
-      for (let i = 0; i < employementInfo.length-1; i++) {
+    this.commonRequestService.request(RequestEnums.GET_EMPLOYMENT_DETAILS_BY_ID).subscribe(res => {
+      const employementInfo = res.data.employementInfo;
+      for (let i = 0; i < employementInfo.length - 1; i++) {
         this.addNewEmployment();
       }
       this.employmentForm.patchValue(res.data);
@@ -61,17 +62,17 @@ export class EmploymentDetailsComponent implements OnInit {
 
   saveEmployment() {
     this.loaderService.showLoading();
-    let postbody = this.employmentForm.value;
+    const postbody = this.employmentForm.value;
     for(let i=0; i < postbody.length; i++){
-      if(postbody[i].endDate !== ''){
+      if (postbody[i].endDate !== '') {
         postbody[i].endDate = new Date(postbody[i].endDate).getMilliseconds();
       }
-      if(postbody[i].startDate !== ''){
+      if (postbody[i].startDate !== '') {
         postbody[i].startDate = new Date(postbody[i].startDate).getMilliseconds();
       }
     }
     RequestEnums.EMPLOYMENT_DETAILS.values[0] = this.storageService.getLocalStorageItem(LocalStorageEnums.COMPANY_ID);
-    this.commonRequestService.request(RequestEnums.EMPLOYMENT_DETAILS,postbody).subscribe(res => {
+    this.commonRequestService.request(RequestEnums.EMPLOYMENT_DETAILS, postbody).subscribe(res => {
       if (res.errors.length > 0) {
         this.loaderService.hideLoading();
         this.snackbarMessengerService.openSnackBar(res.errors[0], true);
