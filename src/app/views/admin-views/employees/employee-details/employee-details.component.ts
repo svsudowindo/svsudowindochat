@@ -70,12 +70,11 @@ export class EmployeeDetailsComponent extends BaseClass implements OnInit {
     super(injector);
     if (this.activatedRoute.snapshot.params.id) {
       this.employeeID = this.encryptDectryptService.getNormalText(this.activatedRoute.snapshot.params.id);
-      console.log(this.employeeID);
     }
-  } 
+  }
 
   ngOnInit() {
-    this.initEmployeeForm(); 
+    this.initEmployeeForm();
     if (Utils.isValidInput(this.employeeID)) {
       this.setEmployeeForm();
     }
@@ -89,7 +88,7 @@ export class EmployeeDetailsComponent extends BaseClass implements OnInit {
       dateOfJoining: ['', Validators.compose([Validators.required])],
       designation: ['', Validators.compose([Validators.required])],
       role: ['EMPLOYEE'],
-      companyID:['']
+      companyID: ['']
 
     });
   }
@@ -97,7 +96,6 @@ export class EmployeeDetailsComponent extends BaseClass implements OnInit {
   setEmployeeForm() {
     RequestEnums.GET_EMPLOYEE_BY_ID.values[0] = this.employeeID;
     this.commonRequestService.request(RequestEnums.GET_EMPLOYEE_BY_ID).subscribe(res => {
-      console.log(res);
       if (res.errors.length > 0) {
         this.snackbarMessengerService.openSnackBar(res.errors[0], true);
         return;
@@ -118,7 +116,7 @@ export class EmployeeDetailsComponent extends BaseClass implements OnInit {
     }
     return false;
   }
-  employeeDetails() { 
+  employeeDetails() {
     this.loaderService.showLoading();
     const postBody = Object.assign({}, this.employeeForm.value);
     postBody.dateOfJoining = this.employeeForm.value.dateOfJoining.getTime();
