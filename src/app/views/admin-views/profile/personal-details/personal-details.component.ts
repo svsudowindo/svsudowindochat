@@ -19,6 +19,7 @@ import { RequestEnums } from 'src/app/shared/constants/request-enums';
 export class PersonalDetailsComponent implements OnInit {
   genderConst = GENDER;
   personalDetailsForm: FormGroup;
+  maxDate = new Date();
   constructor(
     private formBuilder: FormBuilder,
     private commonRequestService: CommonRequestService,
