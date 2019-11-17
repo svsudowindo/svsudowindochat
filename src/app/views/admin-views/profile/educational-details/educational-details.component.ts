@@ -15,7 +15,9 @@ import { QUALIFICATION } from './educational-details.enums';
 export class EducationalDetailsComponent implements OnInit {
   qualificationConst = QUALIFICATION;
   educationForm: FormGroup;
-  constructor(private formBuilder: FormBuilder,
+  maxDate = new Date();
+  constructor(
+    private formBuilder: FormBuilder,
     private commonRequestService: CommonRequestService,
     private snackbarMessengerService: SnackbarMessengerService,
     private storageService: StorageService,

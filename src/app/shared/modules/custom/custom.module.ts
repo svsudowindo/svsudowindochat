@@ -10,6 +10,7 @@ import { UnderscoreRemovalPipe } from '../../directives/underscore-removal.pipe'
 import { NumberOnlyDirective } from '../../directives/number-only.directive';
 import { AuthHeaderComponent } from '../../components/auth-header/auth-header.component';
 import { SnackbarMessengerModule } from '../../components/componentsAsService/snackbar-messenger/snackbar-messenger.module';
+import { NoRecordsFoundModule } from '../../components/no-records-found/no-records-found.module';
 
 @NgModule({
     declarations: [
@@ -17,13 +18,15 @@ import { SnackbarMessengerModule } from '../../components/componentsAsService/sn
         ResponseMessageComponent,
         UnderscoreRemovalPipe,
         NumberOnlyDirective,
-        AuthHeaderComponent
+        AuthHeaderComponent,
     ],
     imports: [
         CommonModule,
         PopupModule,
         LoaderModule,
-        SnackbarMessengerModule
+        SnackbarMessengerModule,
+        NoRecordsFoundModule
+
     ],
     exports: [
         TrimOnBlurDirective,
@@ -31,7 +34,8 @@ import { SnackbarMessengerModule } from '../../components/componentsAsService/sn
         ResponseMessageComponent,
         UnderscoreRemovalPipe,
         NumberOnlyDirective,
-        AuthHeaderComponent
+        AuthHeaderComponent,
+        NoRecordsFoundModule
     ]
 })
 export class CustomModule { }
