@@ -1,3 +1,4 @@
+import { BaseClass } from './../../../../shared/services/common/baseClass';
 import { LocalStorageEnums } from './../../../../shared/constants/localstorage-enums';
 import { EncryptDectryptService } from './../../../../shared/services/common/encrypt-decrypt/encrypt-dectrypt.service';
 import { Router } from '@angular/router';
@@ -6,20 +7,29 @@ import { SnackbarMessengerService } from './../../../../shared/components/compon
 import { LoaderService } from './../../../../shared/components/componentsAsService/loader/loader.service';
 import { CommonRequestService } from './../../../../shared/services/common-request.service';
 import { GENDER } from './personal-details.enums';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit, Injector } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Utils from 'src/app/shared/services/common/utils';
 import { RequestEnums } from 'src/app/shared/constants/request-enums';
+import { VALIDATION_PATTERNS } from '../../../../shared/constants/validation-patterns';;
+
 
 @Component({
   selector: 'app-personal-details',
   templateUrl: './personal-details.component.html',
   styleUrls: ['./personal-details.component.scss']
 })
-export class PersonalDetailsComponent implements OnInit {
+export class PersonalDetailsComponent extends BaseClass implements OnInit {
   genderConst = GENDER;
   personalDetailsForm: FormGroup;
   maxDate = new Date();
+  validationMessages = {
+    email: [
+      { type: 'pattern', message: 'Enter Valid Email' }],
+    phone: [
+      { type: 'pattern', message: 'Enter Valid Phone Number' }
+    ]
+  };
   constructor(
     private formBuilder: FormBuilder,
     private commonRequestService: CommonRequestService,
@@ -27,10 +37,13 @@ export class PersonalDetailsComponent implements OnInit {
     private snackbarMessengerService: SnackbarMessengerService,
     private storageService: StorageService,
     private router: Router,
-    private encryptDectryptService: EncryptDectryptService
-  ) {
+    private encryptDectryptService: EncryptDectryptService,
+    public injector: Injector,
 
+  ) {
+    super(injector);
   }
+
 
   ngOnInit() {
     this.initPersonalDetailsForm();
@@ -41,8 +54,8 @@ export class PersonalDetailsComponent implements OnInit {
       name: [''],
       gender: [''],
       dateOfBirth: [''],
-      email: [''],
-      phone: [''],
+      email: ['', Validators.compose([ Validators.pattern(VALIDATION_PATTERNS.EMAIL)])],
+      phone: ['', Validators.compose([ Validators.pattern(VALIDATION_PATTERNS.PHONE)])],
       country: [''],
       state: [''],
       city: [''],
@@ -68,6 +81,13 @@ export class PersonalDetailsComponent implements OnInit {
     });
   }
 
+  // field validation
+  isValidField(fieldName) {
+    if (this.personalDetailsForm.get(fieldName).invalid && (this.personalDetailsForm.get(fieldName).touched || this.personalDetailsForm.get(fieldName).dirty)) {
+      return true;
+    }
+    return false;
+  }
   personalDetails() {
     this.loaderService.showLoading();
     const postbody = Object.assign({}, this.personalDetailsForm.value);
