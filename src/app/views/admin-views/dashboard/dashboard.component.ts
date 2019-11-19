@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import * as XLSX from 'xlsx';
+import { ConvertExcelToJsonService } from '../../../shared/services/common/convert-excel-to-json/convert-excel-to-json.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -8,25 +8,16 @@ import * as XLSX from 'xlsx';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private excelToJsonService: ConvertExcelToJsonService
+  ) { }
 
   ngOnInit() {
   }
 
   fileChanged(ev) {
-    console.log(ev);
-    let fileReader = new FileReader()
-    fileReader.readAsBinaryString(ev.target.files[0]);
-    fileReader.onload = function (event) {
-      var data = event.target['result'];
-      var workbook = XLSX.read(data, {
-        type: 'binary'
-      });
-      workbook.SheetNames.forEach(function (sheetName) {
-        // Here is your object
-        var XL_row_object = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
-        console.log(XL_row_object);
-      })
-    }
+    this.excelToJsonService.convertExcelToJSON(ev.target.files[0]).then(res => {
+      console.log(res);
+    })
   }
 }
