@@ -1,10 +1,10 @@
 <div class="container main">
-    <form [formGroup]="personalDetailsForm">
+    <form [formGroup]="personalDetailsForm" (ngSubmit)="personalDetails()">
         <div class="row">
             <div class="col-md-6">
                 <div class="h-px-70">
                     <mat-form-field class="w-p-100">
-                        <input matInput placeholder="Full Name" formControlName="fullName">
+                        <input matInput placeholder="Full Name" formControlName="name">
                     </mat-form-field>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                 <div class="h-px-70">
                     <mat-form-field class="w-p-100">
                         <input matInput [matDatepicker]="picker" placeholder=" Date Of Birth"
-                            formControlName="dateOfBirth">
+                            formControlName="dateOfBirth" readonly [max]="maxDate">
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
                     </mat-form-field>
@@ -35,57 +35,41 @@
             <div class="col-md-6">
                 <div class="h-px-70">
                     <mat-form-field class="w-p-100">
-                        <input matInput placeholder="Email ID" formControlName="emailId">
+                        <input matInput placeholder="Email ID"  formControlName="email">
+                    </mat-form-field>
+                    <div [hidden]="!isValidField('email')">
+                        <p class="error m-b-0">{{getErrorMessage(personalDetailsForm, validationMessages, 'email')}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="h-px-70">
+                    <mat-form-field class="w-p-100">
+                        <input matInput placeholder="Phone Number" formControlName="phone">
+                    </mat-form-field>
+                    <div [hidden]="!isValidField('phone')">
+                        <p class="error m-b-0">{{getErrorMessage(personalDetailsForm, validationMessages, 'phone')}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="h-px-70">
+                    <mat-form-field class="w-p-100">
+                        <input matInput placeholder="Country" formControlName="country">
                     </mat-form-field>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="h-px-70">
                     <mat-form-field class="w-p-100">
-                        <input matInput placeholder="Phone Number" formControlName="phoneNumber">
+                        <input matInput placeholder="State" formControlName="state">
                     </mat-form-field>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="h-px-70">
                     <mat-form-field class="w-p-100">
-                        <input matInput placeholder="Employee ID" formControlName="employeeId">
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="h-px-70">
-                    <mat-form-field class="w-p-100">
-                        <mat-label>Country</mat-label>
-                        <mat-select formControlName="country">
-                            <mat-option>India</mat-option>
-                            <mat-option>South Africa</mat-option>
-                            <mat-option>Bangladesh</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="h-px-70">
-                    <mat-form-field class="w-p-100">
-                        <mat-label>State</mat-label>
-                        <mat-select formControlName="state">
-                            <mat-option>Telangana</mat-option>
-                            <mat-option>TamilNadu</mat-option>
-                            <mat-option>Delhi</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="h-px-70">
-                    <mat-form-field class="w-p-100">
-                        <mat-label>City</mat-label>
-                        <mat-select formControlName="city">
-                            <mat-option>Hyderabad</mat-option>
-                            <mat-option>Chennai</mat-option>
-                            <mat-option>Delhi</mat-option>
-                        </mat-select>
+                        <input matInput placeholder="City" formControlName="city">
                     </mat-form-field>
                 </div>
             </div>

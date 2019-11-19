@@ -37,7 +37,7 @@ pushUserToDB = (req, res, next) => {
     let emailBody = {
       email: user.email,
       password: user.password,
-      companyID: user.companyID
+      companyID: payload.companyID
     };
     user['id'] = payload.id;
     user['companyID'] = payload.companyID;
@@ -62,8 +62,31 @@ this.sendUserInfo = (req, res, next, userError, userResult) => {
   delete document.password;
   return res.send(Utils.sendResponse(200, document, [], 'Fetched employee'));
 }
+
+exports.updateUserAPI = (req, res, next) => {
+  const payload = req.body;
+  const requesteByID = req.params.id;
+  const employeeID = req.params.employeeID;
+  User.find({ id: employeeID, role: 'EMPLOYEE', companyID: payload.companyID }, (employeeFindError, employeeResult) => {
+    if (employeeFindError) {
+      return res.send(Utils.sendResponse(500, null, ['Something went wrong. Please try again'], 'Something went wrong. Please try again'));
+    }
+    if (employeeResult.length <= 0) {
+      return res.send(Utils.sendResponse(500, null, ['No User Exist'], 'No user exist'));
+    }
+    let obj = {
+      name: payload.name,
+      email: payload.email,
+      role: payload.role,
+      updatedBy: requesteByID,
+      id: employeeID,
+      updatedAt: new Date().getMilliseconds(),
+      status: payload.status
+    }
+    this.updateUser(req, res, next, obj);
+  })
+}
 exports.updateUser = (req, res, next, upadateUserObject) => {
-  console.log(upadateUserObject);
   User.updateOne({ id: upadateUserObject.id }, upadateUserObject, (updateUserError, updateUserResult) => {
     if (updateUserError) {
       return res.send(Utils.sendResponse(500, null, ['Something went wrong. Please try to update again'], 'Something went wrong. Please try to update again'));
@@ -103,7 +126,6 @@ exports.resetPassword = (req, res, next) => {
 }
 
 exports.getEmployeeByID = (req, res, next) => {
-  console.log(req.params.employeeID);
   User.find({ _id: req.params.employeeID }, (userError, userResult) => {
     this.sendUserInfo(req, res, next, userError, userResult);
   })

@@ -119,7 +119,7 @@ export class RegistrationComponent extends BaseClass implements OnInit {
         this.snackbarMessengerService.openSnackBar('Something went wrong... Please try again.', true);
         this.loaderService.hideLoading();
       } else {
-        this.snackbarMessengerService.openSnackBar('SuperAdmin Registered Successfully', false);
+        this.snackbarMessengerService.openSnackBar('Super Admin Registered Successfully', false);
         this.loaderService.hideLoading();
         this.router.navigate(['login']);
       }

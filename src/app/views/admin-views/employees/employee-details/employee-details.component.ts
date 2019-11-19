@@ -12,8 +12,9 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Component, OnInit, Injector, inject } from '@angular/core';
 import { VALIDATION_PATTERNS } from '../../../../shared/constants/validation-patterns';;
 import { BaseClass } from '../../../../shared/services/common/baseClass';
-import { DESIGNATION, STATUS } from './employee-details.enum';
+import { STATUS } from './employee-details.enum';
 import Utils from '../../../../shared/services/common/utils';
+import { utils } from 'protractor';
 
 
 @Component({
@@ -22,7 +23,6 @@ import Utils from '../../../../shared/services/common/utils';
   styleUrls: ['./employee-details.component.scss']
 })
 export class EmployeeDetailsComponent extends BaseClass implements OnInit {
-  designationConst = DESIGNATION;
   statusConst = STATUS;
   breadCrumbs: BreadCrumbModel[] = [
     {
@@ -70,12 +70,11 @@ export class EmployeeDetailsComponent extends BaseClass implements OnInit {
     super(injector);
     if (this.activatedRoute.snapshot.params.id) {
       this.employeeID = this.encryptDectryptService.getNormalText(this.activatedRoute.snapshot.params.id);
-      console.log(this.employeeID);
     }
-  } 
+  }
 
   ngOnInit() {
-    this.initEmployeeForm(); 
+    this.initEmployeeForm();
     if (Utils.isValidInput(this.employeeID)) {
       this.setEmployeeForm();
     }
@@ -89,7 +88,7 @@ export class EmployeeDetailsComponent extends BaseClass implements OnInit {
       dateOfJoining: ['', Validators.compose([Validators.required])],
       designation: ['', Validators.compose([Validators.required])],
       role: ['EMPLOYEE'],
-      companyID:['']
+      companyID: ['']
 
     });
   }
@@ -97,7 +96,6 @@ export class EmployeeDetailsComponent extends BaseClass implements OnInit {
   setEmployeeForm() {
     RequestEnums.GET_EMPLOYEE_BY_ID.values[0] = this.employeeID;
     this.commonRequestService.request(RequestEnums.GET_EMPLOYEE_BY_ID).subscribe(res => {
-      console.log(res);
       if (res.errors.length > 0) {
         this.snackbarMessengerService.openSnackBar(res.errors[0], true);
         return;
@@ -123,7 +121,12 @@ export class EmployeeDetailsComponent extends BaseClass implements OnInit {
     const postBody = Object.assign({}, this.employeeForm.value);
     postBody.dateOfJoining = this.employeeForm.value.dateOfJoining.getTime();
     postBody.companyID = this.storageService.getLocalStorageItem(LocalStorageEnums.COMPANY_ID);
-    this.commonRequestService.request(RequestEnums.CREATE_EMPLOYEE, postBody).subscribe(res => {
+    let url = RequestEnums.CREATE_EMPLOYEE;
+    if (Utils.isValidInput(this.employeeID)) {
+      url = RequestEnums.UPDATE_EMPLOYEE;
+      url.values[0] = this.employeeForm.get('id').value;
+    }
+    this.commonRequestService.request(url, postBody).subscribe(res => {
       if (res.errors.length > 0) {
         this.loaderService.hideLoading();
         this.snackbarMessengerService.openSnackBar(res.errors[0], true);
@@ -134,9 +137,13 @@ export class EmployeeDetailsComponent extends BaseClass implements OnInit {
         this.snackbarMessengerService.openSnackBar(res.message, true);
         return;
       }
-      this.snackbarMessengerService.openSnackBar('Employee created successfully', false);
+        let message = 'Employee created successfully';
+        if (Utils.isValidInput(this.employeeID)) { 
+        message = 'Employee Details Updated Successfully';
+      }
+      this.snackbarMessengerService.openSnackBar(message, false);
       this.loaderService.hideLoading();
       this.router.navigate(['employees']);
     });
-  }
+  } 
 }

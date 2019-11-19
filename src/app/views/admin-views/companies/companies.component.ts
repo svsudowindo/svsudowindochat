@@ -17,6 +17,7 @@ export class CompaniesComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
   changeEvent: MatSort;
   list = [];
+  listLength;
   searchValue = '';
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -35,8 +36,8 @@ export class CompaniesComponent implements OnInit {
 
   ngOnInit() {
     this.commonRequestService.request(RequestEnums.COMPANY_LIST).subscribe(res => {
-      console.log(res);
       this.list = res.data;
+      this.listLength = res.data.length;
       this.dataSource = new MatTableDataSource(res.data);
       this.dataSource.paginator = this.paginator;
     });
@@ -56,6 +57,7 @@ export class CompaniesComponent implements OnInit {
 
   search() {
     const filteredArray = this.searchService.searchFilterArrayOfJson(this.list, this.searchValue, ['companyName', 'companyID']);
+    this.listLength = filteredArray.length;
     this.dataSource = new MatTableDataSource(filteredArray);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;

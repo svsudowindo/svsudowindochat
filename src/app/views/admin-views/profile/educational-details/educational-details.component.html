@@ -1,12 +1,15 @@
 <div class="container main">
   <div class="d-flex justify-content-end action-buttons">
-    <button mat-mini-fab class="success" (click)="addNewQualification()">
-      <i class="material-icons">add_circle_outline</i>
+    <button mat-raised-button class="success" (click)="addNewQualification()">
+      <i class="material-icons p-r-10" >add_circle_outline</i>
+      Education
     </button>
+    <button mat-raised-button class="save m-l-10"(click)="saveEducation()" >Save </button>
+
   </div>
   <form [formGroup]="educationForm" class="m-t-10">
-    <div formArrayName="education">
-      <ng-container *ngFor="let eachForm of educationForm.get('education')['controls']; let i=index">
+    <div formArrayName="educationalInfo">
+      <ng-container *ngFor="let eachForm of educationForm.get('educationalInfo')['controls']; let i=index">
         <mat-card [formGroupName]="i" class="m-t-20">
           <div class="d-flex justify-content-between action-buttons">
             <p class="heading">Qualification {{i + 1 }}</p>
@@ -18,14 +21,7 @@
             <div class="col-md-6">
               <div class="h-px-70">
                 <mat-form-field class="w-p-100">
-                  <mat-label>Qualifications</mat-label>
-                  <mat-select>
-                    <ng-container *ngFor="let qualification of qualificationConst">
-                      <mat-option [value]="qualification.id">
-                        {{qualification.label}}
-                      </mat-option>
-                    </ng-container>
-                  </mat-select>
+                  <input matInput placeholder="Qualification" formControlName="qualification">
                 </mat-form-field>
               </div>
             </div>
@@ -54,7 +50,7 @@
             <div class="col-md-6">
               <div class="h-px-70">
                 <mat-form-field class="w-p-100">
-                  <input matInput [matDatepicker]="startDate" placeholder="Start date" formControlName="startDate">
+                  <input matInput [matDatepicker]="startDate" placeholder="Start date" formControlName="startDate" readonly [max]="maxDate">
                   <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
                   <mat-datepicker #startDate></mat-datepicker>
                 </mat-form-field>
@@ -64,15 +60,12 @@
             <div class="col-md-6">
               <div class="h-px-70">
                 <mat-form-field class="w-p-100">
-                  <input matInput [matDatepicker]="endDate" placeholder="End date" formControlName="endDate">
+                  <input matInput [matDatepicker]="endDate" placeholder="End date" formControlName="endDate" readonly [max]="maxDate">
                   <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
                   <mat-datepicker #endDate></mat-datepicker>
                 </mat-form-field>
               </div>
             </div>
-          </div>
-          <div class="d-flex justify-content-end action-buttons">
-            <button mat-raised-button class="save">Save</button>
           </div>
         </mat-card>
       </ng-container>
