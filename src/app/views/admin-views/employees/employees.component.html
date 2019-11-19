@@ -3,7 +3,6 @@
   <div class="row m-b-10 action-buttons">
     <div class="col-sm-6">
       <ng-container *ngIf="list.length > 0">
-
         <mat-form-field style="width: 170px">
           <input matInput placeholder="Search by Name or ID" [(ngModel)]="searchValue"
             [ngModelOptions]="{standalone: true}" (keyup)="search()">
@@ -14,9 +13,10 @@
       <button mat-raised-button class="success m-t-10" [routerLink]="['/employees/details']">Add employee</button>
     </div>
   </div>
-  <ng-container *ngIf="list.length <= 0">
+  <ng-container *ngIf="list.length <= 0 || listLength <= 0">
     <app-no-records-found></app-no-records-found>
   </ng-container>
+  <ng-container *ngIf="listLength > 0">
   <ng-container *ngIf="list.length > 0">
     <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 custom-table"
       (matSortChange)="sortChange($event)">
@@ -53,8 +53,9 @@
       </mat-row>
     </mat-table>
   </ng-container>
-  <ng-container *ngIf="list.length > 0">
-    <mat-paginator [length]="list.length" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+</ng-container >
+  <ng-container *ngIf="listLength > 0">
+    <mat-paginator *ngIf="list.length > 0" [length]="list.length" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
     </mat-paginator>
   </ng-container>
 </div>

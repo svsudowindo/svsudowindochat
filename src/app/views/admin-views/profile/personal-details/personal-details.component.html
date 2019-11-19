@@ -35,8 +35,11 @@
             <div class="col-md-6">
                 <div class="h-px-70">
                     <mat-form-field class="w-p-100">
-                        <input matInput placeholder="Email ID" formControlName="email">
+                        <input matInput placeholder="Email ID"  formControlName="email">
                     </mat-form-field>
+                    <div [hidden]="!isValidField('email')">
+                        <p class="error m-b-0">{{getErrorMessage(personalDetailsForm, validationMessages, 'email')}}</p>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6">
@@ -44,6 +47,9 @@
                     <mat-form-field class="w-p-100">
                         <input matInput placeholder="Phone Number" formControlName="phone">
                     </mat-form-field>
+                    <div [hidden]="!isValidField('phone')">
+                        <p class="error m-b-0">{{getErrorMessage(personalDetailsForm, validationMessages, 'phone')}}</p>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6">

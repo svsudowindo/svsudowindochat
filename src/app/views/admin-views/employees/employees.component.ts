@@ -17,7 +17,8 @@ export class EmployeesComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
   changeEvent: MatSort;
   list = [];
-  SearchValue = '';
+  listLength;
+  searchValue = '';
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   breadCrumbs: BreadCrumbModel[] = [
@@ -36,6 +37,7 @@ export class EmployeesComponent implements OnInit {
   ngOnInit() {
     this.commonRequestService.request(RequestEnums.EMPLOYEE_LIST).subscribe(res => {
       this.list = res.data;
+      this.listLength = res.data.length;
       this.dataSource = new MatTableDataSource(res.data);
       this.dataSource.paginator = this.paginator;
     });
@@ -54,7 +56,8 @@ export class EmployeesComponent implements OnInit {
   }
 
   search() {
-    const filteredArray = this.searchService.searchFilterArrayOfJson(this.list, this.SearchValue, ['employeecName', 'employeeID']);
+    const filteredArray = this.searchService.searchFilterArrayOfJson(this.list, this.searchValue, ['name', 'id']);
+    this.listLength = filteredArray.length;
     this.dataSource = new MatTableDataSource(filteredArray);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
