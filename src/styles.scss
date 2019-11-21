@@ -26,6 +26,13 @@ body,p,.mat-select-value-text {
     border: none;
 }
 
+.position-relative {
+  position: relative !important;
+}
+.position-absolute {
+  position: absolute !important;
+}
+
 // auth layout common styles
 .auth {
   .title {

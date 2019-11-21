@@ -28,7 +28,6 @@
           <mat-header-cell *matHeaderCellDef mat-sort-header> Company Name </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.companyName | titlecase}} </mat-cell>
         </ng-container>
-
         <ng-container matColumnDef="createdAt">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Created On </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.createdAt | date: 'dd/MMM/yyyy hh:mm:ss'}} </mat-cell>

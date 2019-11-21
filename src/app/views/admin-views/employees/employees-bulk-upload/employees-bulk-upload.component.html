@@ -1,0 +1,14 @@
+<div class="container main">
+    <div class="d-flex justify-content-center">
+        <p class="bulk-upload-label">Bulk Upload</p>
+    </div>
+    <div class="position-relative">
+        <input class="form-control" type="file" #fileInput style="display: none;" accept=".xlsx" />
+        <input type="text" class="input-browse" readonly placeholder="Browse file" (click)="fileInput.click()" />
+        <button class="primary" class="browse-button" (click)="fileInput.click()">Browse</button>
+    </div>
+    <div class="m-t-25 action-buttons d-flex justify-content-center">
+        <button mat-raised-button class="cancel m-r-10 h-34">Cancel</button>
+        <button mat-raised-button class="save h-34" (click)="uploadFile();">Upload</button>
+    </div>
+</div>

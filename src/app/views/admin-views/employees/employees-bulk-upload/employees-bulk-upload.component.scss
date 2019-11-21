@@ -1,0 +1,40 @@
+
+.input-browse {
+    padding: 5px;
+    border-radius: 20px;
+    border-color: darkslategrey;
+    width: 422px;
+
+}
+
+.bulk-upload-label {
+    font-size: 25px;
+    margin-bottom: 25px;
+    font-weight: bold;
+
+}
+.input-browse:focus {
+    outline: none;
+}
+
+.browse-button {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    border-radius: 5px;
+    width: 95px;
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+    height: 38px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.browse-button:focus {
+    outline: none;
+}
+
+.h-34 {
+    height: 34px !important;
+}

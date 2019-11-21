@@ -10,6 +10,7 @@
       </ng-container>
     </div>
     <div class="col-sm-6 text-right">
+        <button  mat-raised-button class="success m-t-10  m-r-10" (click)="openBulkUpload()">Bulk Upload</button>
       <button mat-raised-button class="success m-t-10" [routerLink]="['/employees/details']">Add employee</button>
     </div>
   </div>
@@ -17,43 +18,43 @@
     <app-no-records-found></app-no-records-found>
   </ng-container>
   <ng-container *ngIf="listLength > 0">
-  <ng-container *ngIf="list.length > 0">
-    <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 custom-table"
-      (matSortChange)="sortChange($event)">
-      <ng-container matColumnDef="id">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Employee ID </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.id }} </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Employee Name </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.name | titlecase}} </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="email">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Employee Email </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
-      </ng-container>
-      <!--
-    <ng-container matColumnDef="createdBy">
+    <ng-container *ngIf="list.length > 0">
+      <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 custom-table"
+        (matSortChange)="sortChange($event)">
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Employee ID </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.id }} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Employee Name </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.name | titlecase}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="email">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Employee Email </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+        </ng-container>
+        <!--
+     <ng-container matColumnDef="createdBy">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Created By</mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.createdBy}} </mat-cell>
-    </ng-container> -->
+     </ng-container> -->
 
-      <!-- <ng-container matColumnDef="updatedBy">
+        <!-- <ng-container matColumnDef="updatedBy">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Updated By </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.updatedBy}} </mat-cell>
-    </ng-container> -->
+     </ng-container> -->
 
-      <ng-container matColumnDef="designation">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Designation </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.designation}} </mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="designation">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Designation </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.designation}} </mat-cell>
+        </ng-container>
 
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row class="pointer" *matRowDef="let row; columns: displayedColumns;" (click)="navigateToEmployeeEdit(row)">
-      </mat-row>
-    </mat-table>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row class="pointer" *matRowDef="let row; columns: displayedColumns;" (click)="navigateToEmployeeEdit(row)">
+        </mat-row>
+      </mat-table>
+    </ng-container>
   </ng-container>
-</ng-container >
   <ng-container *ngIf="listLength > 0">
     <mat-paginator *ngIf="list.length > 0" [length]="list.length" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
     </mat-paginator>

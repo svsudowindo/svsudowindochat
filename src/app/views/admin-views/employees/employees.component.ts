@@ -1,3 +1,4 @@
+import { EmployeesBulkUploadComponent } from './employees-bulk-upload/employees-bulk-upload.component';
 import { EncryptDectryptService } from './../../../shared/services/common/encrypt-decrypt/encrypt-dectrypt.service';
 import { Router } from '@angular/router';
 import { CommonRequestService } from './../../../shared/services/common-request.service';
@@ -5,8 +6,9 @@ import { BreadCrumbModel } from './../../../shared/components/bread-crumb/bread-
 import { SearchService } from './../../../shared/services/common/search/search.service';
 import { SortService } from './../../../shared/services/common/sort/sort.service';
 import { MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild,Inject } from '@angular/core';
 import { RequestEnums } from 'src/app/shared/constants/request-enums';
+import {MatDialog,MatDialogConfig}  from '@angular/material/dialog';
 @Component({
   selector: 'app-employees',
   templateUrl: './employees.component.html',
@@ -31,9 +33,11 @@ export class EmployeesComponent implements OnInit {
     private searchService: SearchService,
     private commonRequestService: CommonRequestService,
     private router: Router,
+    private matDialog: MatDialog,
     private encryptDectryptService: EncryptDectryptService) {
   }
 
+  
   ngOnInit() {
     this.commonRequestService.request(RequestEnums.EMPLOYEE_LIST).subscribe(res => {
       this.list = res.data;
@@ -64,5 +68,15 @@ export class EmployeesComponent implements OnInit {
   }
   navigateToEmployeeEdit(row) {
     this.router.navigate(['employees', 'details', this.encryptDectryptService.getCipherText(row._id)]);
+  }
+  openBulkUpload() {
+    const dialog = this.matDialog.open(EmployeesBulkUploadComponent, {
+      width: "500px",
+      height: "auto"
+    });
+    dialog.disableClose = false;
+    dialog.afterClosed().subscribe(res => {
+      console.log(res);
+    })
   }
 }
