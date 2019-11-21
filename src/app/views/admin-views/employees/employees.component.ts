@@ -19,7 +19,6 @@ export class EmployeesComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
   changeEvent: MatSort;
   list = [];
-  title = "employees file";
   listLength;
   searchValue = '';
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -71,7 +70,10 @@ export class EmployeesComponent implements OnInit {
     this.router.navigate(['employees', 'details', this.encryptDectryptService.getCipherText(row._id)]);
   }
   openBulkUpload() {
-    const dialog = this.matDialog.open(EmployeesBulkUploadComponent);
+    const dialog = this.matDialog.open(EmployeesBulkUploadComponent, {
+      width: "500px",
+      height: "auto"
+    });
     dialog.disableClose = false;
     dialog.afterClosed().subscribe(res => {
       console.log(res);
