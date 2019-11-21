@@ -6,6 +6,7 @@ var userDAO = require('../controllers/auth/user/user.dao');
 var personalDetailsDAO = require('../controllers/auth/user/details/personal-details.dao');
 var employeementDAO = require('../controllers/auth/user/details/employment-details.dao');
 var educationalDAO = require('../controllers/auth/user/details/educational-details.dao');
+var bulkUploadDAO = require('../controllers/auth/user/bulk-import/bulk-import.dao');
 
 adminRoutes.get('/:id/fetch-company-list', companyDAO.getAllCompanies);
 adminRoutes.get('/:id/fetch-employees', userDAO.getAllUsers);
@@ -20,5 +21,7 @@ adminRoutes.post('/:id/setEmployeementDetails/:companyID', employeementDAO.setEm
 adminRoutes.get('/:id/getEmployeementDetails/:companyID', employeementDAO.getEmployementDetails);
 adminRoutes.post('/:id/setEducationalDetails/:companyID', educationalDAO.setEducationalDetails);
 adminRoutes.get('/:id/getEducationalDetails/:companyID', educationalDAO.getEducationalDetails);
+
+adminRoutes.post('/:id/employees-bulk-upload/:companyID', bulkUploadDAO.employeesBulkUpload);
 
 exports.adminRoutes = adminRoutes;
