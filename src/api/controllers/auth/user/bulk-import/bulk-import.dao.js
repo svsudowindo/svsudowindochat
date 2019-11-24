@@ -4,6 +4,8 @@ var emailConfigService = require('../../../../common/email.config/email.config')
 var validUsersList = [];
 var invalidUsersList = [];
 exports.employeesBulkUpload = (req, res, next) => {
+  validUsersList = [];
+ invalidUsersList = []; 
   let payload = req.body;
   let userId = req.params.id;
   let companyID = req.params.companyID;
@@ -79,7 +81,6 @@ async function validateUser(payload, companyID, userId) {
       user['designation'] = payload.designation;
       user['createdAt'] = new Date().getHours();
       user['updatedAt'] = new Date().getHours();
-      console.log(user);
       //   emailConfigService.sendMail(emailBody, 'Registration with SVsudowindo', 'You have registered with SVsudowindo chat application', 'Please Use following credentials to login', true)
       validUsersList.push(user);
     }
