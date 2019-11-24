@@ -106,6 +106,12 @@ export const RequestEnums = {
     path: '/admin/token/getEducationalDetails/:companyID',
     keys: ['companyID'],
     values: []
+  },
+  EMPLOYEES_BULK_UPLOAD: {
+    type: 'POST',
+    path: '/admin/token/employees-bulk-upload/:companyID',
+    keys: ['companyID'],
+    values: []
   }
 };
 
