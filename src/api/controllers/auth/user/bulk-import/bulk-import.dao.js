@@ -47,13 +47,8 @@ exports.employeesBulkUpload = (req, res, next) => {
 
 async function validateUser(payload, companyID, userId) {
   await User.find({
-    $or: [{
-      companyID: companyID,
-      id: payload.id
-    }, {
-      companyID: companyID,
-      email: payload.email
-    }]
+    companyID: companyID,
+    id: payload.id
   }, (validateUserError, validateUserResult) => {
     if (validateUserError) {
       payload['reason'] = 'Something went wrong... Try again';
