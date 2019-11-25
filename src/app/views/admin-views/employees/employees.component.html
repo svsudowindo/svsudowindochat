@@ -10,7 +10,7 @@
       </ng-container>
     </div>
     <div class="col-sm-6 text-right">
-        <button  mat-raised-button class="success m-t-10  m-r-10" (click)="openBulkUpload()">Bulk Upload</button>
+      <button mat-raised-button class="success m-t-10  m-r-10" (click)="openBulkUpload()">Bulk Upload</button>
       <button mat-raised-button class="success m-t-10" [routerLink]="['/employees/details']">Add employee</button>
     </div>
   </div>
@@ -33,11 +33,15 @@
           <mat-header-cell *matHeaderCellDef mat-sort-header> Employee Email </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
         </ng-container>
-        <!--
-     <ng-container matColumnDef="createdBy">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Created By</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.createdBy}} </mat-cell>
-     </ng-container> -->
+
+        <ng-container matColumnDef="delete">
+          <mat-header-cell class="m-r-n-150" *matHeaderCellDef mat-sort-header></mat-header-cell>
+          <mat-cell *matCellDef="let element" class="m-r-n-150">
+            <i class="material-icons" (click)="delete($event, element)">
+              delete_forever
+            </i>
+          </mat-cell>
+        </ng-container>
 
         <!-- <ng-container matColumnDef="updatedBy">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Updated By </mat-header-cell>
