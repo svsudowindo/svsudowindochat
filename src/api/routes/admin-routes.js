@@ -12,6 +12,8 @@ adminRoutes.get('/:id/fetch-company-list', companyDAO.getAllCompanies);
 adminRoutes.get('/:id/fetch-employees', userDAO.getAllUsers);
 adminRoutes.post('/:id/reset-password', userDAO.resetPassword);
 adminRoutes.get('/:id/getEmployeeByID/:employeeID', userDAO.getEmployeeByID);
+adminRoutes.delete('/:id/delete-employee-by-id/:employeeID', userDAO.deleteEmployeeByID)
+
 adminRoutes.get('/:id/get-company-details/:companyID', companyDAO.getCompanyById);
 adminRoutes.post('/:id/update-company/:companyID', companyDAO.updateCompany);
 adminRoutes.post('/:id/updateEmployee/:employeeID', userDAO.updateUserAPI);
@@ -23,5 +25,4 @@ adminRoutes.post('/:id/setEducationalDetails/:companyID', educationalDAO.setEduc
 adminRoutes.get('/:id/getEducationalDetails/:companyID', educationalDAO.getEducationalDetails);
 
 adminRoutes.post('/:id/employees-bulk-upload/:companyID', bulkUploadDAO.employeesBulkUpload);
-
 exports.adminRoutes = adminRoutes;

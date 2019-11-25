@@ -7,7 +7,16 @@ exports.createUser = (req, res, next) => {
   if (payload.role === 'SUPER_ADMIN') {
     pushUserToDB(req, res, next);
   } else {
-    User.find({ $or: [{ _id: req.params['id'], companyID: payload.companyID, role: 'ADMIN' }, { _id: req.params['id'], role: 'SUPER_ADMIN' }] }, (err, adminList) => {
+    User.find({
+      $or: [{
+        _id: req.params['id'],
+        companyID: payload.companyID,
+        role: 'ADMIN'
+      }, {
+        _id: req.params['id'],
+        role: 'SUPER_ADMIN'
+      }]
+    }, (err, adminList) => {
       if (err) {
         return res.send(Utils.sendResponse(500, null, ['Unable to fetch Users. Please try again...'], 'Unable to fetch Users. Please try again...'));
       }
@@ -21,7 +30,15 @@ exports.createUser = (req, res, next) => {
 
 pushUserToDB = (req, res, next) => {
   let payload = req.body;
-  User.find({ $or: [{ companyID: payload.companyID, email: payload.email }, { companyID: payload.companyID, id: payload.id }] }, (err, userslist) => {
+  User.find({
+    $or: [{
+      companyID: payload.companyID,
+      email: payload.email
+    }, {
+      companyID: payload.companyID,
+      id: payload.id
+    }]
+  }, (err, userslist) => {
     if (err) {
       return res.send(Utils.sendResponse(500, null, ['Unable to fetch Users'], 'Unable to fetch Users'));
     }
@@ -67,7 +84,11 @@ exports.updateUserAPI = (req, res, next) => {
   const payload = req.body;
   const requesteByID = req.params.id;
   const employeeID = req.params.employeeID;
-  User.find({ id: employeeID, role: 'EMPLOYEE', companyID: payload.companyID }, (employeeFindError, employeeResult) => {
+  User.find({
+    id: employeeID,
+    role: 'EMPLOYEE',
+    companyID: payload.companyID
+  }, (employeeFindError, employeeResult) => {
     if (employeeFindError) {
       return res.send(Utils.sendResponse(500, null, ['Something went wrong. Please try again'], 'Something went wrong. Please try again'));
     }
@@ -87,7 +108,9 @@ exports.updateUserAPI = (req, res, next) => {
   })
 }
 exports.updateUser = (req, res, next, upadateUserObject) => {
-  User.updateOne({ id: upadateUserObject.id }, upadateUserObject, (updateUserError, updateUserResult) => {
+  User.updateOne({
+    id: upadateUserObject.id
+  }, upadateUserObject, (updateUserError, updateUserResult) => {
     if (updateUserError) {
       return res.send(Utils.sendResponse(500, null, ['Something went wrong. Please try to update again'], 'Something went wrong. Please try to update again'));
     }
@@ -100,7 +123,9 @@ exports.updateUser = (req, res, next, upadateUserObject) => {
 
 exports.getAllUsers = (req, res, next) => {
   let payload = req.body;
-  User.find({ createdBy: req.params.id }, (userError, userResult) => {
+  User.find({
+    createdBy: req.params.id
+  }, (userError, userResult) => {
     if (userError) {
       return res.send(Utils.sendResponse(500, null, ['Unable to fetch employees list'], 'Unable to fetch employees list'));
     }
@@ -110,7 +135,10 @@ exports.getAllUsers = (req, res, next) => {
 
 exports.resetPassword = (req, res, next) => {
   let payload = req.body;
-  User.find({ _id: req.params.id, password: payload.password }, (userError, userResult) => {
+  User.find({
+    _id: req.params.id,
+    password: payload.password
+  }, (userError, userResult) => {
     if (userError) {
       return res.send(Utils.sendResponse(500, null, ['Unable to fetch user. Please try again'], 'Unable to fetch user. Please try again'));
     }
@@ -126,7 +154,9 @@ exports.resetPassword = (req, res, next) => {
 }
 
 exports.getEmployeeByID = (req, res, next) => {
-  User.find({ _id: req.params.employeeID }, (userError, userResult) => {
+  User.find({
+    _id: req.params.employeeID
+  }, (userError, userResult) => {
     this.sendUserInfo(req, res, next, userError, userResult);
   })
 }
@@ -134,7 +164,10 @@ exports.getEmployeeByID = (req, res, next) => {
 
 exports.getEmployeeByCompanyID = (req, res, next, otherObject = null) => {
   let companyID = req.params['companyID'];
-  User.find({ companyID: companyID, role: 'ADMIN' }, (employeeError, employeeResult) => {
+  User.find({
+    companyID: companyID,
+    role: 'ADMIN'
+  }, (employeeError, employeeResult) => {
     if (employeeError) {
       return res.send(Utils.sendResponse(500, null, ['Unable to fetch user by company id . Please try again'], 'Unable to fetch user by company id . Please try again'));
     }
@@ -153,4 +186,33 @@ exports.getEmployeeByCompanyID = (req, res, next, otherObject = null) => {
       this.sendUserInfo(req, res, next, employeeError, employeeResult)
     }
   })
+}
+
+exports.deleteEmployeeByID = (req, res, next) => {
+  let userID = req.params.id;
+  let employeeID = req.params.employeeID;
+  User.find({
+    _id: userID
+  }, (userError, userResult) => {
+    if (userError) {
+      return res.send(Utils.sendResponse(500, null, ['Something went wrong... Please try again...'], 'Something went wrong... Please try again...'))
+    }
+    if (userResult.length <= 0) {
+      return res.send(Utils.sendResponse(200, null, ['Unauthorized access... Please try with authorized admin role'], 'Unauthorized access... Please try with authorized admin role'))
+    }
+    User.deleteOne({
+      _id: employeeID
+    }, (deleteUserError, deleteUserResult) => {
+
+      if (deleteUserError) {
+        return res.send(Utils.sendResponse(500, null, ['Something went wrong... Please try again...'], 'Something went wrong... Please try again...'))
+      }
+      if (deleteUserResult['ok'] !== 1) {
+        return res.send(Utils.sendResponse(200, null, ['Unable to delete... Please try again'], 'Unable to delete... Please try again'))
+      }
+      console.log(deleteUserResult);
+      return res.send(Utils.sendResponse(200, {}, [], 'Deleted Successfully'))
+    })
+  })
+
 }

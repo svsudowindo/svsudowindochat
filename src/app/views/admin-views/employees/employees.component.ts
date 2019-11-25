@@ -16,7 +16,7 @@ import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
   styleUrls: ["./employees.component.scss"]
 })
 export class EmployeesComponent implements OnInit {
-  displayedColumns: string[] = ["id", "name", "email", "designation"];
+  displayedColumns: string[] = ["id", "name", "email", "designation", "delete"];
   dataSource: MatTableDataSource<any>;
   changeEvent: MatSort;
   list = [];
@@ -98,5 +98,11 @@ export class EmployeesComponent implements OnInit {
         this.employeeListAPI();
       }
     });
+  }
+
+  delete(ev, employeeInfo) {
+    ev.stopPropagation();
+    console.log(employeeInfo);
+    alert('delete');
   }
 }
