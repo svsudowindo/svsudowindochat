@@ -2,9 +2,9 @@
   <h4 class="modal-title" [ngClass]="popupObtainedInfo.type === POPUPENUM.SUCCESS ? 'success-message' : 'error-message'">
     {{popupObtainedInfo.title | titlecase}}
   </h4>
-  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+  <!--<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
     <span aria-hidden="true">&times;</span>
-  </button>
+  </button>-->
 </div>
 <div class="modal-body">
   <p [ngClass]="popupObtainedInfo.type === POPUPENUM.SUCCESS ? 'success-message' : 'error-message'">

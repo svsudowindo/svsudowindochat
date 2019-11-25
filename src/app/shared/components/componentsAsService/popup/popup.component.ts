@@ -12,7 +12,9 @@ export class PopupComponent implements OnInit {
 
   popupObtainedInfo: IDataInfo;
   POPUPENUM = POPUP;
-  constructor(private activeModal: NgbActiveModal, private _popupInfoService: PopupInfoService) {
+  constructor(
+    private activeModal: NgbActiveModal,
+    private _popupInfoService: PopupInfoService) {
     console.log(this._popupInfoService.data);
     this.popupObtainedInfo = this._popupInfoService.data;
   }

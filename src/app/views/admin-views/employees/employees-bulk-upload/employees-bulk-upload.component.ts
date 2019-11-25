@@ -1,6 +1,8 @@
+import { IDataInfo } from "./../../../../shared/components/componentsAsService/popup/popup-info.service";
+import { PopupService } from "./../../../../shared/components/componentsAsService/popup/popup.service";
 import { SnackbarMessengerService } from "./../../../../shared/components/componentsAsService/snackbar-messenger/snackbar-messenger.service";
 import { RequestEnums } from "src/app/shared/constants/request-enums";
-import { BULK_UPLOAD } from "./../../../../shared/constants/popup-enum";
+import { BULK_UPLOAD, POPUP } from "./../../../../shared/constants/popup-enum";
 import { Component, OnInit } from "@angular/core";
 import { StorageService } from "src/app/shared/services/storage.service";
 import { CommonRequestService } from "src/app/shared/services/common-request.service";
@@ -16,17 +18,20 @@ import Utils from "src/app/shared/services/common/utils";
 })
 export class EmployeesBulkUploadComponent implements OnInit {
   convertedJson = [];
+  selectedFileName = '';
   constructor(
     private excelToJsonService: ConvertExcelToJsonService,
     private commonRequestService: CommonRequestService,
     private storageService: StorageService,
     public dialogRef: MatDialogRef<EmployeesBulkUploadComponent>,
-    private snackbarMessengerService: SnackbarMessengerService
+    private snackbarMessengerService: SnackbarMessengerService,
+    private popupService: PopupService
   ) {}
 
   ngOnInit() {}
 
   fileChanged(ev) {
+    this.selectedFileName = ev.target.files[0].name.split()[0];
     this.excelToJsonService.convertExcelToJSON(ev.target.files[0]).then(res => {
       this.convertedJson = res;
     });
@@ -41,6 +46,8 @@ export class EmployeesBulkUploadComponent implements OnInit {
       "Designation",
       "Status"
     ]);
+    let isDuplicateIDexist = false;
+
     const uploadedHeaders = JSON.stringify(Object.keys(this.convertedJson[0]));
     if (excelHeaders === uploadedHeaders) {
       const employeesArray = [];
@@ -61,8 +68,20 @@ export class EmployeesBulkUploadComponent implements OnInit {
               : 1,
           designation: this.convertedJson[i]["Designation"]
         };
+        console.log('saklsjlas');
         if (this.isValidEmployeeObject(reframedObj)) {
-          employeesArray.push(reframedObj);
+          if (employeesArray.length > 0) {
+            const index = employeesArray.findIndex(
+              obj => obj.id === reframedObj.id
+            );
+            if (index === -1) {
+              employeesArray.push(reframedObj);
+            } else {
+              isDuplicateIDexist = true;
+            }
+          } else {
+            employeesArray.push(reframedObj);
+          }
         } else {
           employeesInvalidList.push(reframedObj);
         }
@@ -70,46 +89,80 @@ export class EmployeesBulkUploadComponent implements OnInit {
       if (employeesInvalidList.length > 0) {
         if (
           confirm(
-            employeesInvalidList.length +
-              " Employees are invalid. Do you want to still upload the employees."
+              " Only Valid Employee Details will be uploaded remaining will be ignored. Do you want to still upload the employees."
           ) === true
         ) {
           // upload file api call
-          this.uploadEmployees(employeesArray);
+          this.uploadEmployees(employeesArray, isDuplicateIDexist);
           return;
         } else {
           return;
         }
       }
-      this.uploadEmployees(employeesArray);
+      this.uploadEmployees(employeesArray, isDuplicateIDexist);
       // upload only valid data
     } else {
-      this.snackbarMessengerService.openSnackBar(
-        "Headers of uploaded excel has been changed... or data is incorrect Please upload with the same headers and valid data",
-        true
-      );
+      const popupConfig: IDataInfo = {
+        type: POPUP.ERROR,
+        title: "Error While Uploading",
+        message:
+          "Headers of uploaded excel has been changed... or data is incorrect Please upload with the same headers and valid data",
+        okButtonLabel: "Ok"
+      };
+      this.popupService.openModal(popupConfig).then(popupRes => {
+        console.log(popupRes);
+      });
       return;
     }
   }
-
   isValidEmployeeObject(reframedObj) {
     const values = Object.values(reframedObj);
-    const index = values.indexOf("");
-    if (index === -1) {
-      if (isNaN(new Date(reframedObj.dateOfJoining).getTime())) {
-        return false;
+    let validInfo = false;
+    for (let i = 0 ; i < values.length ; i++) {
+      if (!Utils.isValidInput(values[i])) {
+        validInfo = false;
+        break;
+      } else {
+        validInfo = true;
       }
-      return true;
     }
-    return false;
+    if (!validInfo) {
+      return false;
+    }
+    if (isNaN(new Date(reframedObj.dateOfJoining).getTime())) {
+      return false;
+    }
+    return true;
   }
 
-  uploadEmployees(employeesArray) {
+  uploadEmployees(employeesArray, isDuplicateIDexist) {
+    if (isDuplicateIDexist) {
+      if (
+        confirm(
+          "Duplicate IDs will considerd as unique. Do you want to continue ?"
+        ) === true
+      ) {
+        this.finalBulkUpload(employeesArray);
+      } else {
+        return;
+      }
+    } else {
+      this.finalBulkUpload(employeesArray);
+    }
+  }
+
+  finalBulkUpload(employeesArray) {
     if (employeesArray.length <= 0) {
-      this.snackbarMessengerService.openSnackBar(
+      const popupConfig: IDataInfo = {
+        title: "Bulk Upload",
+        type: POPUP.ERROR,
+        message:
         "No valid employees exist. Please upload with the valid employees data.",
-        true
-      );
+        okButtonLabel: "Ok"
+      };
+      this.popupService.openModal(popupConfig, false).then(res => {
+        this.closeDialog();
+      })
       return;
     } else {
       // uplaoding
@@ -119,7 +172,6 @@ export class EmployeesBulkUploadComponent implements OnInit {
       this.commonRequestService
         .request(RequestEnums.EMPLOYEES_BULK_UPLOAD, employeesArray)
         .subscribe(res => {
-          console.log(res);
           if (res.errors && res.errors.length > 0) {
             this.snackbarMessengerService.openSnackBar(res.errors[0], true);
             return;
@@ -137,30 +189,22 @@ export class EmployeesBulkUploadComponent implements OnInit {
             if (Utils.isValidInput(res.data.invalidRecords)) {
               invalidCount = res.data.invalidRecords.length;
             }
-            if (Utils.isValidInput(res.data.validRecords)) {
-              console.log('inside valid');
-              validCount = res.data.validRecords.length;
+            if (Utils.isValidInput(res.data.validUserRecords)) {
+              validCount = res.data.validUserRecords.length;
             }
-            let message = "";
-            if (validCount === 0 && invalidCount === 0) {
-              message =
-                "No employees Uploaded ... Please try again with valid Data";
-            }
-            if (validCount > 0) {
-              message = validCount + " has been successfully uploaded";
-            }
-            if (invalidCount > 0) {
-              message =
-                message + " and " + invalidCount + " has not been uploaded";
-            }
-            this.snackbarMessengerService.openSnackBar(
-              validCount +
+            const popupConfig: IDataInfo = {
+              title: "Bulk Upload",
+              type: POPUP.SUCCESS,
+              message:
+                validCount +
                 " Employees Successfully Uploaded and " +
                 invalidCount +
                 " has been failed ",
-              false
-            );
-            this.dialogRef.close(BULK_UPLOAD.SUCCESS);
+              okButtonLabel: "Ok"
+            };
+            this.popupService.openModal(popupConfig, false).then(popupRes => {
+              this.dialogRef.close(BULK_UPLOAD.SUCCESS);
+            });
           }
         });
     }
