@@ -64,6 +64,7 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
   selectEvent(ev) {
     this.loaderService.showLoading();
     this.router.navigate(['colleague-details', this.encryptDectryptService.getCipherText(ev._id)]);
+    this.loaderService.hideLoading();
   }
   getAllEmployees() {
     this.loaderService.showLoading();
