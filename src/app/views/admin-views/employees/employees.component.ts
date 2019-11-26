@@ -1,3 +1,4 @@
+import { SnackbarMessengerService } from './../../../shared/components/componentsAsService/snackbar-messenger/snackbar-messenger.service';
 import { BULK_UPLOAD } from "./../../../shared/constants/popup-enum";
 import { EmployeesBulkUploadComponent } from "./employees-bulk-upload/employees-bulk-upload.component";
 import { EncryptDectryptService } from "./../../../shared/services/common/encrypt-decrypt/encrypt-dectrypt.service";
@@ -35,7 +36,8 @@ export class EmployeesComponent implements OnInit {
     private commonRequestService: CommonRequestService,
     private router: Router,
     private matDialog: MatDialog,
-    private encryptDectryptService: EncryptDectryptService
+    private encryptDectryptService: EncryptDectryptService,
+    private snackbarMessengerService: SnackbarMessengerService
   ) {}
   ngOnInit() {
     this.employeeListAPI();
@@ -103,6 +105,17 @@ export class EmployeesComponent implements OnInit {
   delete(ev, employeeInfo) {
     ev.stopPropagation();
     console.log(employeeInfo);
-    alert('delete');
+    if (confirm('Do you want to delete the employee ? ') === true) {
+      RequestEnums.DELETE_EMPLOYEE_BY_ID.values[0] = employeeInfo._id;
+      this.commonRequestService.request(RequestEnums.DELETE_EMPLOYEE_BY_ID).subscribe(res => {
+        console.log(res);
+        if (res.errors && res.errors.length > 0) {
+          this.snackbarMessengerService.openSnackBar(res.errors[0], true);
+          return;
+        }
+        this.employeeListAPI();
+      });
+    }
+    return;
   }
 }
