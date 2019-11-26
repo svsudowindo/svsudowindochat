@@ -112,6 +112,12 @@ export const RequestEnums = {
     path: '/admin/token/employees-bulk-upload/:companyID',
     keys: ['companyID'],
     values: []
+  },
+  DELETE_EMPLOYEE_BY_ID: {
+    type: 'DELETE',
+    path: '/admin/token/delete-employee-by-id/:employeeID',
+    keys: ['employeeID'],
+    values: []
   }
 };
 

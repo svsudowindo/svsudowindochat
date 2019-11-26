@@ -1,3 +1,5 @@
+import { LoaderService } from './../../../shared/components/componentsAsService/loader/loader.service';
+import { SnackbarMessengerService } from './../../../shared/components/componentsAsService/snackbar-messenger/snackbar-messenger.service';
 import { BULK_UPLOAD } from "./../../../shared/constants/popup-enum";
 import { EmployeesBulkUploadComponent } from "./employees-bulk-upload/employees-bulk-upload.component";
 import { EncryptDectryptService } from "./../../../shared/services/common/encrypt-decrypt/encrypt-dectrypt.service";
@@ -10,6 +12,7 @@ import { MatSort, MatTableDataSource, MatPaginator } from "@angular/material";
 import { Component, OnInit, ViewChild, Inject } from "@angular/core";
 import { RequestEnums } from "src/app/shared/constants/request-enums";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import Utils from 'src/app/shared/services/common/utils';
 @Component({
   selector: "app-employees",
   templateUrl: "./employees.component.html",
@@ -35,16 +38,20 @@ export class EmployeesComponent implements OnInit {
     private commonRequestService: CommonRequestService,
     private router: Router,
     private matDialog: MatDialog,
-    private encryptDectryptService: EncryptDectryptService
+    private encryptDectryptService: EncryptDectryptService,
+    private snackbarMessengerService: SnackbarMessengerService,
+    private loaderService: LoaderService
   ) {}
   ngOnInit() {
     this.employeeListAPI();
   }
 
   employeeListAPI() {
+    this.loaderService.showLoading();
     this.commonRequestService
       .request(RequestEnums.EMPLOYEE_LIST)
       .subscribe(res => {
+        this.loaderService.hideLoading();
         this.list = res.data;
         this.listLength = res.data.length;
         this.dataSource = new MatTableDataSource(res.data);
@@ -101,8 +108,26 @@ export class EmployeesComponent implements OnInit {
   }
 
   delete(ev, employeeInfo) {
+    this.loaderService.showLoading();
     ev.stopPropagation();
-    console.log(employeeInfo);
-    alert('delete');
+    if (confirm('Do you want to delete the employee ? ') === true) {
+      RequestEnums.DELETE_EMPLOYEE_BY_ID.values[0] = employeeInfo._id;
+      this.commonRequestService.request(RequestEnums.DELETE_EMPLOYEE_BY_ID).subscribe(res => {
+        if (res.errors && res.errors.length > 0) {
+          this.snackbarMessengerService.openSnackBar(res.errors[0], true);
+          this.loaderService.hideLoading();
+          return;
+        }
+        if (res.status !== 200 || !Utils.isValidInput(res.data)) {
+          this.snackbarMessengerService.openSnackBar(res.message, true);
+          this.loaderService.hideLoading();
+          return;
+        }
+        this.snackbarMessengerService.openSnackBar('Employee Deleted Successfully', false);
+        this.loaderService.hideLoading();
+        this.employeeListAPI();
+      });
+    }
+    return;
   }
 }
