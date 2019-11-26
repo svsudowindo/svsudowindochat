@@ -15,6 +15,7 @@
 
 
 
+
 /* The navigation menu links */
 .sidenav a {
   padding:10px;
@@ -64,6 +65,9 @@ button.mat-button.remove-outline:focus {
   outline: none !important;
 }
 
+ng-autocomplete::ng-deep input{
+  width: 600px !important;
+}
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
