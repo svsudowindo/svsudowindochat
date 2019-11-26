@@ -8,6 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MaterialModule } from '../material/material.module';
 import { BreadCrumbModule } from '../../components/bread-crumb/bread-crumb.module';
 import { ClickOutsideModule } from 'ng-click-outside';
+import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 
 @NgModule({
   declarations: [],
@@ -19,7 +20,8 @@ import { ClickOutsideModule } from 'ng-click-outside';
     NgbModule,
     MaterialModule,
     BreadCrumbModule,
-    ClickOutsideModule
+    ClickOutsideModule,
+    AutocompleteLibModule
   ],
   exports: [
     HttpClientModule,
@@ -29,7 +31,8 @@ import { ClickOutsideModule } from 'ng-click-outside';
     NgbModule,
     MaterialModule,
     BreadCrumbModule,
-    ClickOutsideModule
+    ClickOutsideModule,
+    AutocompleteLibModule
   ]
 })
 export class PredefinedModule { }

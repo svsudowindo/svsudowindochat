@@ -198,7 +198,7 @@ exports.deleteEmployeeByID = (req, res, next) => {
       return res.send(Utils.sendResponse(500, null, ['Something went wrong... Please try again...'], 'Something went wrong... Please try again...'))
     }
     if (userResult.length <= 0) {
-      return res.send(Utils.sendResponse(200, null, ['Unauthorized access... Please try with authorized admin role'], 'Unauthorized access... Please try with authorized admin role'))
+      return res.send(Utils.sendResponse(200, null, ['Unauthorized User... Please try with valid user'], 'Unauthorized User... Please try with valid user'))
     }
     User.deleteOne({
       _id: employeeID
@@ -210,9 +210,45 @@ exports.deleteEmployeeByID = (req, res, next) => {
       if (deleteUserResult['ok'] !== 1) {
         return res.send(Utils.sendResponse(200, null, ['Unable to delete... Please try again'], 'Unable to delete... Please try again'))
       }
-      console.log(deleteUserResult);
       return res.send(Utils.sendResponse(200, {}, [], 'Deleted Successfully'))
     })
   })
 
+}
+
+exports.getAllEmployeesDetails = (req, res, next) => {
+  const userID = req.params.id;
+  const companyID = req.params.companyID;
+  User.find({
+    _id: userID,
+    companyID: companyID
+  }, (userError, userResult) => {
+    if (userError) {
+      return res.send(Utils.sendResponse(500, null, ['Something went wrong... Please try again...'], 'Something went wrong... Please try again...'))
+    }
+    if (userResult.length <= 0) {
+      return res.send(Utils.sendResponse(200, null, ['Unauthorized User... Please try with valid user'], 'Unauthorized User... Please try with valid user'))
+    }
+    User.find({
+      companyID: companyID
+    }, (allUsersError, allUsersResult) => {
+      if (allUsersError) {
+        return res.send(Utils.sendResponse(500, null, ['Something went wrong... Please try again...'], 'Something went wrong... Please try again...'))
+      }
+      console.log(allUsersResult.length);
+      let resultArray = allUsersResult;
+      resultArray.splice(resultArray.findIndex(obj => obj._id === userID), 1);
+      let finalResult = resultArray.map(obj => {
+        return {
+          _id: obj._id,
+          autoComplete: obj.name + ' - ' + obj.email + ' - ' + obj.id,
+          email: obj.email,
+          id: obj.id,
+          name: obj.name
+        }
+      });
+      console.log(finalResult);
+      return res.send(Utils.sendResponse(200, finalResult, [], 'All the employee details fetched'));
+    })
+  })
 }
