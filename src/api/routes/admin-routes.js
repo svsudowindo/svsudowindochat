@@ -12,6 +12,7 @@ adminRoutes.get('/:id/fetch-company-list', companyDAO.getAllCompanies);
 adminRoutes.get('/:id/fetch-employees', userDAO.getAllUsers);
 adminRoutes.post('/:id/reset-password', userDAO.resetPassword);
 adminRoutes.get('/:id/getEmployeeByID/:employeeID', userDAO.getEmployeeByID);
+adminRoutes.get('/:id/getAllEmployeeDetails/:companyID', userDAO.getAllEmployeesDetails);
 adminRoutes.delete('/:id/delete-employee-by-id/:employeeID', userDAO.deleteEmployeeByID)
 
 adminRoutes.get('/:id/get-company-details/:companyID', companyDAO.getCompanyById);
