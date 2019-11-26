@@ -1,3 +1,4 @@
+import { LoaderService } from './../../../../shared/components/componentsAsService/loader/loader.service';
 import { IDataInfo } from "./../../../../shared/components/componentsAsService/popup/popup-info.service";
 import { PopupService } from "./../../../../shared/components/componentsAsService/popup/popup.service";
 import { SnackbarMessengerService } from "./../../../../shared/components/componentsAsService/snackbar-messenger/snackbar-messenger.service";
@@ -25,7 +26,8 @@ export class EmployeesBulkUploadComponent implements OnInit {
     private storageService: StorageService,
     public dialogRef: MatDialogRef<EmployeesBulkUploadComponent>,
     private snackbarMessengerService: SnackbarMessengerService,
-    private popupService: PopupService
+    private popupService: PopupService,
+    private loaderService: LoaderService
   ) {}
 
   ngOnInit() {}
@@ -38,6 +40,7 @@ export class EmployeesBulkUploadComponent implements OnInit {
   }
 
   uploadFile() {
+    this.loaderService.showLoading();
     const excelHeaders = JSON.stringify([
       "Employee Name",
       "Employee ID",
@@ -68,7 +71,6 @@ export class EmployeesBulkUploadComponent implements OnInit {
               : 1,
           designation: this.convertedJson[i]["Designation"]
         };
-        console.log('saklsjlas');
         if (this.isValidEmployeeObject(reframedObj)) {
           if (employeesArray.length > 0) {
             const index = employeesArray.findIndex(
@@ -94,8 +96,10 @@ export class EmployeesBulkUploadComponent implements OnInit {
         ) {
           // upload file api call
           this.uploadEmployees(employeesArray, isDuplicateIDexist);
+          this.loaderService.hideLoading();
           return;
         } else {
+          this.loaderService.hideLoading();
           return;
         }
       }
@@ -110,7 +114,7 @@ export class EmployeesBulkUploadComponent implements OnInit {
         okButtonLabel: "Ok"
       };
       this.popupService.openModal(popupConfig).then(popupRes => {
-        console.log(popupRes);
+        this.loaderService.hideLoading();
       });
       return;
     }
@@ -162,7 +166,8 @@ export class EmployeesBulkUploadComponent implements OnInit {
       };
       this.popupService.openModal(popupConfig, false).then(res => {
         this.closeDialog();
-      })
+        this.loaderService.hideLoading();
+      });
       return;
     } else {
       // uplaoding
@@ -174,6 +179,7 @@ export class EmployeesBulkUploadComponent implements OnInit {
         .subscribe(res => {
           if (res.errors && res.errors.length > 0) {
             this.snackbarMessengerService.openSnackBar(res.errors[0], true);
+            this.loaderService.hideLoading();
             return;
           }
           if (res.status !== 200) {
@@ -181,6 +187,7 @@ export class EmployeesBulkUploadComponent implements OnInit {
               "Something went wrong... Please try again",
               true
             );
+            this.loaderService.hideLoading();
             return;
           }
           if (res.status === 200 && Utils.isValidInput(res.data)) {
@@ -204,6 +211,7 @@ export class EmployeesBulkUploadComponent implements OnInit {
             };
             this.popupService.openModal(popupConfig, false).then(popupRes => {
               this.dialogRef.close(BULK_UPLOAD.SUCCESS);
+              this.loaderService.hideLoading();
             });
           }
         });
