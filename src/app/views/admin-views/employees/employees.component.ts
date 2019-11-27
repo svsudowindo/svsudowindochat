@@ -47,11 +47,9 @@ export class EmployeesComponent implements OnInit {
   }
 
   employeeListAPI() {
-    this.loaderService.showLoading();
     this.commonRequestService
       .request(RequestEnums.EMPLOYEE_LIST)
       .subscribe(res => {
-        this.loaderService.hideLoading();
         this.list = res.data;
         this.listLength = res.data.length;
         this.dataSource = new MatTableDataSource(res.data);
