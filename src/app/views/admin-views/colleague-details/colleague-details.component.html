@@ -1,206 +1,422 @@
 <div class="container main">
-    <mat-card>
-        <mat-card-header class="m-b-10">
-            <p class="heading">Employee Details</p>
-        </mat-card-header>
-        <mat-card-content class="container">
-            <div class="row">
-                <div class="col-md-6 m-t-5">
-                    <p>
-                        <span class="key">Employee Name:</span><span class="value"> Sai Kumar</span>
-                    </p>
-                </div>
-                <div class="col-md-6 m-t-5">
-                    <p>
-                        <span class="key">Employee Id:</span><span class="value"> PT-125</span>
-                    </p>
-                </div>
-                <div class="col-md-6 m-t-10 m-t-5">
-                    <p>
-                        <span class="key">Employee Email Id:</span><span class="value"> SaiKumar@gmail.com</span>
-                    </p>
-                </div>
-                <div class="col-md-6 m-t-5">
-                    <p>
-                        <span class="key">Date Of Joining:</span><span class="value"> 26/11/2019</span>
-                    </p>
-                </div>
-                <div class="col-md-6 m-t-5">
-                    <p>
-                        <span class="key">Designation:</span><span class="value"> UI Developer</span>
-                    </p>
-                </div>
+  <mat-card>
+    <mat-card-header class="m-b-10">
+      <p class="heading m-l-n-28">Employee Details</p>
+    </mat-card-header>
+    <mat-card-content class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-6 key">
+              Employee Name:
             </div>
-        </mat-card-content>
-    </mat-card>
-    <div class="m-t-30">
-        <mat-accordion class="heading">
-            <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle class="m-t-10">
-                <mat-expansion-panel-header>
-                    <mat-panel-title class="heading">
-                        <p> Personal Details</p>
-                    </mat-panel-title>
-                    <mat-panel-description class="d-flex justify-content-end m-t-10">
-                        <mat-icon>account_circle</mat-icon>
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
-                <mat-card-content class="container">
-                    <div class="row">
-                        <div class="col-md-6 m-t-5">
-                            <p>
-                                <span class="key">Full Name:</span><span class="value"> Sai Kumar</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6 m-t-5">
-                            <p>
-                                <span class="key">Gender:</span><span class="value"> Male</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6 m-t-10 m-t-5">
-                            <p>
-                                <span class="key">Date Of Birth:</span><span class="value"> 12/12/4993</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6 m-t-5">
-                            <p>
-                                <span class="key">Email ID:</span><span class="value"> Sai@gmail.com</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6 m-t-5">
-                            <p>
-                                <span class="key">Phone Number:</span><span class="value"> 9955887721</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6 m-t-5">
-                            <p>
-                                <span class="key">Country:</span><span class="value"> India</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6 m-t-5">
-                            <p>
-                                <span class="key">State:</span><span class="value"> Telangana</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6 m-t-5">
-                            <p>
-                                <span class="key">City:</span><span class="value"> Hyderabad</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6 m-t-5">
-                            <p>
-                                <span class="key">Pin Code:</span><span class="value"> 500045</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6 m-t-5">
-                            <p>
-                                <span class="key">Adress:</span><span class="value"> H.No: 1-121 Gandhi Colony</span>
-                            </p>
-                        </div>
-                    </div>
-                </mat-card-content>
-                <mat-action-row>
-                    <button mat-button color="primary" (click)="nextStep()">Next</button>
-                </mat-action-row>
-            </mat-expansion-panel>
-            <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle class="m-t-10">
-                <mat-expansion-panel-header>
-                    <mat-panel-title class="heading">
-                        <p> Educational Details</p>
-                    </mat-panel-title>
-                    <mat-panel-description class="d-flex justify-content-end m-t-10">
-                        <mat-icon>school</mat-icon>
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
-                <mat-card-content class="container">
-                    <div class="row">
-                        <div class="col-md-6 m-t-5">
-                            <p>
-                                <span class="key">Qualification:</span><span class="value"> Degree</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6 m-t-5">
-                            <p>
-                                <span class="key">Institute Name:</span><span class="value"> hmws</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6 m-t-10 m-t-5">
-                            <p>
-                                <span class="key">Location:</span><span class="value"> Uppal</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6 m-t-10 m-t-5">
-                            <p>
-                                <span class="key">State:</span><span class="value"> Telangana</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6 m-t-5">
-                            <p>
-                                <span class="key">Start Date:</span><span class="value"> 26/11/2019</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6 m-t-5">
-                            <p>
-                                <span class="key">End Date:</span><span class="value"> 26/11/2020</span>
-                            </p>
-                        </div>
-                    </div>
-                </mat-card-content>
-                <mat-action-row>
-                    <button mat-button color="warn" (click)="prevStep()">Previous</button>
-                    <button mat-button color="primary" (click)="nextStep()">Next</button>
-                </mat-action-row>
-            </mat-expansion-panel>
+            <div class="col-6 value">
+              {{getDetailedInfo(employeeDetails.name)}}
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="key col-6">
+              Employee Id:
+            </div>
+            <div class="value col-6">
+              {{getDetailedInfo(employeeDetails.id)}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row m-t-10">
+        <div class="col-md-6">
+          <div class="row">
+            <div class="key col-6">
+              Employee Email Id:
+            </div>
+            <div class="value col-6">
+              {{getDetailedInfo(employeeDetails.email)}}
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="key col-6">
+              Date Of Joining:
+            </div>
+            <div class="value col-6">
+              <ng-container *ngIf="getDetailedInfo(employeeDetails.dateOfJoining) === 'NA'">
+                {{getDetailedInfo(employeeDetails.dateOfJoining)}}
+              </ng-container>
+              <ng-container *ngIf="getDetailedInfo(employeeDetails.dateOfJoining) !== 'NA'">
+                {{getDetailedInfo(employeeDetails.dateOfJoining) | date}}
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row m-t-10">
+        <div class="col-md-6">
+          <div class="row">
+            <div class="key col-6">
+              Designation:
+            </div>
+            <div class="value col-6">
+              {{getDetailedInfo(employeeDetails.designation)}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <div class="m-t-30">
+    <mat-accordion class="heading">
+      <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle class=" ">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="heading">
+            <p> Personal Details</p>
+          </mat-panel-title>
+          <mat-panel-description class="d-flex justify-content-end  ">
+            <mat-icon>account_circle</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-card>
+          <mat-card-content class="container">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="key col-6">
+                    Full Name:
+                  </div>
+                  <div class="value col-6">
+                    {{getDetailedInfo(personalDetails.name)}}
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="key col-6">
+                    Gender:
+                  </div>
+                  <div class="value col-6">
+                    {{getDetailedInfo(personalDetails.gender)}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row m-t-10">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="key col-6">
+                    Date Of Birth:
+                  </div>
+                  <div class="value col-6">
+                    <ng-container *ngIf="getDetailedInfo(personalDetails.dateOfBirth) === 'NA'">
+                      {{getDetailedInfo(personalDetails.dateOfBirth)}}
+                    </ng-container>
+                    <ng-container *ngIf="getDetailedInfo(personalDetails.dateOfBirth) !== 'NA'">
+                      {{getDetailedInfo(personalDetails.dateOfBirth) | date: dd-MMM-YYYY}}
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="key col-6">
+                    Email ID:
+                  </div>
+                  <div class="value col-6">
+                    {{getDetailedInfo(personalDetails.email)}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row m-t-10">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="key col-6">
+                    Phone Number:
+                  </div>
+                  <div class="value col-6">
+                    {{getDetailedInfo(personalDetails.phone) }}
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="key col-6">
+                    Country:
+                  </div>
+                  <div class="value col-6">
+                    {{getDetailedInfo(personalDetails.country) }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row m-t-10">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="key col-6">
+                    State:
+                  </div>
+                  <div class="value col-6">
+                    {{getDetailedInfo(personalDetails.state) }}
 
-            <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle class="m-t-10">
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        <p class="heading">Employment Details</p>
-                    </mat-panel-title>
-                    <mat-panel-description class="d-flex justify-content-end m-t-10">
-                        <mat-icon>work</mat-icon>
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
-                <mat-card-content class="container">
-                    <div class="row">
-                        <div class="col-md-6 m-t-5">
-                            <p>
-                                <span class="key">Previous Company Name:</span><span class="value">MRC Pvt
-                                    Limited</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6 m-t-5">
-                            <p>
-                                <span class="key">Previous Company Id:</span><span class="value"> MRC-126</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6 m-t-10 m-t-5">
-                            <p>
-                                <span class="key">Location:</span><span class="value"> Benguluru</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6 m-t-10 m-t-5">
-                            <p>
-                                <span class="key">Role:</span><span class="value"> Jave Developer</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6 m-t-5">
-                            <p>
-                                <span class="key">Start Date:</span><span class="value"> 26/11/2019</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6 m-t-5">
-                            <p>
-                                <span class="key">End Date:</span><span class="value"> 26/11/2020</span>
-                            </p>
-                        </div>
-                    </div>
-                </mat-card-content>
-                <mat-action-row>
-                    <button mat-button color="warn" (click)="prevStep()">Previous</button>
-                    <button mat-button color="primary" (click)="nextStep()">End</button>
-                </mat-action-row>
-            </mat-expansion-panel>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="key col-6">
+                    City:
+                  </div>
+                  <div class="value col-6">
+                    {{getDetailedInfo(personalDetails.city) }}
 
-        </mat-accordion>
-    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row m-t-10">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="key col-6">
+                    Pin Code:
+                  </div>
+                  <div class="value col-6">
+                    {{getDetailedInfo(personalDetails.pincode) }}
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="key col-6">
+                    Adress:
+                  </div>
+                  <div class="value col-6">
+                    H.No: 1-121 Gandhi Colony
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <mat-action-row>
+          <button mat-button color="primary" (click)="nextStep()">Next</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+      <div class="m-t-30">
+        <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle class=" ">
+          <mat-expansion-panel-header>
+            <mat-panel-title class="heading">
+              <p> Educational Details</p>
+            </mat-panel-title>
+            <mat-panel-description class="d-flex justify-content-end  ">
+              <mat-icon>school</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <ng-container *ngIf="educationalDetails.length > 0">
+            <ng-container *ngFor="let education of educationalDetails; let i = index">
+              <mat-card  [ngClass]="i > 0 ? 'm-t-10' : ''">
+                  <div>
+                      <p class="sub-heading ">Educational {{i + 1}}</p>
+                  </div>
+                <mat-card-content class="container">
+                  <div class="row m-t-10">
+                    <div class="col-md-6">
+                      <div class="row">
+                        <div class="key col-6">
+                          Qualification:
+                        </div>
+                        <div class="value col-6">
+                          {{getDetailedInfo(education.qualification)}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="row">
+                        <div class="key col-6">
+                          Institute Name:
+                        </div>
+                        <div class="value col-6">
+                          {{getDetailedInfo(education.instituteName)}}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row m-t-10">
+                    <div class="col-md-6">
+                      <div class="row">
+                        <div class="key col-6">
+                          Location:
+                        </div>
+                        <div class="value col-6">
+                          {{getDetailedInfo(education.location)}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="row">
+                        <div class="key col-6">
+                          State:
+                        </div>
+                        <div class="value col-6">
+                          {{getDetailedInfo(education.state)}}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row m-t-10">
+                    <div class="col-md-6">
+                      <div class="row">
+                        <div class="key col-6">
+                          Start Date:
+                        </div>
+                        <div class="value col-6">
+                          <ng-container *ngIf="getDetailedInfo(education.startDate) === 'NA'">
+                            {{getDetailedInfo(education.startDate)}}
+                          </ng-container>
+                          <ng-container *ngIf="getDetailedInfo(education.startDate) !== 'NA'">
+                            {{getDetailedInfo(education.startDate) | date}}
+                          </ng-container>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="row">
+                        <div class="key col-6">
+                          End Date:
+                        </div>
+                        <div class="value col-6">
+                          <ng-container *ngIf="getDetailedInfo(education.endDate) === 'NA'">
+                            {{getDetailedInfo(education.endDate)}}
+                          </ng-container>
+                          <ng-container *ngIf="getDetailedInfo(education.endDate) !== 'NA'">
+                            {{getDetailedInfo(education.endDate) | date}}
+                          </ng-container>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="educationalDetails.length <= 0">
+            <app-no-records-found></app-no-records-found>
+          </ng-container>
+          <mat-action-row>
+            <button mat-button color="warn" (click)="prevStep()">Previous</button>
+            <button mat-button color="primary" (click)="nextStep()">Next</button>
+          </mat-action-row>
+        </mat-expansion-panel>
+      </div>
+      <div class="m-t-30">
+        <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle class=" ">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <p class="heading">Employment Details</p>
+            </mat-panel-title>
+            <mat-panel-description class="d-flex justify-content-end">
+              <mat-icon>work</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <ng-container *ngIf="employementDetails.length >= 0">
+            <ng-container *ngFor="let employeement of employementDetails; let i = index">
+              <mat-card [ngClass]="i > 0 ? 'm-t-10' : ''">
+                  <div>
+                      <p class="sub-heading">Employement {{i + 1}}</p>
+                  </div>
+                <mat-card-content class="container">
+                  <div class="row m-t-10">
+                    <div class="col-md-6">
+                      <div class="row">
+                        <div class="key col-6">
+                          Previous Company Name:
+                        </div>
+                        <div class="value col-6">
+                          {{getDetailedInfo(employeement.previousCompanyName)}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="row">
+                        <div class="key col-6">
+                          Previous Company Id:
+                        </div>
+                        <div class="value col-6">
+                          {{getDetailedInfo(employeement.previousCompanyID)}}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row m-t-10">
+                    <div class="col-md-6">
+                      <div class="row">
+                        <div class="key col-6">
+                          Location:
+                        </div>
+                        <div class="value col-6">
+                          {{getDetailedInfo(employeement.location)}}
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="row">
+                        <div class="key col-6">
+                          Role:
+                        </div>
+                        <div class="value col-6">
+                          {{getDetailedInfo(employeement.role)}}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row m-t-10">
+                    <div class="col-md-6">
+                      <div class="row">
+                        <div class="key col-6">
+                          Start Date:
+                        </div>
+                        <div class="value col-6">
+                          <ng-container *ngIf="getDetailedInfo(employeement.startDate) === 'NA'">
+                            {{getDetailedInfo(employeement.startDate)}}
+                          </ng-container>
+                          <ng-container *ngIf="getDetailedInfo(employeement.startDate) !== 'NA'">
+                            {{getDetailedInfo(employeement.startDate) | date}}
+                          </ng-container>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="row">
+                        <div class="key col-6">
+                          End Date:
+                        </div>
+                        <div class="value col-6">
+                          <ng-container *ngIf="getDetailedInfo(employeement.endDate) === 'NA'">
+                            {{getDetailedInfo(employeement.endDate)}}
+                          </ng-container>
+                          <ng-container *ngIf="getDetailedInfo(employeement.endDate) !== 'NA'">
+                            {{getDetailedInfo(employeement.endDate) | date}}
+                          </ng-container>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="employementDetails.length <= 0">
+            <app-no-records-found></app-no-records-found>
+          </ng-container>
+          <mat-action-row>
+            <button mat-button color="warn" (click)="prevStep()">Previous</button>
+            <button mat-button color="primary" (click)="nextStep()">End</button>
+          </mat-action-row>
+        </mat-expansion-panel>
+      </div>
+    </mat-accordion>
+  </div>
 </div>
