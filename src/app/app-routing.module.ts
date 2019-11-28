@@ -72,6 +72,10 @@ const routes: Routes = [
       {
         path: 'employees',
         loadChildren: () => import('./views/admin-views/employees/employees.module').then(m => m.EmployeesModule),
+      },
+      {
+        path: 'colleague-details/:id',
+        loadChildren: () => import('./views/admin-views/colleague-details/colleague-details.module').then(m=>m.ColleagueDetailsModule)
       }
     ]
   },
