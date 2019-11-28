@@ -237,7 +237,6 @@ exports.getAllEmployeesDetails = (req, res, next) => {
       }
       console.log(allUsersResult.length);
       let resultArray = allUsersResult;
-      resultArray.splice(resultArray.findIndex(obj => obj._id === userID), 1);
       let finalResult = resultArray.map(obj => {
         return {
           _id: obj._id,
@@ -247,7 +246,6 @@ exports.getAllEmployeesDetails = (req, res, next) => {
           name: obj.name
         }
       });
-      console.log(finalResult);
       return res.send(Utils.sendResponse(200, finalResult, [], 'All the employee details fetched'));
     })
   })
