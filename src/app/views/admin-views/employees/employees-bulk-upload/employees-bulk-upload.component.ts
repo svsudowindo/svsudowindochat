@@ -218,7 +218,7 @@ export class EmployeesBulkUploadComponent implements OnInit {
     }
   }
 
-  closeDialog() {
+  closeDialog() { 
     this.dialogRef.close(BULK_UPLOAD.CLOSE);
   }
 }
