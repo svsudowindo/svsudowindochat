@@ -21,7 +21,7 @@ export class EducationalDetailsComponent implements OnInit {
     private commonRequestService: CommonRequestService,
     private snackbarMessengerService: SnackbarMessengerService,
     private storageService: StorageService,
-    private loaderService:LoaderService) {
+    private loaderService: LoaderService) {
     this.initEducationalForm();
   }
 
