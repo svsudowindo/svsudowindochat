@@ -1,3 +1,5 @@
+import { IConfirmPopup } from "./../../../shared/components/componentsAsService/confirm-dialog/confirm-dialog.model";
+import { ConfirmDialogService } from "./../../../shared/components/componentsAsService/confirm-dialog/confirm-dialog.service";
 import { LocalStorageEnums } from "./../../../shared/constants/localstorage-enums";
 
 import { Component, OnInit } from "@angular/core";
@@ -12,7 +14,20 @@ import Utils from "src/app/shared/services/common/utils";
   styleUrls: ["./dashboard.component.scss"]
 })
 export class DashboardComponent implements OnInit {
-  constructor() {}
+  constructor(private confirmDialogService: ConfirmDialogService) {}
 
   ngOnInit() {}
+
+  openConfirm() {
+    let obj: IConfirmPopup = {
+      title: "Confirm",
+      subtitle: "Sub title",
+      message: "Something here as message",
+      okLabel: "Ok",
+      cancelLabel: "cancel"
+    };
+    this.confirmDialogService.openConfirmDialog(obj).subscribe(res => {
+      console.log(res);
+    });
+  }
 }
