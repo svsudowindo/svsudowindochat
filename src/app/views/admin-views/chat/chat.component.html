@@ -1,0 +1,58 @@
+<div class="container main">
+  <mat-card class="p-l-0 p-r-0">
+    <div class="d-flex">
+      <div class="col-4 side-chat-list">
+        <div class="p-l-10 search-container">
+          <mat-form-field class="search-field">
+            <input matInput type="text" placeholder="Search by Name or ID" [(ngModel)]="searchValue" name="searchValue"
+              (keyup.enter)="searchUser()" />
+          </mat-form-field>
+          <button mat-button matSuffix mat-icon-button (click)="searchUser()">
+            <mat-icon>search</mat-icon>
+          </button>
+        </div>
+        <div class="d-flex justify-content-center no-users" *ngIf="usersList.length <= 0">
+          <p>No users Found</p>
+        </div>
+        <mat-list role="list" *ngIf="usersList.length > 0">
+          <ng-container *ngFor="let user of usersList">
+            <mat-list-item class="card" (click)="userChanged(user)" [ngClass]="selectedChat._id === user._id ? 'active' : ''"
+              role="listitem">
+              <!-- <div class="d-flex"> -->
+              <div class="d-flex justify-content-between">
+                <p class="name-ellipsis">{{user.name}}</p>
+                <p>{{user.id}}</p>
+              </div>
+              <p class="email-ellipsis">{{user.email}}</p>
+              <!-- </div> -->
+            </mat-list-item>
+          </ng-container>
+        </mat-list>
+      </div>
+      <div class="col-8 p-0">
+        <div class="d-flex justify-content-between chat-header">
+          <p>{{selectedChat?.name}}</p>
+          <p>{{selectedChat?.id}}</p>
+        </div>
+        <div class="message-body-container" id="message-body-container">
+          <div *ngFor="let message of messages">
+            <mat-card class="incoming justify-content-start" *ngIf="message.type === 'incoming'">
+              <p>message</p>
+            </mat-card>
+            <mat-card class="outgoing d-flex justify-content-end" *ngIf="message.type === 'outgoing'">
+              <p>message hai </p>
+            </mat-card>
+          </div>
+        </div>
+        <div>
+          <mat-form-field class="message-input">
+            <input matInput type="text" />
+            <button mat-button matSuffix mat-icon-button (click)="searchUser()">
+              <mat-icon>send</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+</div>

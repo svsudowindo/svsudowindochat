@@ -22,6 +22,7 @@ showLoading() {
 }
 
 hideLoading() {
-  this.ref.dismiss('clicked here');
+  this.modalService.dismissAll();
+    // this.ref.close('clicked here');
 }
 }
