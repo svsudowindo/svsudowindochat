@@ -27,7 +27,7 @@
       </span>
       <p class="text-center m-t-n-20">Employees</p>
     </a>
-    <a class="pointer" routerLinkActive="active-link" [routerLink]="['/chat']" (click)="closeNav()" *ngIf="roleToAccess.isAdmin">
+    <a class="pointer" routerLinkActive="active-link" [routerLink]="['/chat']" (click)="closeNav()" *ngIf="roleToAccess.isAdmin || roleToAccess.isEmployee">
       <span class="material-icons font-size-100">
         chat
       </span>

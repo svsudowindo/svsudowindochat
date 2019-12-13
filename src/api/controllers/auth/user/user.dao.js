@@ -235,7 +235,6 @@ exports.getAllEmployeesDetails = (req, res, next) => {
       if (allUsersError) {
         return res.send(Utils.sendResponse(500, null, ['Something went wrong... Please try again...'], 'Something went wrong... Please try again...'))
       }
-      console.log(allUsersResult.length);
       let resultArray = allUsersResult;
       let finalResult = resultArray.map(obj => {
         return {

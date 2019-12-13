@@ -36,18 +36,18 @@
         </div>
         <div class="message-body-container" id="message-body-container">
           <div *ngFor="let message of messages">
-            <mat-card class="incoming justify-content-start" *ngIf="message.type === 'incoming'">
-              <p>message</p>
+            <mat-card class="incoming justify-content-start" *ngIf="message.fromID === currentUserID">
+              <p>{{message.message}}</p>
             </mat-card>
-            <mat-card class="outgoing d-flex justify-content-end" *ngIf="message.type === 'outgoing'">
-              <p>message hai </p>
+            <mat-card class="outgoing d-flex justify-content-end" *ngIf="message.fromID !== currentUserID">
+              <p>{{message.message}} </p>
             </mat-card>
           </div>
         </div>
         <div>
           <mat-form-field class="message-input">
-            <input matInput type="text" />
-            <button mat-button matSuffix mat-icon-button (click)="searchUser()">
+            <input matInput type="text" [(ngModel)]="textMessage" name="textMessage" />
+            <button mat-button matSuffix mat-icon-button (click)="sendMessage()">
               <mat-icon>send</mat-icon>
             </button>
           </mat-form-field>

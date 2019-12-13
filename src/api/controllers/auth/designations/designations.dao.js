@@ -44,7 +44,6 @@ exports.createEmployeeDesignation = (req, res, next) => {
     if (designationsError) {
       return res.send(Utils.sendResponse(500, null, ['Something went wrong in saving Designations... Please try again ...'], 'Something went wrong in saving Designations... Please try again ...'))
     }
-    console.log(designationsResult);
     return res.send(Utils.sendResponse(200, designationsResult, [], 'Saved Successfully'));
   })
 }

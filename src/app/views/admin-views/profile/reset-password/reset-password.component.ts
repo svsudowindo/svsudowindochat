@@ -65,7 +65,6 @@ export class ResetPasswordComponent extends BaseClass implements OnInit {
     // return;
     delete this.resetpasswordForm.value.confirmPassword;
     this.commonRequest.request(RequestEnums.RESET_PASSWORD, this.resetpasswordForm.value).subscribe(res => {
-      console.log(res);
       this.resetpasswordForm.reset();
       this.resetForm.resetForm();
 

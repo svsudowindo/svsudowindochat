@@ -15,7 +15,6 @@ export class PopupComponent implements OnInit {
   constructor(
     private activeModal: NgbActiveModal,
     private _popupInfoService: PopupInfoService) {
-    console.log(this._popupInfoService.data);
     this.popupObtainedInfo = this._popupInfoService.data;
   }
 

@@ -124,7 +124,6 @@ export class RegistrationComponent extends BaseClass implements OnInit {
         this.router.navigate(['login']);
       }
     }, (error) => {
-      console.log('err', error);
       this.snackbarMessengerService.openSnackBar(error, true);
       this.loaderService.hideLoading();
     });

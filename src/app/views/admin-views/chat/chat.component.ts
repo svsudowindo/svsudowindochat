@@ -9,6 +9,7 @@ import Utils from '../../../shared/services/common/utils';
 import { Router } from '@angular/router';
 import { SearchService } from '../../../shared/services/common/search/search.service';
 import { AfterViewInit } from '@angular/core';
+import { ChatService } from './chat.service';
 
 @Component({
   selector: 'app-chat',
@@ -21,55 +22,16 @@ export class ChatComponent implements OnInit, AfterViewInit {
   selectedChat: any;
   currentUserID = '';
   searchValue = '';
-  messages = [
-    {
-      name: 'sai',
-      type: 'incoming'
-    },
-    {
-      name: 'sai',
-      type: 'outgoing'
-    },
-    {
-      name: 'sai',
-      type: 'incoming'
-    },
-    {
-      name: 'sai',
-      type: 'outgoing'
-    },
-    {
-      name: 'sai',
-      type: 'outgoing'
-    },
-    {
-      name: 'sai',
-      type: 'incoming'
-    },
-    {
-      name: 'sai',
-      type: 'outgoing'
-    },
-    {
-      name: 'sai',
-      type: 'incoming'
-    },
-    {
-      name: 'sai',
-      type: 'outgoing'
-    },
-    {
-      name: 'sai',
-      type: 'outgoing'
-    }
-  ];
+  messages = [];
+  textMessage = '';
   constructor(
     private loaderService: LoaderService,
     private storageService: StorageService,
     private commonRequestService: CommonRequestService,
     private snackbarMessengerService: SnackbarMessengerService,
     private router: Router,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private chatService: ChatService
   ) {
     this.currentUserID = this.storageService.getLocalStorageItem(LocalStorageEnums.TOKEN).toString();
     this.getAllEmployees();
@@ -106,8 +68,37 @@ export class ChatComponent implements OnInit, AfterViewInit {
         this.usersList = res.data;
         this.searchList = Utils.avoidShallowClone(res.data);
         this.selectedChat = this.usersList[0];
+        this.callSocketInfo();
+        this.recivedMessages();
         this.router.navigate(['chat', this.currentUserID, this.selectedChat._id]);
       });
+  }
+
+  callSocketInfo() {
+    this.chatService.receiveMessage();
+    this.chatService.init(this.storageService.getLocalStorageItem(LocalStorageEnums.TOKEN), this.selectedChat._id);
+  }
+
+  recivedMessages() {
+    this.chatService.receiveSubscriber.subscribe(receivedMessage => {
+      const sampleMessages = [];
+      for (let message in receivedMessage) {
+        sampleMessages.push(receivedMessage[message]);
+      }
+      this.messages = sampleMessages;
+      console.log(this.messages);
+    });
+  }
+
+  sendMessage() {
+    const obj = {
+      fromID: this.selectedChat._id,
+      toID: this.storageService.getLocalStorageItem(LocalStorageEnums.TOKEN),
+      message: this.textMessage,
+      date: new Date().getTime()
+    };
+    this.messages.push(obj);
+    this.chatService.sendMessage(obj);
   }
 
   userChanged(changedUser) {
