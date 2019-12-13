@@ -99,6 +99,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
     };
     this.messages.push(obj);
     this.chatService.sendMessage(obj);
+    this.textMessage = '';
   }
 
   userChanged(changedUser) {

@@ -46,7 +46,7 @@
         </div>
         <div>
           <mat-form-field class="message-input">
-            <input matInput type="text" [(ngModel)]="textMessage" name="textMessage" />
+            <input matInput type="text" [(ngModel)]="textMessage" name="textMessage" (keypup.enter)="sendMessage()"/>
             <button mat-button matSuffix mat-icon-button (click)="sendMessage()">
               <mat-icon>send</mat-icon>
             </button>
